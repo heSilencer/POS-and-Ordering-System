@@ -16,9 +16,11 @@ namespace Restaurant_POS_and_Ordering_Sytem
 {
     public partial class MainForm : Form
     {
-        public MainForm()
+        private readonly string username;
+        public MainForm(string username)
         {
             InitializeComponent();
+            this.username = username;
         }
 
         public void AddControls(Form f)
@@ -42,7 +44,7 @@ namespace Restaurant_POS_and_Ordering_Sytem
 
         private void btndashboard_Click(object sender, EventArgs e)
         {
-            AddControls(new Dashboard());
+            AddControls(new frmdashboardView());
         }
 
         private void btnProducts_Click(object sender, EventArgs e)
@@ -85,7 +87,7 @@ namespace Restaurant_POS_and_Ordering_Sytem
 
         private void btnPOS_Click(object sender, EventArgs e)
         {
-            Models.frmPos frmpos = new Models.frmPos();
+            Models.frmPos frmpos = new Models.frmPos(username);
 
             // Assuming you have a property to store the user role in MainForm
             frmpos.UserRole = "admin";
@@ -96,7 +98,23 @@ namespace Restaurant_POS_and_Ordering_Sytem
 
         private void ControlsPanel_Paint(object sender, PaintEventArgs e)
         {
-           
+            // Create an instance of frmDashboard
+            frmdashboardView dashboardForm = new frmdashboardView();
+
+            // Set TopLevel property to false
+            dashboardForm.TopLevel = false;
+
+            // Clear existing controls in the ControlsPanel
+            ControlsPanel.Controls.Clear();
+
+            // Add frmDashboard to ControlsPanel
+            ControlsPanel.Controls.Add(dashboardForm);
+
+            // Set the Dock property to fill the ControlsPanel
+            dashboardForm.Dock = DockStyle.Fill;
+
+            // Show the frmDashboard
+            dashboardForm.Show();
         }
 
         private void btnStaff_Click(object sender, EventArgs e)
@@ -147,7 +165,19 @@ namespace Restaurant_POS_and_Ordering_Sytem
 
         private void guna2Button1_Click(object sender, EventArgs e)
         {
+            AddControls(new frmAddUserView());
 
+        }
+
+        private void lbluser_Click(object sender, EventArgs e)
+        {
+
+        }
+      
+
+        private void MainForm_Load_1(object sender, EventArgs e)
+        {
+            lbluser.Text = $" {username}!";
         }
     }
 }

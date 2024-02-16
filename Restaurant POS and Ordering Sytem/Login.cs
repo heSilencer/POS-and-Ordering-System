@@ -52,20 +52,20 @@ namespace Restaurant_POS_and_Ordering_Sytem
                         {
                             // Get the user role from the database
                             string userRole = dr["role"].ToString();
-
+                            string username = dr["uname"].ToString();
                             // Check the user role
-                            if (userRole == "admin")
+                            if (userRole == "Admin")
                             {
                                 // Admin login successful
                                 this.Hide();
-                                MainForm mf = new MainForm();
+                                MainForm mf = new MainForm(username);
                                 mf.Show();
                             }
-                            else if (userRole == "cashier")
+                            else if (userRole == "Cashier")
                             {
                                 // Cashier login successful
                                 this.Hide();
-                                Subform sf = new Subform();
+                                Subform sf = new Subform(username);
                                 sf.Show();
                             }
                         }

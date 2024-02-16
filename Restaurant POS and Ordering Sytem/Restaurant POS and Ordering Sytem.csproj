@@ -62,12 +62,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dashboard.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dashboard.Designer.cs">
-      <DependentUpon>Dashboard.cs</DependentUpon>
-    </Compile>
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -87,6 +81,12 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\frmAddUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Models\frmAddUser.Designer.cs">
+      <DependentUpon>frmAddUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\frmStaffcategoryAdd.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -99,10 +99,10 @@
     <Compile Include="Models\frmCategoryAdd.Designer.cs">
       <DependentUpon>frmCategoryAdd.cs</DependentUpon>
     </Compile>
-    <Compile Include="Properties\frmPos.cs">
+    <Compile Include="Models\frmPos.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Properties\frmPos.Designer.cs">
+    <Compile Include="Models\frmPos.Designer.cs">
       <DependentUpon>frmPos.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\frmProductsAdd.cs">
@@ -143,6 +143,18 @@
     <Compile Include="Subform.Designer.cs">
       <DependentUpon>Subform.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\frmAddUserView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\frmAddUserView.Designer.cs">
+      <DependentUpon>frmAddUserView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\frmdashboardView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\frmdashboardView.Designer.cs">
+      <DependentUpon>frmdashboardView.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\frmStaffCategoryView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -173,9 +185,6 @@
     <Compile Include="View\frmStaffView.Designer.cs">
       <DependentUpon>frmStaffView.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Dashboard.resx">
-      <DependentUpon>Dashboard.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
@@ -185,13 +194,16 @@
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Models\frmAddUser.resx">
+      <DependentUpon>frmAddUser.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Models\frmStaffcategoryAdd.resx">
       <DependentUpon>frmStaffcategoryAdd.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Models\frmCategoryAdd.resx">
       <DependentUpon>frmCategoryAdd.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\frmPos.resx">
+    <EmbeddedResource Include="Models\frmPos.resx">
       <DependentUpon>frmPos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Models\frmProductsAdd.resx">
@@ -213,6 +225,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Subform.resx">
       <DependentUpon>Subform.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\frmAddUserView.resx">
+      <DependentUpon>frmAddUserView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\frmdashboardView.resx">
+      <DependentUpon>frmdashboardView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\frmStaffCategoryView.resx">
       <DependentUpon>frmStaffCategoryView.cs</DependentUpon>
@@ -366,6 +384,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Updateicon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-growth-501.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-take-away-641.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-stop-502.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-box-501.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

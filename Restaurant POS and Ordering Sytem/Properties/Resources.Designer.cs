@@ -143,6 +143,16 @@ namespace Restaurant_POS_and_Ordering_Sytem.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icons8_box_501 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-box-501", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_categories_25 {
             get {
                 object obj = ResourceManager.GetObject("icons8-categories-25", resourceCulture);
@@ -236,6 +246,16 @@ namespace Restaurant_POS_and_Ordering_Sytem.Properties {
         internal static System.Drawing.Bitmap icons8_growth_50 {
             get {
                 object obj = ResourceManager.GetObject("icons8-growth-50", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_growth_501 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-growth-501", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -563,6 +583,16 @@ namespace Restaurant_POS_and_Ordering_Sytem.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icons8_stop_502 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-stop-502", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_table_50 {
             get {
                 object obj = ResourceManager.GetObject("icons8-table-50", resourceCulture);
@@ -576,6 +606,16 @@ namespace Restaurant_POS_and_Ordering_Sytem.Properties {
         internal static System.Drawing.Bitmap icons8_take_away_64 {
             get {
                 object obj = ResourceManager.GetObject("icons8-take-away-64", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_take_away_641 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-take-away-641", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

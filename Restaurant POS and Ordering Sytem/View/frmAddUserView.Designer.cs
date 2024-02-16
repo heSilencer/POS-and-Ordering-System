@@ -1,6 +1,6 @@
-﻿namespace Restaurant_POS_and_Ordering_Sytem
+﻿namespace Restaurant_POS_and_Ordering_Sytem.View
 {
-    partial class Dashboard
+    partial class frmAddUserView
     {
         /// <summary>
         /// Required designer variable.
@@ -28,36 +28,36 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // label1
+            // btnAdd
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(511, 280);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(491, 55);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "This is the Dashboard";
+            this.btnAdd.CheckedState.ImageSize = new System.Drawing.Size(64, 64);
+            this.btnAdd.DialogResult = System.Windows.Forms.DialogResult.None;
+            this.btnAdd.HoverState.ImageSize = new System.Drawing.Size(64, 64);
+            this.btnAdd.ImageFlip = Guna.UI2.WinForms.Enums.FlipOrientation.Normal;
+            this.btnAdd.PressedState.ImageSize = new System.Drawing.Size(64, 64);
             // 
-            // Dashboard
+            // label2
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.label2.Size = new System.Drawing.Size(231, 72);
+            this.label2.Text = "User List";
+            // 
+            // frmAddUserView
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1498, 704);
-            this.Controls.Add(this.label1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "Dashboard";
-            this.Text = "Dashboard";
-            this.Load += new System.EventHandler(this.Dashboard_Load);
+            this.ClientSize = new System.Drawing.Size(1299, 662);
+            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Name = "frmAddUserView";
+            this.Text = "frmAddUserView";
+            this.Controls.SetChildIndex(this.label2, 0);
+            this.Controls.SetChildIndex(this.btnAdd, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Label label1;
     }
 }

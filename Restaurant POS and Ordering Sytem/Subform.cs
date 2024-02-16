@@ -13,14 +13,17 @@ namespace Restaurant_POS_and_Ordering_Sytem
 {
     public partial class Subform : Form
     {
-        public Subform()
+        private string username;
+
+        public Subform(string username)
         {
             InitializeComponent();
+            this.username = username;
         }
 
         private void btnPOS_Click(object sender, EventArgs e)
         {
-            frmPos POS = new frmPos();
+            frmPos POS = new frmPos(username);
 
             // Assuming you have a property to store the user role in SubForm
             POS.UserRole = "cashier";
@@ -63,6 +66,16 @@ namespace Restaurant_POS_and_Ordering_Sytem
         private void btnMinimized_Click(object sender, EventArgs e)
         {
            
+        }
+
+        private void guna2Panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void Subform_Load(object sender, EventArgs e)
+        {
+            lbluser.Text = $" {username}!";
         }
     }
 }

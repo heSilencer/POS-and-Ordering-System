@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
+            this.NavAddUser = new Guna.UI2.WinForms.Guna2Button();
             this.btnLogout = new Guna.UI2.WinForms.Guna2Button();
             this.btnReports = new Guna.UI2.WinForms.Guna2Button();
             this.btnkitchen = new Guna.UI2.WinForms.Guna2Button();
@@ -45,7 +46,8 @@
             this.btnExit = new Guna.UI2.WinForms.Guna2ControlBox();
             this.ControlsPanel = new Guna.UI2.WinForms.Guna2Panel();
             this.guna2MessageDialog1 = new Guna.UI2.WinForms.Guna2MessageDialog();
-            this.NavAddUser = new Guna.UI2.WinForms.Guna2Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.lbluser = new System.Windows.Forms.Label();
             this.guna2Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
             this.guna2Panel2.SuspendLayout();
@@ -71,6 +73,34 @@
             this.guna2Panel1.Size = new System.Drawing.Size(422, 1482);
             this.guna2Panel1.TabIndex = 0;
             this.guna2Panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.guna2Panel1_Paint);
+            // 
+            // NavAddUser
+            // 
+            this.NavAddUser.AutoRoundedCorners = true;
+            this.NavAddUser.BackColor = System.Drawing.Color.Transparent;
+            this.NavAddUser.BorderRadius = 58;
+            this.NavAddUser.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
+            this.NavAddUser.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.NavAddUser.CustomizableEdges.BottomRight = false;
+            this.NavAddUser.CustomizableEdges.TopRight = false;
+            this.NavAddUser.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.NavAddUser.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.NavAddUser.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.NavAddUser.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.NavAddUser.FillColor = System.Drawing.Color.Transparent;
+            this.NavAddUser.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.NavAddUser.ForeColor = System.Drawing.Color.White;
+            this.NavAddUser.Image = ((System.Drawing.Image)(resources.GetObject("NavAddUser.Image")));
+            this.NavAddUser.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.NavAddUser.ImageOffset = new System.Drawing.Point(10, 0);
+            this.NavAddUser.Location = new System.Drawing.Point(22, 1251);
+            this.NavAddUser.Name = "NavAddUser";
+            this.NavAddUser.Size = new System.Drawing.Size(394, 118);
+            this.NavAddUser.TabIndex = 3;
+            this.NavAddUser.Text = "Add User";
+            this.NavAddUser.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.NavAddUser.TextOffset = new System.Drawing.Point(20, 0);
+            this.NavAddUser.Click += new System.EventHandler(this.guna2Button1_Click);
             // 
             // btnLogout
             // 
@@ -341,6 +371,8 @@
             // 
             // guna2Panel2
             // 
+            this.guna2Panel2.Controls.Add(this.lbluser);
+            this.guna2Panel2.Controls.Add(this.label1);
             this.guna2Panel2.Controls.Add(this.btnMinimized);
             this.guna2Panel2.Controls.Add(this.btnExit);
             this.guna2Panel2.Dock = System.Windows.Forms.DockStyle.Top;
@@ -392,33 +424,30 @@
             this.guna2MessageDialog1.Style = Guna.UI2.WinForms.MessageDialogStyle.Light;
             this.guna2MessageDialog1.Text = null;
             // 
-            // NavAddUser
+            // label1
             // 
-            this.NavAddUser.AutoRoundedCorners = true;
-            this.NavAddUser.BackColor = System.Drawing.Color.Transparent;
-            this.NavAddUser.BorderRadius = 58;
-            this.NavAddUser.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
-            this.NavAddUser.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.NavAddUser.CustomizableEdges.BottomRight = false;
-            this.NavAddUser.CustomizableEdges.TopRight = false;
-            this.NavAddUser.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.NavAddUser.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.NavAddUser.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.NavAddUser.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.NavAddUser.FillColor = System.Drawing.Color.Transparent;
-            this.NavAddUser.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.NavAddUser.ForeColor = System.Drawing.Color.White;
-            this.NavAddUser.Image = ((System.Drawing.Image)(resources.GetObject("NavAddUser.Image")));
-            this.NavAddUser.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.NavAddUser.ImageOffset = new System.Drawing.Point(10, 0);
-            this.NavAddUser.Location = new System.Drawing.Point(22, 1251);
-            this.NavAddUser.Name = "NavAddUser";
-            this.NavAddUser.Size = new System.Drawing.Size(394, 118);
-            this.NavAddUser.TabIndex = 3;
-            this.NavAddUser.Text = "Add User";
-            this.NavAddUser.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.NavAddUser.TextOffset = new System.Drawing.Point(20, 0);
-            this.NavAddUser.Click += new System.EventHandler(this.guna2Button1_Click);
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 15F);
+            this.label1.ForeColor = System.Drawing.Color.Firebrick;
+            this.label1.Location = new System.Drawing.Point(6, 4);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(111, 54);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "User:";
+            // 
+            // lbluser
+            // 
+            this.lbluser.AutoSize = true;
+            this.lbluser.BackColor = System.Drawing.Color.Transparent;
+            this.lbluser.Font = new System.Drawing.Font("Segoe UI", 15F);
+            this.lbluser.ForeColor = System.Drawing.Color.Firebrick;
+            this.lbluser.Location = new System.Drawing.Point(110, 5);
+            this.lbluser.Name = "lbluser";
+            this.lbluser.Size = new System.Drawing.Size(102, 54);
+            this.lbluser.TabIndex = 2;
+            this.lbluser.Text = "User";
+            this.lbluser.Click += new System.EventHandler(this.lbluser_Click);
             // 
             // MainForm
             // 
@@ -434,9 +463,11 @@
             this.Name = "MainForm";
             this.Text = "MainForm";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.MainForm_Load_1);
             this.guna2Panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).EndInit();
             this.guna2Panel2.ResumeLayout(false);
+            this.guna2Panel2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -460,5 +491,7 @@
         private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox1;
         private Guna.UI2.WinForms.Guna2MessageDialog guna2MessageDialog1;
         private Guna.UI2.WinForms.Guna2Button NavAddUser;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lbluser;
     }
 }
