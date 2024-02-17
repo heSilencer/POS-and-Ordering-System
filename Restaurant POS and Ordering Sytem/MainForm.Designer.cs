@@ -42,12 +42,12 @@
             this.btndashboard = new Guna.UI2.WinForms.Guna2Button();
             this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.guna2Panel2 = new Guna.UI2.WinForms.Guna2Panel();
+            this.lbluser = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.btnMinimized = new Guna.UI2.WinForms.Guna2ControlBox();
             this.btnExit = new Guna.UI2.WinForms.Guna2ControlBox();
             this.ControlsPanel = new Guna.UI2.WinForms.Guna2Panel();
             this.guna2MessageDialog1 = new Guna.UI2.WinForms.Guna2MessageDialog();
-            this.label1 = new System.Windows.Forms.Label();
-            this.lbluser = new System.Windows.Forms.Label();
             this.guna2Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
             this.guna2Panel2.SuspendLayout();
@@ -81,6 +81,7 @@
             this.NavAddUser.BorderRadius = 58;
             this.NavAddUser.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
             this.NavAddUser.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.NavAddUser.CustomImages.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.NavAddUser.CustomizableEdges.BottomRight = false;
             this.NavAddUser.CustomizableEdges.TopRight = false;
             this.NavAddUser.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
@@ -90,7 +91,8 @@
             this.NavAddUser.FillColor = System.Drawing.Color.Transparent;
             this.NavAddUser.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.NavAddUser.ForeColor = System.Drawing.Color.White;
-            this.NavAddUser.Image = ((System.Drawing.Image)(resources.GetObject("NavAddUser.Image")));
+            this.NavAddUser.HoverState.Image = global::Restaurant_POS_and_Ordering_Sytem.Properties.Resources.icons8_add_user_50__1_;
+            this.NavAddUser.Image = global::Restaurant_POS_and_Ordering_Sytem.Properties.Resources.icons8_add_user_50;
             this.NavAddUser.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.NavAddUser.ImageOffset = new System.Drawing.Point(10, 0);
             this.NavAddUser.Location = new System.Drawing.Point(22, 1251);
@@ -147,7 +149,7 @@
             this.btnReports.FillColor = System.Drawing.Color.Transparent;
             this.btnReports.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnReports.ForeColor = System.Drawing.Color.White;
-            this.btnReports.Image = ((System.Drawing.Image)(resources.GetObject("btnReports.Image")));
+            this.btnReports.Image = global::Restaurant_POS_and_Ordering_Sytem.Properties.Resources.icons8_reports_581;
             this.btnReports.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnReports.ImageOffset = new System.Drawing.Point(10, 0);
             this.btnReports.Location = new System.Drawing.Point(22, 1127);
@@ -383,6 +385,31 @@
             this.guna2Panel2.TabIndex = 1;
             this.guna2Panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.guna2Panel2_Paint);
             // 
+            // lbluser
+            // 
+            this.lbluser.AutoSize = true;
+            this.lbluser.BackColor = System.Drawing.Color.Transparent;
+            this.lbluser.Font = new System.Drawing.Font("Segoe UI", 15F);
+            this.lbluser.ForeColor = System.Drawing.Color.Firebrick;
+            this.lbluser.Location = new System.Drawing.Point(110, 5);
+            this.lbluser.Name = "lbluser";
+            this.lbluser.Size = new System.Drawing.Size(102, 54);
+            this.lbluser.TabIndex = 2;
+            this.lbluser.Text = "User";
+            this.lbluser.Click += new System.EventHandler(this.lbluser_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 15F);
+            this.label1.ForeColor = System.Drawing.Color.Firebrick;
+            this.label1.Location = new System.Drawing.Point(6, 4);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(111, 54);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "User:";
+            // 
             // btnMinimized
             // 
             this.btnMinimized.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -423,31 +450,6 @@
             this.guna2MessageDialog1.Parent = this;
             this.guna2MessageDialog1.Style = Guna.UI2.WinForms.MessageDialogStyle.Light;
             this.guna2MessageDialog1.Text = null;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 15F);
-            this.label1.ForeColor = System.Drawing.Color.Firebrick;
-            this.label1.Location = new System.Drawing.Point(6, 4);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(111, 54);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "User:";
-            // 
-            // lbluser
-            // 
-            this.lbluser.AutoSize = true;
-            this.lbluser.BackColor = System.Drawing.Color.Transparent;
-            this.lbluser.Font = new System.Drawing.Font("Segoe UI", 15F);
-            this.lbluser.ForeColor = System.Drawing.Color.Firebrick;
-            this.lbluser.Location = new System.Drawing.Point(110, 5);
-            this.lbluser.Name = "lbluser";
-            this.lbluser.Size = new System.Drawing.Size(102, 54);
-            this.lbluser.TabIndex = 2;
-            this.lbluser.Text = "User";
-            this.lbluser.Click += new System.EventHandler(this.lbluser_Click);
             // 
             // MainForm
             // 

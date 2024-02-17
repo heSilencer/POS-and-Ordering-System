@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using System.Security.Cryptography;
 using Restaurant_POS_and_Ordering_Sytem.Models;
+using Restaurant_POS_and_Ordering_Sytem.ForgotPassword;
 
 namespace Restaurant_POS_and_Ordering_Sytem
 {
@@ -23,8 +24,9 @@ namespace Restaurant_POS_and_Ordering_Sytem
         public frmlogin()
         {
             InitializeComponent();
+
         }
-       
+
 
         private void btnExit_Click(object sender, EventArgs e)
         {
@@ -131,8 +133,31 @@ namespace Restaurant_POS_and_Ordering_Sytem
 
         private void linkforgotPass_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            frmAddUser ad = new frmAddUser();
-            ad.Show();
+            frmCheckUser CheckUser = new frmCheckUser();
+            CheckUser.Show();
+            this.Hide();
+        }
+
+        private void btnShow_Click(object sender, EventArgs e)
+        {
+            if (txtPassword.PasswordChar == '*')
+            {
+                btnShow.Visible = false;
+                pictureBox3.Visible = true;
+                txtPassword.PasswordChar = '\0';
+                txtPassword.Font = new Font(txtPassword.Font.FontFamily, 14);
+            }
+        }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+            if (txtPassword.PasswordChar == '\0')
+            {
+                pictureBox3.Visible = false;
+                btnShow.Visible = true;
+                txtPassword.PasswordChar = '*';
+                txtPassword.Font = new Font(txtPassword.Font.FontFamily, 25);
+            }
         }
     }
 }

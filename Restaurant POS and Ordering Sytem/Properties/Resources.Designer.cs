@@ -123,6 +123,26 @@ namespace Restaurant_POS_and_Ordering_Sytem.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icons8_add_user_50 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-add-user-50", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_add_user_50__1_ {
+            get {
+                object obj = ResourceManager.GetObject("icons8-add-user-50 (1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_bill_50 {
             get {
                 object obj = ResourceManager.GetObject("icons8-bill-50", resourceCulture);
@@ -256,6 +276,16 @@ namespace Restaurant_POS_and_Ordering_Sytem.Properties {
         internal static System.Drawing.Bitmap icons8_growth_501 {
             get {
                 object obj = ResourceManager.GetObject("icons8-growth-501", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_hide_password_50 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-hide-password-50", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -506,6 +536,16 @@ namespace Restaurant_POS_and_Ordering_Sytem.Properties {
         internal static System.Drawing.Bitmap icons8_settings_50 {
             get {
                 object obj = ResourceManager.GetObject("icons8-settings-50", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_show_password_50 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-show-password-50", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
