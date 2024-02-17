@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using System.Security.Cryptography;
-
+using BCrypt.Net;
 namespace Restaurant_POS_and_Ordering_Sytem.Models
 {
     public partial class frmAddUser : Form
@@ -81,40 +81,36 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
         {
             string staffFname = cmbxName.SelectedItem?.ToString();
             string username = txtuser.Text;
-            string password = txtpass.Text; // Assume you're getting the password as plain text
+            string password = txtpass.Text;
+            string staffrole = cmbxrole.SelectedItem?.ToString();
 
-            // Validate input fields
             if (string.IsNullOrEmpty(staffFname) || string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
                 MessageBox.Show("Please fill in all required fields.");
                 return;
             }
 
-            // Hash the password
-            string hashedPassword = HashPassword(password);
+            string hashedPassword = HashString(password);
 
-            // Insert into the database
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 try
                 {
                     connection.Open();
-
-                    // Replace "tbl_user" with the actual table name in your database
                     string insertQuery = "INSERT INTO users (uname, username, userpass, role) " +
                                         "VALUES (@uname, @username, @userpass, @role)";
 
                     using (MySqlCommand command = new MySqlCommand(insertQuery, connection))
                     {
-                        command.Parameters.AddWithValue("@uname", staffFname); // Use staffFname as uname
+                        command.Parameters.AddWithValue("@uname", staffFname);
                         command.Parameters.AddWithValue("@username", username);
                         command.Parameters.AddWithValue("@userpass", hashedPassword);
-                        command.Parameters.AddWithValue("@role", "Regular"); // Assuming a default role for registered users
+                        command.Parameters.AddWithValue("@role", staffrole);
 
                         command.ExecuteNonQuery();
 
                         MessageBox.Show("User added successfully!");
-                        this.Close(); // Close the form after adding the user
+                        this.Close();
                     }
                 }
                 catch (Exception ex)
@@ -124,24 +120,19 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             }
         }
 
-        // HashPassword method
-        private string HashPassword(string password)
+        private string HashString(string passwordString)
         {
-            using (SHA256 sha256 = SHA256.Create())
-            {
-                byte[] hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
-
-                // Convert the byte array to a string representation
-                StringBuilder builder = new StringBuilder();
-                for (int i = 0; i < hashedBytes.Length; i++)
-                {
-                    builder.Append(hashedBytes[i].ToString("x2"));
-                }
-
-                return builder.ToString();
-            }
+            // Hash the password using BCrypt
+            string hashedPassword = BCrypt.Net.BCrypt.HashPassword(passwordString, BCrypt.Net.BCrypt.GenerateSalt());
+            return hashedPassword;
         }
+     
 
+        private void frmAddUser_Load(object sender, EventArgs e)
+        {
+            cmbxrole.Items.Add("Admin");
+            cmbxrole.Items.Add("Cashier");
+        }
     }
 }
 

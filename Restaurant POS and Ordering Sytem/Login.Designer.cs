@@ -34,6 +34,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.panel2 = new System.Windows.Forms.Panel();
+            this.linkforgotPass = new System.Windows.Forms.LinkLabel();
             this.btnExit = new Guna.UI2.WinForms.Guna2Button();
             this.btnLogin = new Guna.UI2.WinForms.Guna2Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -42,7 +43,6 @@
             this.txtUsername = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.guna2MessageDialog1 = new Guna.UI2.WinForms.Guna2MessageDialog();
-            this.linkforgotPass = new System.Windows.Forms.LinkLabel();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
@@ -102,6 +102,17 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(366, 364);
             this.panel2.TabIndex = 1;
+            // 
+            // linkforgotPass
+            // 
+            this.linkforgotPass.Font = new System.Drawing.Font("Segoe UI", 15F);
+            this.linkforgotPass.Location = new System.Drawing.Point(148, 318);
+            this.linkforgotPass.Name = "linkforgotPass";
+            this.linkforgotPass.Size = new System.Drawing.Size(203, 37);
+            this.linkforgotPass.TabIndex = 8;
+            this.linkforgotPass.TabStop = true;
+            this.linkforgotPass.Text = "Forgot Password?";
+            this.linkforgotPass.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkforgotPass_LinkClicked);
             // 
             // btnExit
             // 
@@ -195,16 +206,6 @@
             this.guna2MessageDialog1.Parent = this;
             this.guna2MessageDialog1.Style = Guna.UI2.WinForms.MessageDialogStyle.Default;
             this.guna2MessageDialog1.Text = null;
-            // 
-            // linkforgotPass
-            // 
-            this.linkforgotPass.Font = new System.Drawing.Font("Segoe UI", 15F);
-            this.linkforgotPass.Location = new System.Drawing.Point(148, 318);
-            this.linkforgotPass.Name = "linkforgotPass";
-            this.linkforgotPass.Size = new System.Drawing.Size(203, 37);
-            this.linkforgotPass.TabIndex = 8;
-            this.linkforgotPass.TabStop = true;
-            this.linkforgotPass.Text = "Forgot Password?";
             // 
             // frmlogin
             // 

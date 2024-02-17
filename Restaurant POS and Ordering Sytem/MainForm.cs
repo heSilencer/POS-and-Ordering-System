@@ -68,14 +68,10 @@ namespace Restaurant_POS_and_Ordering_Sytem
                 l.Show();               
                     this.Close();
 
-                // Alternatively, show a login form and hide the current form
-                // LoginForm loginForm = new LoginForm();
-                // loginForm.Show();
-                // this.Hide();
+               
             }
             else
             {
-                // User canceled logout, you can handle this if needed
             }
         }
 

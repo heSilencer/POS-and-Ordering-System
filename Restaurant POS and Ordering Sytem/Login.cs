@@ -8,16 +8,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
+using System.Security.Cryptography;
+using Restaurant_POS_and_Ordering_Sytem.Models;
 
 namespace Restaurant_POS_and_Ordering_Sytem
 {
     public partial class frmlogin : Form
     {
-        private readonly MySqlConnection con;
+        string connectionString = @"server=localhost;database=pos_ordering_system;userid=root;password=;";
+
+
+        private string username;
+
         public frmlogin()
         {
             InitializeComponent();
-            con = new MySqlConnection(@"server=localhost;database=pos_ordering_system;userid=root;password=;");
         }
        
 
@@ -25,72 +30,109 @@ namespace Restaurant_POS_and_Ordering_Sytem
         {
             Application.Exit();
         }
-
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            //See if there is no username and password
-            if (string.IsNullOrWhiteSpace(txtUsername.Text) || string.IsNullOrWhiteSpace(txtPassword.Text))
+            string enteredUsername = txtUsername.Text;
+            string enteredPassword = txtPassword.Text;
+
+            if (string.IsNullOrEmpty(enteredUsername) || string.IsNullOrEmpty(enteredPassword))
             {
-                guna2MessageDialog1.Show("Please input both username and password.");
+                MessageBox.Show("Please enter both username and password.");
                 return;
             }
 
-            // Open a connection and authenticate the user
-            using (MySqlCommand cmd = new MySqlCommand())
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
-                cmd.Connection = con;
-                cmd.CommandText = "SELECT * FROM users WHERE username=@username AND userpass=@password";
-                cmd.Parameters.AddWithValue("@username", txtUsername.Text);
-                cmd.Parameters.AddWithValue("@password", txtPassword.Text);
-
                 try
                 {
-                    con.Open();
-                    using (MySqlDataReader dr = cmd.ExecuteReader())
+                    connection.Open();
+                    string loginQuery = "SELECT uname,userpass, role FROM users WHERE username = @username";
+
+                    using (MySqlCommand cmd = new MySqlCommand(loginQuery, connection))
                     {
-                        if (dr.Read())
+                        cmd.Parameters.AddWithValue("@username", enteredUsername);
+
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
                         {
-                            // Get the user role from the database
-                            string userRole = dr["role"].ToString();
-                            string username = dr["uname"].ToString();
-                            // Check the user role
-                            if (userRole == "Admin")
+                            if (reader.Read())
                             {
-                                // Admin login successful
-                                this.Hide();
-                                MainForm mf = new MainForm(username);
-                                mf.Show();
+                                string storedPasswordHash = reader["userpass"].ToString();
+                                if (VerifyPassword(enteredPassword, storedPasswordHash))
+                                {
+                                    string username = reader["uname"].ToString();
+                                    string userRole = reader["role"].ToString();
+                                    OpenFormBasedOnRole(enteredUsername, userRole, username);
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Invalid credentials.");
+                                }
                             }
-                            else if (userRole == "Cashier")
+                            else
                             {
-                                // Cashier login successful
-                                this.Hide();
-                                Subform sf = new Subform(username);
-                                sf.Show();
+                                MessageBox.Show("User not found.");
                             }
-                        }
-                        else
-                        {
-                            // Login failed
-                            guna2MessageDialog1.Show("Invalid username or password");
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    guna2MessageDialog1.Show($"Error: {ex.Message}");
-                }
-                finally
-                {
-                    con.Close();
+                    MessageBox.Show("Error: " + ex.Message);
                 }
             }
         }
 
 
+        private void OpenFormBasedOnRole(string enteredUsername, string userRole, string username)
+        {
+            if (userRole == "Admin")
+            {
+                MainForm mainForm = new MainForm(username);
+                mainForm.Show();
+                this.Hide();
+            }
+            else if (userRole == "Cashier")
+            {
+                Subform subForm = new Subform(username);
+                subForm.Show();
+                this.Hide();
+            }
+            else
+            {
+                MessageBox.Show("Unknown role: " + userRole);
+            }
+        }
+
+
+        private string HashString(string passwordString)
+        {
+            // Hash the password using BCrypt
+            string hashedPassword = BCrypt.Net.BCrypt.HashPassword(passwordString, BCrypt.Net.BCrypt.GenerateSalt());
+            return hashedPassword;
+        }
+
+        private bool VerifyPassword(string enteredPassword, string hashedPassword)
+        {
+            // Verify the entered password against the hashed password using BCrypt
+            return BCrypt.Net.BCrypt.Verify(enteredPassword, hashedPassword);
+        }
+
+
+       
+
+
+
+
+
         private void txtUsername_TextChanged(object sender, EventArgs e)
         {
            
+        }
+
+        private void linkforgotPass_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            frmAddUser ad = new frmAddUser();
+            ad.Show();
         }
     }
 }

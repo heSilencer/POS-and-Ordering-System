@@ -38,10 +38,10 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.txtpass = new Guna.UI2.WinForms.Guna2TextBox();
             this.cmbxName = new Guna.UI2.WinForms.Guna2ComboBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
@@ -68,9 +68,6 @@
             this.cmbxrole.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.cmbxrole.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
             this.cmbxrole.ItemHeight = 30;
-            this.cmbxrole.Items.AddRange(new object[] {
-            "Cashier",
-            "Admin"});
             this.cmbxrole.Location = new System.Drawing.Point(266, 250);
             this.cmbxrole.Name = "cmbxrole";
             this.cmbxrole.Size = new System.Drawing.Size(217, 36);
@@ -188,6 +185,19 @@
             this.panel1.Size = new System.Drawing.Size(504, 108);
             this.panel1.TabIndex = 21;
             // 
+            // guna2PictureBox1
+            // 
+            this.guna2PictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.guna2PictureBox1.Image = global::Restaurant_POS_and_Ordering_Sytem.Properties.Resources.icons8_staff_502;
+            this.guna2PictureBox1.ImageRotate = 0F;
+            this.guna2PictureBox1.Location = new System.Drawing.Point(30, 12);
+            this.guna2PictureBox1.Name = "guna2PictureBox1";
+            this.guna2PictureBox1.Size = new System.Drawing.Size(84, 80);
+            this.guna2PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.guna2PictureBox1.TabIndex = 1;
+            this.guna2PictureBox1.TabStop = false;
+            this.guna2PictureBox1.UseTransparentBackground = true;
+            // 
             // txtpass
             // 
             this.txtpass.Cursor = System.Windows.Forms.Cursors.IBeam;
@@ -235,19 +245,6 @@
             this.label4.TabIndex = 36;
             this.label4.Text = "Name";
             // 
-            // guna2PictureBox1
-            // 
-            this.guna2PictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.guna2PictureBox1.Image = global::Restaurant_POS_and_Ordering_Sytem.Properties.Resources.icons8_staff_502;
-            this.guna2PictureBox1.ImageRotate = 0F;
-            this.guna2PictureBox1.Location = new System.Drawing.Point(30, 12);
-            this.guna2PictureBox1.Name = "guna2PictureBox1";
-            this.guna2PictureBox1.Size = new System.Drawing.Size(84, 80);
-            this.guna2PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.guna2PictureBox1.TabIndex = 1;
-            this.guna2PictureBox1.TabStop = false;
-            this.guna2PictureBox1.UseTransparentBackground = true;
-            // 
             // frmAddUser
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -267,6 +264,7 @@
             this.Name = "frmAddUser";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmAddUser";
+            this.Load += new System.EventHandler(this.frmAddUser_Load);
             this.panel2.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
