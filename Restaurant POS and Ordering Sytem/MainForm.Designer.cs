@@ -91,6 +91,7 @@
             this.NavAddUser.FillColor = System.Drawing.Color.Transparent;
             this.NavAddUser.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.NavAddUser.ForeColor = System.Drawing.Color.White;
+            this.NavAddUser.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.NavAddUser.HoverState.Image = global::Restaurant_POS_and_Ordering_Sytem.Properties.Resources.icons8_add_user_50__1_;
             this.NavAddUser.Image = global::Restaurant_POS_and_Ordering_Sytem.Properties.Resources.icons8_add_user_50;
             this.NavAddUser.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -121,6 +122,7 @@
             this.btnLogout.FillColor = System.Drawing.Color.Transparent;
             this.btnLogout.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnLogout.ForeColor = System.Drawing.Color.White;
+            this.btnLogout.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.btnLogout.Image = ((System.Drawing.Image)(resources.GetObject("btnLogout.Image")));
             this.btnLogout.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnLogout.ImageOffset = new System.Drawing.Point(10, 0);
@@ -149,6 +151,7 @@
             this.btnReports.FillColor = System.Drawing.Color.Transparent;
             this.btnReports.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnReports.ForeColor = System.Drawing.Color.White;
+            this.btnReports.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.btnReports.Image = global::Restaurant_POS_and_Ordering_Sytem.Properties.Resources.icons8_reports_581;
             this.btnReports.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnReports.ImageOffset = new System.Drawing.Point(10, 0);
@@ -177,6 +180,7 @@
             this.btnkitchen.FillColor = System.Drawing.Color.Transparent;
             this.btnkitchen.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnkitchen.ForeColor = System.Drawing.Color.White;
+            this.btnkitchen.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.btnkitchen.Image = ((System.Drawing.Image)(resources.GetObject("btnkitchen.Image")));
             this.btnkitchen.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnkitchen.ImageOffset = new System.Drawing.Point(10, 0);
@@ -205,6 +209,7 @@
             this.btnPOS.FillColor = System.Drawing.Color.Transparent;
             this.btnPOS.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnPOS.ForeColor = System.Drawing.Color.White;
+            this.btnPOS.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.btnPOS.Image = ((System.Drawing.Image)(resources.GetObject("btnPOS.Image")));
             this.btnPOS.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnPOS.ImageOffset = new System.Drawing.Point(10, 0);
@@ -233,6 +238,7 @@
             this.btnProducts.FillColor = System.Drawing.Color.Transparent;
             this.btnProducts.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnProducts.ForeColor = System.Drawing.Color.White;
+            this.btnProducts.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.btnProducts.Image = ((System.Drawing.Image)(resources.GetObject("btnProducts.Image")));
             this.btnProducts.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnProducts.ImageOffset = new System.Drawing.Point(10, 0);
@@ -261,6 +267,7 @@
             this.btnTables.FillColor = System.Drawing.Color.Transparent;
             this.btnTables.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnTables.ForeColor = System.Drawing.Color.White;
+            this.btnTables.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.btnTables.Image = ((System.Drawing.Image)(resources.GetObject("btnTables.Image")));
             this.btnTables.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnTables.ImageOffset = new System.Drawing.Point(10, 0);
@@ -289,6 +296,7 @@
             this.btnCategory.FillColor = System.Drawing.Color.Transparent;
             this.btnCategory.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnCategory.ForeColor = System.Drawing.Color.White;
+            this.btnCategory.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.btnCategory.Image = ((System.Drawing.Image)(resources.GetObject("btnCategory.Image")));
             this.btnCategory.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnCategory.ImageOffset = new System.Drawing.Point(10, 0);
@@ -317,6 +325,7 @@
             this.btnStaff.FillColor = System.Drawing.Color.Transparent;
             this.btnStaff.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnStaff.ForeColor = System.Drawing.Color.White;
+            this.btnStaff.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.btnStaff.Image = ((System.Drawing.Image)(resources.GetObject("btnStaff.Image")));
             this.btnStaff.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnStaff.ImageOffset = new System.Drawing.Point(10, 0);
@@ -345,6 +354,7 @@
             this.btndashboard.FillColor = System.Drawing.Color.Transparent;
             this.btndashboard.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btndashboard.ForeColor = System.Drawing.Color.White;
+            this.btndashboard.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.btndashboard.Image = ((System.Drawing.Image)(resources.GetObject("btndashboard.Image")));
             this.btndashboard.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btndashboard.ImageOffset = new System.Drawing.Point(10, 0);

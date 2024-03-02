@@ -39,9 +39,17 @@
             this.txtNewpass = new Guna.UI2.WinForms.Guna2TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtConfirmPass = new Guna.UI2.WinForms.Guna2TextBox();
+            this.btnhide1 = new System.Windows.Forms.PictureBox();
+            this.btnShow1 = new System.Windows.Forms.PictureBox();
+            this.btnhide2 = new System.Windows.Forms.PictureBox();
+            this.btnShow2 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnhide1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnShow1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnhide2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnShow2)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -107,6 +115,7 @@
             this.btnClose.Size = new System.Drawing.Size(127, 58);
             this.btnClose.TabIndex = 0;
             this.btnClose.Text = "Close";
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click_1);
             // 
             // btnSave
             // 
@@ -151,7 +160,7 @@
             this.txtNewpass.Location = new System.Drawing.Point(109, 174);
             this.txtNewpass.Margin = new System.Windows.Forms.Padding(12, 11, 12, 11);
             this.txtNewpass.Name = "txtNewpass";
-            this.txtNewpass.PasswordChar = '\0';
+            this.txtNewpass.PasswordChar = '*';
             this.txtNewpass.PlaceholderForeColor = System.Drawing.Color.Black;
             this.txtNewpass.PlaceholderText = "";
             this.txtNewpass.SelectedText = "";
@@ -183,17 +192,69 @@
             this.txtConfirmPass.Location = new System.Drawing.Point(109, 265);
             this.txtConfirmPass.Margin = new System.Windows.Forms.Padding(12, 11, 12, 11);
             this.txtConfirmPass.Name = "txtConfirmPass";
-            this.txtConfirmPass.PasswordChar = '\0';
+            this.txtConfirmPass.PasswordChar = '*';
             this.txtConfirmPass.PlaceholderForeColor = System.Drawing.Color.Black;
             this.txtConfirmPass.PlaceholderText = "";
             this.txtConfirmPass.SelectedText = "";
             this.txtConfirmPass.Size = new System.Drawing.Size(316, 43);
             this.txtConfirmPass.TabIndex = 7;
             // 
+            // btnhide1
+            // 
+            this.btnhide1.BackColor = System.Drawing.Color.White;
+            this.btnhide1.Image = global::Restaurant_POS_and_Ordering_Sytem.Properties.Resources.icons8_hide_password_50;
+            this.btnhide1.Location = new System.Drawing.Point(383, 180);
+            this.btnhide1.Name = "btnhide1";
+            this.btnhide1.Size = new System.Drawing.Size(41, 34);
+            this.btnhide1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnhide1.TabIndex = 11;
+            this.btnhide1.TabStop = false;
+            this.btnhide1.Click += new System.EventHandler(this.btnhide1_Click);
+            // 
+            // btnShow1
+            // 
+            this.btnShow1.BackColor = System.Drawing.Color.White;
+            this.btnShow1.Image = global::Restaurant_POS_and_Ordering_Sytem.Properties.Resources.icons8_show_password_50;
+            this.btnShow1.Location = new System.Drawing.Point(383, 180);
+            this.btnShow1.Name = "btnShow1";
+            this.btnShow1.Size = new System.Drawing.Size(41, 34);
+            this.btnShow1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnShow1.TabIndex = 12;
+            this.btnShow1.TabStop = false;
+            this.btnShow1.Click += new System.EventHandler(this.btnShow1_Click);
+            // 
+            // btnhide2
+            // 
+            this.btnhide2.BackColor = System.Drawing.Color.White;
+            this.btnhide2.Image = global::Restaurant_POS_and_Ordering_Sytem.Properties.Resources.icons8_hide_password_50;
+            this.btnhide2.Location = new System.Drawing.Point(383, 269);
+            this.btnhide2.Name = "btnhide2";
+            this.btnhide2.Size = new System.Drawing.Size(41, 34);
+            this.btnhide2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnhide2.TabIndex = 13;
+            this.btnhide2.TabStop = false;
+            this.btnhide2.Click += new System.EventHandler(this.btnhide2_Click);
+            // 
+            // btnShow2
+            // 
+            this.btnShow2.BackColor = System.Drawing.Color.White;
+            this.btnShow2.Image = global::Restaurant_POS_and_Ordering_Sytem.Properties.Resources.icons8_show_password_50;
+            this.btnShow2.Location = new System.Drawing.Point(383, 269);
+            this.btnShow2.Name = "btnShow2";
+            this.btnShow2.Size = new System.Drawing.Size(41, 34);
+            this.btnShow2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnShow2.TabIndex = 14;
+            this.btnShow2.TabStop = false;
+            this.btnShow2.Click += new System.EventHandler(this.btnShow2_Click);
+            // 
             // frmNewPassword
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(528, 410);
+            this.Controls.Add(this.btnShow2);
+            this.Controls.Add(this.btnhide2);
+            this.Controls.Add(this.btnShow1);
+            this.Controls.Add(this.btnhide1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txtConfirmPass);
             this.Controls.Add(this.panel1);
@@ -209,6 +270,10 @@
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).EndInit();
             this.panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.btnhide1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnShow1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnhide2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnShow2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -226,5 +291,9 @@
         private Guna.UI2.WinForms.Guna2TextBox txtNewpass;
         private System.Windows.Forms.Label label3;
         private Guna.UI2.WinForms.Guna2TextBox txtConfirmPass;
+        private System.Windows.Forms.PictureBox btnhide1;
+        private System.Windows.Forms.PictureBox btnShow1;
+        private System.Windows.Forms.PictureBox btnhide2;
+        private System.Windows.Forms.PictureBox btnShow2;
     }
 }

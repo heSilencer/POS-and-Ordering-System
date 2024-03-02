@@ -95,6 +95,59 @@ namespace Restaurant_POS_and_Ordering_Sytem.ForgotPassword
             // return BCrypt.Net.BCrypt.HashPassword(passwordString, BCrypt.Net.BCrypt.GenerateSalt());
             return BCrypt.Net.BCrypt.HashPassword(passwordString, BCrypt.Net.BCrypt.GenerateSalt());
         }
+
+        private void btnhide1_Click(object sender, EventArgs e)
+        {
+            if (txtNewpass.PasswordChar == '\0')
+            {
+                btnhide1.Visible = false;
+                btnShow1.Visible = true;
+                txtNewpass.PasswordChar = '*';
+                txtNewpass.Font = new Font(txtNewpass.Font.FontFamily, 25);
+            }
+        }
+
+        private void btnShow1_Click(object sender, EventArgs e)
+        {
+            if (txtNewpass.PasswordChar == '*')
+            {
+                btnShow1.Visible = false;
+                btnhide1.Visible = true;
+                txtNewpass.PasswordChar = '\0';
+                txtNewpass.Font = new Font(txtNewpass.Font.FontFamily, 14);
+            }
+        }
+
+        private void btnhide2_Click(object sender, EventArgs e)
+        {
+            if (txtConfirmPass.PasswordChar == '\0')
+            {
+                btnhide2.Visible = false;
+                btnShow2.Visible = true;
+                txtConfirmPass.PasswordChar = '*';
+                txtConfirmPass.Font = new Font(txtConfirmPass.Font.FontFamily, 25);
+            }
+        }
+
+        private void btnShow2_Click(object sender, EventArgs e)
+        {
+            if (txtConfirmPass.PasswordChar == '*')
+            {
+                btnShow2.Visible = false;
+                btnhide2.Visible = true;
+                txtConfirmPass.PasswordChar = '\0';
+                txtConfirmPass.Font = new Font(txtConfirmPass.Font.FontFamily, 14);
+            }
+        }
+
+
+       
+
+        private void btnClose_Click_1(object sender, EventArgs e)
+        {
+            this.Close();
+
+        }
     }
  }
 
