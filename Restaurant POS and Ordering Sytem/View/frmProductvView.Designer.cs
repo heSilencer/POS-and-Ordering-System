@@ -90,7 +90,7 @@
             this.guna2DataGridViewProducts.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.guna2DataGridViewProducts.RowHeadersVisible = false;
             this.guna2DataGridViewProducts.RowTemplate.Height = 33;
-            this.guna2DataGridViewProducts.Size = new System.Drawing.Size(1256, 506);
+            this.guna2DataGridViewProducts.Size = new System.Drawing.Size(1256, 625);
             this.guna2DataGridViewProducts.TabIndex = 5;
             this.guna2DataGridViewProducts.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
             this.guna2DataGridViewProducts.ThemeStyle.AlternatingRowsStyle.Font = null;
@@ -116,7 +116,7 @@
             // 
             // frmProductvView
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1294, 811);

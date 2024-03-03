@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -45,6 +46,8 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
         private void frmPos_Load(object sender, EventArgs e)
         {
             AddCategory();
+            ShowProducts("All Categories");
+
         }
         private void AddCategory()
         {
@@ -84,6 +87,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                                 b.Text = row["catName"].ToString();
                                 b.Font = new Font("Segoe UI", 14, FontStyle.Bold); // Set the font size
 
+                                b.Click += CategoryButton_Click;
                                 CategoryPanel.Controls.Add(b);
                             }
                         }
@@ -96,12 +100,120 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
         {
             // Handle the "All Categories" button click
             // You can implement the logic to show all categories here
+            ShowProducts("All Categories"); 
+        }
+        private void ShowProducts(string category)
+        {
+            string qry;
+
+            if (category == "All Categories")
+            {
+                qry = "SELECT * FROM tbl_products";
+            }
+            else
+            {
+                qry = "SELECT * FROM tbl_products WHERE prodcategory = @category";
+            }
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                using (MySqlCommand cmd = new MySqlCommand(qry, connection))
+                {
+                    if (category != "All Categories")
+                    {
+                        cmd.Parameters.AddWithValue("@category", category);
+                    }
+
+                    using (MySqlDataAdapter da = new MySqlDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+
+                        connection.Open();
+                        da.Fill(dt);
+
+                        ProductPanel.Controls.Clear();
+
+                        if (dt.Rows.Count > 0)
+                        {
+                            foreach (DataRow row in dt.Rows)
+                            {
+                                ucProduct productControl = new ucProduct();
+                                productControl.Pname = row["prodName"].ToString();
+                                productControl.PImage = ConvertByteArrayToImage((byte[])row["prodImage"]);
+                               
+                                productControl.id = Convert.ToInt32(row["prodID"]);
+                                productControl.PPrice = row["prodPrice"].ToString();
+                                productControl.PCategory = row["prodcategory"].ToString();
+
+                                // Add an event handler to handle the product selection
+                                productControl.onSelect += ProductControl_onSelect;
+
+                                ProductPanel.Controls.Add(productControl);
+                            }
+                        }
+                        else
+                        {
+                            // Display a message or handle the case when no products are found.
+                        }
+                    }
+                }
+            }
+        }
+
+        private Image ConvertByteArrayToImage(byte[] byteArray)
+        {
+            if (byteArray == null || byteArray.Length == 0)
+                return null;
+
+            using (MemoryStream ms = new MemoryStream(byteArray))
+            {
+                return Image.FromStream(ms);
+            }
         }
 
 
+        private void CategoryButton_Click(object sender, EventArgs e)
+        {
+            Guna.UI2.WinForms.Guna2Button clickedButton = (Guna.UI2.WinForms.Guna2Button)sender;
+            string categoryName = clickedButton.Text;
+            FilterProductsByCategory(categoryName);
+        }
 
 
+        private void ProductControl_onSelect(object sender, EventArgs e)
+        {
+            // Your event handler code here
+        }
 
+        private void ProductPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+        private void FilterProductsByCategory(string category)
+        {
+            // Call the ShowProducts method with the selected category
+            ShowProducts(category);
+
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            string searchQuery = txtSearch.Text.ToLower(); // Convert the search query to lowercase for case-insensitive search
+
+            foreach (Control control in ProductPanel.Controls)
+            {
+                if (control is ucProduct)
+                {
+                    ucProduct productControl = (ucProduct)control; // Declare productControl within the loop
+
+                    // Check if the search query is empty or the product name contains the search query
+                    bool isVisible = string.IsNullOrEmpty(searchQuery) || productControl.Pname.ToLower().Contains(searchQuery);
+
+                    // If the search query is empty or the product name contains the search query, make the control visible; otherwise, hide it
+                    productControl.Visible = isVisible;
+                }
+            }
+        }
     }
 
 }
