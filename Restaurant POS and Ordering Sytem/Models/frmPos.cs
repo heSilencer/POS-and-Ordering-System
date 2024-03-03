@@ -16,12 +16,45 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
     {
         string connectionString = @"server=localhost;database=pos_ordering_system;userid=root;password=;";
 
+
         public string UserRole { get; set; }
         private string username;
         public frmPos(string username)
         {
             InitializeComponent();
             this.username = username;
+
+            guna2DataGridView1.Columns.Add("Sr#", "Sr#");
+            guna2DataGridView1.Columns.Add("Name", "Name");
+            guna2DataGridView1.Columns.Add("Qty", "Qty");
+            guna2DataGridView1.Columns.Add("Price", "Price");
+            guna2DataGridView1.Columns.Add("Amount", "Amount");
+
+            // Adjust the font size
+            guna2DataGridView1.DefaultCellStyle.Font = new Font("Segoe UI", 13);
+
+            // Set the height of the header
+            guna2DataGridView1.ColumnHeadersHeight = 40; // Adjust the height as needed
+
+            // Set column widths
+            guna2DataGridView1.Columns["Sr#"].Width = 50;
+            guna2DataGridView1.Columns["Name"].Width = 200; // Adjust the width as needed
+            guna2DataGridView1.Columns["Qty"].Width = 50;
+            guna2DataGridView1.Columns["Price"].Width = 80;
+            guna2DataGridView1.Columns["Amount"].Width = 100;
+
+            // Add "Delete" column with delete icon
+            DataGridViewImageColumn deleteColumn = new DataGridViewImageColumn();
+            deleteColumn.Image = Properties.Resources.deleteicon; // Replace with your actual delete icon
+            deleteColumn.Name = "Delete";
+            deleteColumn.HeaderText = ""; // Set the header text to an empty string
+            deleteColumn.HeaderCell.Style.NullValue = "";
+            deleteColumn.Width = 50;
+            deleteColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            deleteColumn.FillWeight = 50;
+            deleteColumn.MinimumWidth = 50;
+            deleteColumn.ImageLayout = DataGridViewImageCellLayout.Zoom;
+            guna2DataGridView1.Columns.Add(deleteColumn);
         }
 
         private void guna2PictureBox2_Click(object sender, EventArgs e)
@@ -183,6 +216,10 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
         private void ProductControl_onSelect(object sender, EventArgs e)
         {
             // Your event handler code here
+            ucProduct selectedProduct = (ucProduct)sender;
+
+            // Add the selected product to the DataGridView
+            AddProductToDataGridView(selectedProduct);
         }
 
         private void ProductPanel_Paint(object sender, PaintEventArgs e)
@@ -212,6 +249,64 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                     // If the search query is empty or the product name contains the search query, make the control visible; otherwise, hide it
                     productControl.Visible = isVisible;
                 }
+            }
+        }
+
+        private void guna2DataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == guna2DataGridView1.Columns["Delete"].Index && e.RowIndex >= 0)
+            {
+                guna2DataGridView1.Rows.RemoveAt(e.RowIndex);
+                UpdateSerialNumbers(); // Update Sr# after deleting a row
+            }
+        }
+        private void UpdateSerialNumbers()
+        {
+            // Update Sr# for each row after deletion
+            for (int i = 0; i < guna2DataGridView1.Rows.Count; i++)
+            {
+                guna2DataGridView1.Rows[i].Cells["Sr#"].Value = (i + 1).ToString();
+            }
+        }
+        private void AddProductToDataGridView(ucProduct product)
+        {
+            DataGridViewRow existingRow = null;
+
+            foreach (DataGridViewRow row in guna2DataGridView1.Rows)
+            {
+                if (row.Cells["Name"].Value != null && row.Cells["Name"].Value.ToString() == product.Pname)
+                {
+                    existingRow = row;
+                    break;
+                }
+            }
+
+            if (existingRow != null)
+            {
+                // If the product is already in the DataGridView, increment the quantity
+                int currentQty = Convert.ToInt32(existingRow.Cells["Qty"].Value);
+                existingRow.Cells["Qty"].Value = (currentQty + 1).ToString();
+
+                // Update the amount based on the new quantity
+                double qty = Convert.ToDouble(existingRow.Cells["Qty"].Value);
+                double price = Convert.ToDouble(existingRow.Cells["Price"].Value);
+                existingRow.Cells["Amount"].Value = (qty * price).ToString();
+            }
+            else
+            {
+                // If the product is not in the DataGridView, add a new row
+                int rowIndex = guna2DataGridView1.Rows.Add();
+
+                // Set values in the DataGridView for the selected product
+                guna2DataGridView1.Rows[rowIndex].Cells["Sr#"].Value = (rowIndex + 1).ToString();
+                guna2DataGridView1.Rows[rowIndex].Cells["Name"].Value = product.Pname;
+                guna2DataGridView1.Rows[rowIndex].Cells["Qty"].Value = "1"; // Default quantity is 1, you can modify this based on your logic
+                guna2DataGridView1.Rows[rowIndex].Cells["Price"].Value = product.PPrice;
+
+                // Calculate and set the amount (Qty * Price)
+                double qty = Convert.ToDouble(guna2DataGridView1.Rows[rowIndex].Cells["Qty"].Value);
+                double price = Convert.ToDouble(guna2DataGridView1.Rows[rowIndex].Cells["Price"].Value);
+                guna2DataGridView1.Rows[rowIndex].Cells["Amount"].Value = (qty * price).ToString();
             }
         }
     }
