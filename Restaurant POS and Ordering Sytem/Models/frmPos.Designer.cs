@@ -51,11 +51,15 @@
             this.ProductPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.guna2DataGridView1 = new Guna.UI2.WinForms.Guna2DataGridView();
             this.txtSearch = new Guna.UI2.WinForms.Guna2TextBox();
+            this.guna2Panel3 = new Guna.UI2.WinForms.Guna2Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.lbltotal = new System.Windows.Forms.Label();
             this.guna2Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
             this.CategoryPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2DataGridView1)).BeginInit();
+            this.guna2Panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // guna2Panel1
@@ -75,7 +79,7 @@
             this.guna2Panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.guna2Panel1.Location = new System.Drawing.Point(0, 0);
             this.guna2Panel1.Name = "guna2Panel1";
-            this.guna2Panel1.Size = new System.Drawing.Size(1597, 91);
+            this.guna2Panel1.Size = new System.Drawing.Size(1590, 91);
             this.guna2Panel1.TabIndex = 0;
             // 
             // BtnAddOn
@@ -275,7 +279,7 @@
             this.guna2Panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.guna2Panel2.Location = new System.Drawing.Point(0, 815);
             this.guna2Panel2.Name = "guna2Panel2";
-            this.guna2Panel2.Size = new System.Drawing.Size(1597, 97);
+            this.guna2Panel2.Size = new System.Drawing.Size(1590, 97);
             this.guna2Panel2.TabIndex = 0;
             // 
             // CategoryPanel
@@ -353,7 +357,7 @@
             this.guna2DataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.guna2DataGridView1.RowHeadersVisible = false;
             this.guna2DataGridView1.RowTemplate.Height = 33;
-            this.guna2DataGridView1.Size = new System.Drawing.Size(542, 643);
+            this.guna2DataGridView1.Size = new System.Drawing.Size(535, 576);
             this.guna2DataGridView1.TabIndex = 5;
             this.guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
             this.guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.Font = null;
@@ -391,8 +395,8 @@
             this.txtSearch.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtSearch.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtSearch.IconRight = global::Restaurant_POS_and_Ordering_Sytem.Properties.Resources.icons8_search_48;
-            this.txtSearch.Location = new System.Drawing.Point(273, 95);
-            this.txtSearch.Margin = new System.Windows.Forms.Padding(6);
+            this.txtSearch.Location = new System.Drawing.Point(266, 95);
+            this.txtSearch.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.PasswordChar = '\0';
             this.txtSearch.PlaceholderText = "Search Here";
@@ -401,10 +405,43 @@
             this.txtSearch.TabIndex = 6;
             this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
             // 
+            // guna2Panel3
+            // 
+            this.guna2Panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.guna2Panel3.Controls.Add(this.lbltotal);
+            this.guna2Panel3.Controls.Add(this.label1);
+            this.guna2Panel3.Location = new System.Drawing.Point(1043, 728);
+            this.guna2Panel3.Name = "guna2Panel3";
+            this.guna2Panel3.Size = new System.Drawing.Size(535, 61);
+            this.guna2Panel3.TabIndex = 7;
+            // 
+            // label1
+            // 
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 17F);
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(26, 11);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(127, 50);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Total:";
+            // 
+            // lbltotal
+            // 
+            this.lbltotal.BackColor = System.Drawing.Color.Transparent;
+            this.lbltotal.Font = new System.Drawing.Font("Segoe UI", 17F);
+            this.lbltotal.ForeColor = System.Drawing.Color.White;
+            this.lbltotal.Location = new System.Drawing.Point(209, 9);
+            this.lbltotal.Name = "lbltotal";
+            this.lbltotal.Size = new System.Drawing.Size(127, 50);
+            this.lbltotal.TabIndex = 1;
+            this.lbltotal.Text = "000";
+            // 
             // frmPos
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(1597, 912);
+            this.ClientSize = new System.Drawing.Size(1590, 912);
+            this.Controls.Add(this.guna2Panel3);
             this.Controls.Add(this.txtSearch);
             this.Controls.Add(this.guna2DataGridView1);
             this.Controls.Add(this.ProductPanel);
@@ -422,6 +459,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).EndInit();
             this.CategoryPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.guna2DataGridView1)).EndInit();
+            this.guna2Panel3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -446,5 +484,8 @@
         private Guna.UI2.WinForms.Guna2DataGridView guna2DataGridView1;
         public Guna.UI2.WinForms.Guna2TextBox txtSearch;
         private Guna.UI2.WinForms.Guna2Button BtnAllCategory;
+        private Guna.UI2.WinForms.Guna2Panel guna2Panel3;
+        private System.Windows.Forms.Label lbltotal;
+        private System.Windows.Forms.Label label1;
     }
 }

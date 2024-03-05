@@ -80,6 +80,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
         {
             AddCategory();
             ShowProducts("All Categories");
+            UpdateTotalAmount();
 
         }
         private void AddCategory()
@@ -256,9 +257,45 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
         {
             if (e.ColumnIndex == guna2DataGridView1.Columns["Delete"].Index && e.RowIndex >= 0)
             {
-                guna2DataGridView1.Rows.RemoveAt(e.RowIndex);
-                UpdateSerialNumbers(); // Update Sr# after deleting a row
+                DataGridViewRow selectedRow = guna2DataGridView1.Rows[e.RowIndex];
+
+                // Check if the quantity is greater than 1
+                if (selectedRow.Cells["Qty"].Value != null && Convert.ToInt32(selectedRow.Cells["Qty"].Value) > 1)
+                {
+                    // Decrease the quantity by 1
+                    int currentQty = Convert.ToInt32(selectedRow.Cells["Qty"].Value);
+                    selectedRow.Cells["Qty"].Value = (currentQty - 1).ToString();
+
+                    // Update the amount based on the new quantity
+                    double qty = Convert.ToDouble(selectedRow.Cells["Qty"].Value);
+                    double price = Convert.ToDouble(selectedRow.Cells["Price"].Value);
+                    selectedRow.Cells["Amount"].Value = (qty * price).ToString();
+                }
+                else
+                {
+                    // If quantity is 1 or less, remove the entire row
+                    guna2DataGridView1.Rows.RemoveAt(e.RowIndex);
+                }
+
+                UpdateSerialNumbers();
+                UpdateTotalAmount();
             }
+        }
+        private void UpdateTotalAmount()
+        {
+            double totalAmount = 0;
+
+            // Sum all the amounts in the DataGridView
+            foreach (DataGridViewRow row in guna2DataGridView1.Rows)
+            {
+                if (row.Cells["Amount"].Value != null)
+                {
+                    totalAmount += Convert.ToDouble(row.Cells["Amount"].Value);
+                }
+            }
+
+            // Display the total amount in lblTotal
+            lbltotal.Text = $"{totalAmount:C}"; // Assuming you want to display the amount as currency
         }
         private void UpdateSerialNumbers()
         {
@@ -308,6 +345,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                 double price = Convert.ToDouble(guna2DataGridView1.Rows[rowIndex].Cells["Price"].Value);
                 guna2DataGridView1.Rows[rowIndex].Cells["Amount"].Value = (qty * price).ToString();
             }
+            UpdateTotalAmount();
         }
     }
 
