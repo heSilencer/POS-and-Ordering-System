@@ -12,13 +12,17 @@ using System.Windows.Forms;
 
 namespace Restaurant_POS_and_Ordering_Sytem.Models
 {
+   
     public partial class frmPos : Form
     {
         string connectionString = @"server=localhost;database=pos_ordering_system;userid=root;password=;";
-
+      
 
         public string UserRole { get; set; }
         private string username;
+
+        private string selectedTable;
+        private string selectedWaiter;
         public frmPos(string username)
         {
             InitializeComponent();
@@ -56,6 +60,8 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             deleteColumn.ImageLayout = DataGridViewImageCellLayout.Zoom;
             guna2DataGridView1.Columns.Add(deleteColumn);
         }
+       
+        
 
         private void guna2PictureBox2_Click(object sender, EventArgs e)
         {
@@ -346,6 +352,57 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                 guna2DataGridView1.Rows[rowIndex].Cells["Amount"].Value = (qty * price).ToString();
             }
             UpdateTotalAmount();
+        }
+
+        private void lbltotal_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BtnTakeAway_Click(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void btnAddnew_Click(object sender, EventArgs e)
+        {
+            lbltxtTable.Text = "";
+            lbltxtWaiter.Text = "";
+            double totalAmount = 0;// Reset the total amount to zero
+            lbltotal.Text = $"{totalAmount:C}";
+            lbltxtTable.Visible = false;
+            lbltxtWaiter.Visible = false;
+            lbltotal.Visible = true;
+            guna2DataGridView1.Rows.Clear();
+        }
+
+        private void btnHold_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BtnBillList_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Btnkot_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BtnDineIn_Click(object sender, EventArgs e)
+        {
+            
+        
+        }
+       
+
+
+        private void BtnAddOn_Click(object sender, EventArgs e)
+        {
+
+
         }
     }
 

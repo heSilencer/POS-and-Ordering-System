@@ -106,7 +106,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
 
                     if (result == DialogResult.Yes)
                     {
-                        await DeleteCategory(catId);
+                         DeleteCategory(catId);
                         MessageBox.Show("Category deleted successfully");
 
                         // Reload the data from the database after the action
@@ -117,7 +117,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
                 else if (guna2DataGridView1.Columns[e.ColumnIndex].Name == "Update")
                 {
                     // Handle the update action asynchronously
-                    await UpdateCategory(catId);
+                     UpdateCategory(catId);
                 }
             }
         }
@@ -146,7 +146,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
             }
         }
 
-        private async Task UpdateCategory(int catId)
+        private void UpdateCategory(int catId)
         {
             // Implement your update logic here
             frmStaffcategoryAdd editForm = new frmStaffcategoryAdd();

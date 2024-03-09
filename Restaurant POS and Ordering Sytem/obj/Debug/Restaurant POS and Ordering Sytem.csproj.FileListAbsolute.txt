@@ -18,13 +18,6 @@ C:\Users\JAQUILYN\documents\visual studio 2015\Projects\login\Restaurant POS and
 C:\Users\JAQUILYN\documents\visual studio 2015\Projects\login\Restaurant POS and Ordering Sytem\obj\Debug\Restaurant_POS_and_Ordering_Sytem.View.frmProductvView.resources
 C:\Users\JAQUILYN\documents\visual studio 2015\Projects\login\Restaurant POS and Ordering Sytem\obj\Debug\Restaurant_POS_and_Ordering_Sytem.View.frmTableView.resources
 C:\Users\JAQUILYN\documents\visual studio 2015\Projects\login\Restaurant POS and Ordering Sytem\obj\Debug\Restaurant POS and Ordering Sytem.csprojResolveAssemblyReference.cache
-C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\bin\Debug\Restaurant POS and Ordering Sytem.exe.config
-C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\bin\Debug\Restaurant POS and Ordering Sytem.exe
-C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\bin\Debug\Restaurant POS and Ordering Sytem.pdb
-C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\bin\Debug\BCrypt.Net-Next.dll
-C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\bin\Debug\Guna.UI.dll
-C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\bin\Debug\Guna.UI2.dll
-C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\bin\Debug\BCrypt.Net-Next.xml
 C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\obj\Debug\Restaurant_POS_and_Ordering_Sytem.ForgotPassword.frmCheckUser.resources
 C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\obj\Debug\Restaurant_POS_and_Ordering_Sytem.ForgotPassword.frmNewPassword.resources
 C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\obj\Debug\Restaurant_POS_and_Ordering_Sytem.frmlogin.resources
@@ -37,6 +30,7 @@ C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\
 C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\obj\Debug\Restaurant_POS_and_Ordering_Sytem.Models.frmProductsAdd.resources
 C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\obj\Debug\Restaurant_POS_and_Ordering_Sytem.Models.frmTableAdd.resources
 C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\obj\Debug\Restaurant_POS_and_Ordering_Sytem.Models.frmStaffAdd.resources
+C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\obj\Debug\Restaurant_POS_and_Ordering_Sytem.Models.ucProduct.resources
 C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\obj\Debug\Restaurant_POS_and_Ordering_Sytem.Properties.Resources.resources
 C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\obj\Debug\Restaurant_POS_and_Ordering_Sytem.SampleView.resources
 C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\obj\Debug\Restaurant_POS_and_Ordering_Sytem.Subform.resources
@@ -48,7 +42,15 @@ C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\
 C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\obj\Debug\Restaurant_POS_and_Ordering_Sytem.View.frmTableView.resources
 C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\obj\Debug\Restaurant_POS_and_Ordering_Sytem.View.frmStaffView.resources
 C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\obj\Debug\Restaurant POS and Ordering Sytem.csproj.GenerateResource.Cache
+C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\bin\Debug\Restaurant POS and Ordering Sytem.exe.config
+C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\bin\Debug\Restaurant POS and Ordering Sytem.exe
+C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\bin\Debug\Restaurant POS and Ordering Sytem.pdb
+C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\bin\Debug\BCrypt.Net-Next.dll
+C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\bin\Debug\Guna.UI.dll
+C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\bin\Debug\Guna.UI2.dll
+C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\bin\Debug\BCrypt.Net-Next.xml
 C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\obj\Debug\Restaurant POS and Ordering Sytem.exe
 C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\obj\Debug\Restaurant POS and Ordering Sytem.pdb
-C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\obj\Debug\Restaurant_POS_and_Ordering_Sytem.Models.ucProduct.resources
 C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\obj\Debug\Restaurant POS and Ordering Sytem.csprojResolveAssemblyReference.cache
+C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\obj\Debug\Restaurant_POS_and_Ordering_Sytem.Models.WaiterSelectedEventArgs.resources
+C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\obj\Debug\Restaurant_POS_and_Ordering_Sytem.Models.TableSelectedEventArgs.resources
