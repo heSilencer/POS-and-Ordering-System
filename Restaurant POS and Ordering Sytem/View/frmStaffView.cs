@@ -73,6 +73,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
         public override void btnAdd_Click(object sender, EventArgs e)
         {
             frmStaffAdd addSatffForm = new frmStaffAdd();
+           // MainClass.BlurbackGround(new frmStaffAdd);
             addSatffForm.StaffUpdated += FrmStaffAdd_staffUpdated; // Subscribe to the event
             addSatffForm.ShowDialog();
 

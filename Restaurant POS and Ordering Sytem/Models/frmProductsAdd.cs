@@ -14,7 +14,6 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
 {
     public partial class frmProductsAdd : Form
     {
-       
         private int productId;
         public Action<object, EventArgs> ProductUpdated { get; internal set; }
 

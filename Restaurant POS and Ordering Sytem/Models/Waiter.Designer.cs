@@ -44,14 +44,14 @@
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(129, 36);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(170, 37);
+            this.label1.Size = new System.Drawing.Size(187, 37);
             this.label1.TabIndex = 2;
-            this.label1.Text = "Select Table";
+            this.label1.Text = "Select Waiter";
             // 
             // guna2PictureBox1
             // 
             this.guna2PictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.guna2PictureBox1.Image = global::Restaurant_POS_and_Ordering_Sytem.Properties.Resources.icons8_table_50;
+            this.guna2PictureBox1.Image = global::Restaurant_POS_and_Ordering_Sytem.Properties.Resources.icons8_staff_501;
             this.guna2PictureBox1.ImageRotate = 0F;
             this.guna2PictureBox1.Location = new System.Drawing.Point(30, 12);
             this.guna2PictureBox1.Name = "guna2PictureBox1";

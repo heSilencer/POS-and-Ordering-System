@@ -99,9 +99,14 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
         }
         public override void btnAdd_Click(object sender, EventArgs e)
         {
-            frmProductsAdd addProductForm = new frmProductsAdd();
-            addProductForm.ProductUpdated += FrmProductsAdd_ProductUpdated; // Subscribe to the event
-            addProductForm.ShowDialog();
+            //frmProductsAdd addProductForm = new frmProductsAdd();
+            //addProductForm.ProductUpdated += FrmProductsAdd_ProductUpdated; // Subscribe to the event
+            // addProductForm.ShowDialog();
+
+
+            var frmAddCategory = new frmProductsAdd();
+            frmAddCategory.ProductUpdated += FrmProductsAdd_ProductUpdated;
+            MainClass.BlurbackGround(frmAddCategory);
         }
 
         public override void txtSearch_TextChanged(object sender, EventArgs e)

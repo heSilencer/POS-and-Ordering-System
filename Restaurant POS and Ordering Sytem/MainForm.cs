@@ -16,11 +16,32 @@ namespace Restaurant_POS_and_Ordering_Sytem
 {
     public partial class MainForm : Form
     {
-        private readonly string username;
+        private static MainForm _obj;
+        private string username;
+
+        private int userID;
+        public static MainForm Instance
+        {
+            get
+            {
+                if (_obj == null)
+                {
+                    _obj = new MainForm("DefaultUsername");
+                }
+                return _obj;
+            }
+        }
+
         public MainForm(string username)
         {
             InitializeComponent();
             this.username = username;
+            this.userID = userID;
+        }
+
+        public MainForm(string username, int userID) : this(username)
+        {
+            this.userID = userID;
         }
 
         public void AddControls(Form f)
@@ -83,10 +104,10 @@ namespace Restaurant_POS_and_Ordering_Sytem
 
         private void btnPOS_Click(object sender, EventArgs e)
         {
-            Models.frmPos frmpos = new Models.frmPos(username);
+            Models.frmPos frmpos = new Models.frmPos(username,userID);
 
             // Assuming you have a property to store the user role in MainForm
-            frmpos.UserRole = "admin";
+            frmpos.userRole = "admin";
 
             frmpos.Show();
             this.Hide();
@@ -119,15 +140,8 @@ namespace Restaurant_POS_and_Ordering_Sytem
 
         }
 
-        private void btnWaiter_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void btnCashier_Click(object sender, EventArgs e)
-        {
-           
-        }
+      
+        
 
         private void btnReports_Click(object sender, EventArgs e)
         {
@@ -146,7 +160,7 @@ namespace Restaurant_POS_and_Ordering_Sytem
 
         private void btnkitchen_Click(object sender, EventArgs e)
         {
-
+            AddControls(new frmKitchenView());
         }
 
         private void guna2Panel2_Paint(object sender, PaintEventArgs e)
@@ -174,6 +188,7 @@ namespace Restaurant_POS_and_Ordering_Sytem
         private void MainForm_Load_1(object sender, EventArgs e)
         {
             lbluser.Text = $" {username}!";
+            _obj = this;
         }
     }
 }

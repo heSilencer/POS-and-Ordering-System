@@ -35,12 +35,12 @@
             this.btnPOS = new Guna.UI2.WinForms.Guna2Button();
             this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.guna2Panel3 = new Guna.UI2.WinForms.Guna2Panel();
+            this.lbluser = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.btnMinimized = new Guna.UI2.WinForms.Guna2ControlBox();
             this.btnExit = new Guna.UI2.WinForms.Guna2ControlBox();
             this.ControlsPanel = new Guna.UI2.WinForms.Guna2Panel();
             this.guna2MessageDialog1 = new Guna.UI2.WinForms.Guna2MessageDialog();
-            this.lbluser = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.guna2Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
             this.guna2Panel3.SuspendLayout();
@@ -115,6 +115,7 @@
             this.btnkitchen.Text = "Kitchen";
             this.btnkitchen.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnkitchen.TextOffset = new System.Drawing.Point(20, 0);
+            this.btnkitchen.Click += new System.EventHandler(this.btnkitchen_Click);
             // 
             // btnPOS
             // 
@@ -170,6 +171,30 @@
             this.guna2Panel3.Size = new System.Drawing.Size(612, 37);
             this.guna2Panel3.TabIndex = 0;
             // 
+            // lbluser
+            // 
+            this.lbluser.AutoSize = true;
+            this.lbluser.BackColor = System.Drawing.Color.Transparent;
+            this.lbluser.Font = new System.Drawing.Font("Segoe UI", 15F);
+            this.lbluser.ForeColor = System.Drawing.Color.Firebrick;
+            this.lbluser.Location = new System.Drawing.Point(92, -4);
+            this.lbluser.Name = "lbluser";
+            this.lbluser.Size = new System.Drawing.Size(51, 28);
+            this.lbluser.TabIndex = 4;
+            this.lbluser.Text = "User";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 15F);
+            this.label1.ForeColor = System.Drawing.Color.Firebrick;
+            this.label1.Location = new System.Drawing.Point(-5, -4);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(55, 28);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "User:";
+            // 
             // btnMinimized
             // 
             this.btnMinimized.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -195,10 +220,10 @@
             // 
             // ControlsPanel
             // 
-            this.ControlsPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.ControlsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ControlsPanel.Location = new System.Drawing.Point(233, 37);
             this.ControlsPanel.Name = "ControlsPanel";
-            this.ControlsPanel.Size = new System.Drawing.Size(612, 419);
+            this.ControlsPanel.Size = new System.Drawing.Size(612, 592);
             this.ControlsPanel.TabIndex = 2;
             // 
             // guna2MessageDialog1
@@ -209,30 +234,6 @@
             this.guna2MessageDialog1.Parent = this;
             this.guna2MessageDialog1.Style = Guna.UI2.WinForms.MessageDialogStyle.Light;
             this.guna2MessageDialog1.Text = null;
-            // 
-            // lbluser
-            // 
-            this.lbluser.AutoSize = true;
-            this.lbluser.BackColor = System.Drawing.Color.Transparent;
-            this.lbluser.Font = new System.Drawing.Font("Segoe UI", 15F);
-            this.lbluser.ForeColor = System.Drawing.Color.Firebrick;
-            this.lbluser.Location = new System.Drawing.Point(92, -4);
-            this.lbluser.Name = "lbluser";
-            this.lbluser.Size = new System.Drawing.Size(102, 54);
-            this.lbluser.TabIndex = 4;
-            this.lbluser.Text = "User";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 15F);
-            this.label1.ForeColor = System.Drawing.Color.Firebrick;
-            this.label1.Location = new System.Drawing.Point(-5, -4);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(111, 54);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "User:";
             // 
             // Subform
             // 

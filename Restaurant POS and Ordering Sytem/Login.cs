@@ -48,7 +48,7 @@ namespace Restaurant_POS_and_Ordering_Sytem
                 try
                 {
                     connection.Open();
-                    string loginQuery = "SELECT uname,userpass, role FROM users WHERE username = @username";
+                    string loginQuery = "SELECT userID, uname, userpass, role FROM users WHERE username = @username";
 
                     using (MySqlCommand cmd = new MySqlCommand(loginQuery, connection))
                     {
@@ -58,12 +58,13 @@ namespace Restaurant_POS_and_Ordering_Sytem
                         {
                             if (reader.Read())
                             {
+                                int userID = Convert.ToInt32(reader["userID"]); // Retrieve the UserID
                                 string storedPasswordHash = reader["userpass"].ToString();
                                 if (VerifyPassword(enteredPassword, storedPasswordHash))
                                 {
                                     string username = reader["uname"].ToString();
                                     string userRole = reader["role"].ToString();
-                                    OpenFormBasedOnRole(enteredUsername, userRole, username);
+                                    OpenFormBasedOnRole(enteredUsername, userRole, username, userID); // Pass the UserID
                                 }
                                 else
                                 {
@@ -85,17 +86,17 @@ namespace Restaurant_POS_and_Ordering_Sytem
         }
 
 
-        private void OpenFormBasedOnRole(string enteredUsername, string userRole, string username)
+        private void OpenFormBasedOnRole(string enteredUsername, string userRole, string username, int userID)
         {
             if (userRole == "Admin")
             {
-                MainForm mainForm = new MainForm(username);
+                MainForm mainForm = new MainForm(username, userID); // Pass the UserID to MainForm
                 mainForm.Show();
                 this.Hide();
             }
             else if (userRole == "Cashier")
             {
-                Subform subForm = new Subform(username);
+                Subform subForm = new Subform(username, userID); // Pass the UserID to Subform
                 subForm.Show();
                 this.Hide();
             }

@@ -103,6 +103,12 @@
     <Compile Include="Models\frmAddUser.Designer.cs">
       <DependentUpon>frmAddUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\frmBillList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Models\frmBillList.Designer.cs">
+      <DependentUpon>frmBillList.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\frmStaffcategoryAdd.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -189,6 +195,12 @@
     <Compile Include="View\frmdashboardView.Designer.cs">
       <DependentUpon>frmdashboardView.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\frmKitchenView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\frmKitchenView.Designer.cs">
+      <DependentUpon>frmKitchenView.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\frmStaffCategoryView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -237,6 +249,9 @@
     <EmbeddedResource Include="Models\frmAddUser.resx">
       <DependentUpon>frmAddUser.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Models\frmBillList.resx">
+      <DependentUpon>frmBillList.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Models\frmStaffcategoryAdd.resx">
       <DependentUpon>frmStaffcategoryAdd.cs</DependentUpon>
     </EmbeddedResource>
@@ -280,6 +295,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\frmdashboardView.resx">
       <DependentUpon>frmdashboardView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\frmKitchenView.resx">
+      <DependentUpon>frmKitchenView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\frmStaffCategoryView.resx">
       <DependentUpon>frmStaffCategoryView.cs</DependentUpon>
@@ -463,6 +481,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\images2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-new-ticket-30.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-table.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-add-50.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-list-64 %281%291.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

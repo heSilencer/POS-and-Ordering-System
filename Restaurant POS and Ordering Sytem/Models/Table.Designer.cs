@@ -69,7 +69,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(562, 108);
+            this.panel1.Size = new System.Drawing.Size(647, 108);
             this.panel1.TabIndex = 8;
             // 
             // flowLayoutPanel1
@@ -77,13 +77,13 @@
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 108);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(562, 250);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(647, 281);
             this.flowLayoutPanel1.TabIndex = 9;
             // 
             // Table
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(562, 358);
+            this.ClientSize = new System.Drawing.Size(647, 389);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;

@@ -51,10 +51,10 @@
             this.BtnAllCategory = new Guna.UI2.WinForms.Guna2Button();
             this.ProductPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.guna2DataGridView1 = new Guna.UI2.WinForms.Guna2DataGridView();
-            this.txtSearch = new Guna.UI2.WinForms.Guna2TextBox();
             this.guna2Panel3 = new Guna.UI2.WinForms.Guna2Panel();
             this.lbltotal = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.txtSearch = new Guna.UI2.WinForms.Guna2TextBox();
             this.guna2Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
@@ -99,12 +99,12 @@
             this.btnAddnew.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.btnAddnew.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.btnAddnew.ForeColor = System.Drawing.Color.White;
-            this.btnAddnew.Image = ((System.Drawing.Image)(resources.GetObject("btnAddnew.Image")));
+            this.btnAddnew.Image = global::Restaurant_POS_and_Ordering_Sytem.Properties.Resources.icons8_new_ticket_30;
             this.btnAddnew.Location = new System.Drawing.Point(376, 8);
             this.btnAddnew.Name = "btnAddnew";
             this.btnAddnew.Size = new System.Drawing.Size(80, 80);
             this.btnAddnew.TabIndex = 5;
-            this.btnAddnew.Text = "                    Hold";
+            this.btnAddnew.Text = "                  Add  New";
             this.btnAddnew.Click += new System.EventHandler(this.btnAddnew_Click);
             // 
             // BtnAddOn
@@ -122,11 +122,12 @@
             this.BtnAddOn.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.BtnAddOn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.BtnAddOn.ForeColor = System.Drawing.Color.White;
+            this.BtnAddOn.Image = global::Restaurant_POS_and_Ordering_Sytem.Properties.Resources.icons8_add_50;
             this.BtnAddOn.Location = new System.Drawing.Point(892, 8);
             this.BtnAddOn.Name = "BtnAddOn";
             this.BtnAddOn.Size = new System.Drawing.Size(80, 80);
             this.BtnAddOn.TabIndex = 4;
-            this.BtnAddOn.Text = "Add On";
+            this.BtnAddOn.Text = "           Add On";
             this.BtnAddOn.Click += new System.EventHandler(this.BtnAddOn_Click);
             // 
             // BtnDineIn
@@ -144,6 +145,7 @@
             this.BtnDineIn.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.BtnDineIn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.BtnDineIn.ForeColor = System.Drawing.Color.White;
+            this.BtnDineIn.Image = global::Restaurant_POS_and_Ordering_Sytem.Properties.Resources.icons8_table;
             this.BtnDineIn.Location = new System.Drawing.Point(806, 8);
             this.BtnDineIn.Name = "BtnDineIn";
             this.BtnDineIn.Size = new System.Drawing.Size(80, 80);
@@ -248,9 +250,9 @@
             this.lbltxtWaiter.BackColor = System.Drawing.Color.Transparent;
             this.lbltxtWaiter.Font = new System.Drawing.Font("Segoe UI", 19.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbltxtWaiter.ForeColor = System.Drawing.Color.White;
-            this.lbltxtWaiter.Location = new System.Drawing.Point(974, 56);
+            this.lbltxtWaiter.Location = new System.Drawing.Point(974, 48);
             this.lbltxtWaiter.Name = "lbltxtWaiter";
-            this.lbltxtWaiter.Size = new System.Drawing.Size(128, 31);
+            this.lbltxtWaiter.Size = new System.Drawing.Size(128, 37);
             this.lbltxtWaiter.TabIndex = 2;
             this.lbltxtWaiter.Text = "Waiter";
             // 
@@ -259,7 +261,7 @@
             this.lbltxtTable.BackColor = System.Drawing.Color.Transparent;
             this.lbltxtTable.Font = new System.Drawing.Font("Segoe UI", 19.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbltxtTable.ForeColor = System.Drawing.Color.White;
-            this.lbltxtTable.Location = new System.Drawing.Point(974, 6);
+            this.lbltxtTable.Location = new System.Drawing.Point(974, 0);
             this.lbltxtTable.Name = "lbltxtTable";
             this.lbltxtTable.Size = new System.Drawing.Size(128, 39);
             this.lbltxtTable.TabIndex = 2;
@@ -412,29 +414,6 @@
             this.guna2DataGridView1.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
             this.guna2DataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.guna2DataGridView1_CellContentClick);
             // 
-            // txtSearch
-            // 
-            this.txtSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtSearch.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txtSearch.DefaultText = "";
-            this.txtSearch.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.txtSearch.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.txtSearch.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.txtSearch.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.txtSearch.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtSearch.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.txtSearch.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtSearch.IconRight = global::Restaurant_POS_and_Ordering_Sytem.Properties.Resources.icons8_search_48;
-            this.txtSearch.Location = new System.Drawing.Point(270, 95);
-            this.txtSearch.Margin = new System.Windows.Forms.Padding(6);
-            this.txtSearch.Name = "txtSearch";
-            this.txtSearch.PasswordChar = '\0';
-            this.txtSearch.PlaceholderText = "Search Here";
-            this.txtSearch.SelectedText = "";
-            this.txtSearch.Size = new System.Drawing.Size(301, 42);
-            this.txtSearch.TabIndex = 6;
-            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
-            // 
             // guna2Panel3
             // 
             this.guna2Panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
@@ -469,6 +448,29 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Total:";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // txtSearch
+            // 
+            this.txtSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSearch.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtSearch.DefaultText = "";
+            this.txtSearch.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.txtSearch.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.txtSearch.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtSearch.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtSearch.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtSearch.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txtSearch.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtSearch.IconRight = global::Restaurant_POS_and_Ordering_Sytem.Properties.Resources.icons8_search_48;
+            this.txtSearch.Location = new System.Drawing.Point(270, 95);
+            this.txtSearch.Margin = new System.Windows.Forms.Padding(6);
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.PasswordChar = '\0';
+            this.txtSearch.PlaceholderText = "Search Here";
+            this.txtSearch.SelectedText = "";
+            this.txtSearch.Size = new System.Drawing.Size(301, 42);
+            this.txtSearch.TabIndex = 6;
+            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
             // 
             // frmPos
             // 

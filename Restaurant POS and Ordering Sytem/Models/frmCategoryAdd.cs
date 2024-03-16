@@ -16,16 +16,19 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
 
 
     {
-        public event EventHandler CategoryUpdated;
+        public event EventHandler ProductUpdated;
         private int categoryId;
+        private Action<object, EventArgs> frmCategoryAdd_CategoryUpdated;
 
         public frmCategoryAdd()
         {
             InitializeComponent();
         }
 
-
-
+        public frmCategoryAdd(Action<object, EventArgs> frmCategoryAdd_CategoryUpdated)
+        {
+            this.frmCategoryAdd_CategoryUpdated = frmCategoryAdd_CategoryUpdated;
+        }
 
         public void SetCategoryInfo(int id, string categoryName)
         {
@@ -81,7 +84,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                             lblcat.Text = "";
 
                             // Directly refresh the DataGridView
-
+                            ProductUpdated?.Invoke(this, EventArgs.Empty);
                             // Close the current form
                             DialogResult result = MessageBox.Show("Successfully added");
                             OnCategoryUpdated();
@@ -104,6 +107,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
 
                             DialogResult result = MessageBox.Show("Successfully updated");
                             OnCategoryUpdated();
+                            this.Close();
 
 
                         }
@@ -117,7 +121,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
         }
         protected virtual void OnCategoryUpdated()
         {
-            CategoryUpdated?.Invoke(this, EventArgs.Empty);
+            ProductUpdated?.Invoke(this, EventArgs.Empty);
         }
         public void UpdateCategoryFormText()
         {

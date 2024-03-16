@@ -24,5 +24,10 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
             adduser.ShowDialog();
 
         }
+
+        private void btnAdd_Click_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }

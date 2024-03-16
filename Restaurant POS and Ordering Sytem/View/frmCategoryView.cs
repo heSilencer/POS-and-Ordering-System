@@ -71,9 +71,13 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
         }
         public override void btnAdd_Click(object sender, EventArgs e)
         {
-            frmCategoryAdd addCategoryForm = new frmCategoryAdd();
-            addCategoryForm.CategoryUpdated += FrmCategoryAdd_CategoryUpdated; // Subscribe to the event
-            addCategoryForm.ShowDialog();
+
+
+            var frmAddCategory = new frmCategoryAdd();
+            frmAddCategory.ProductUpdated += FrmCategoryAdd_CategoryUpdated;
+            MainClass.BlurbackGround(frmAddCategory);
+
+
 
         }
 
@@ -124,8 +128,8 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
 
                     if (result == DialogResult.Yes)
                     {
-                         DeleteCategory(catId);
-                        MessageBox.Show("Category deleted successfully");
+                         await DeleteCategory(catId);
+                       // MessageBox.Show("Category deleted successfully");
 
                         // Reload the data from the database after the action
                         cat_datagridview.Rows.Clear();
@@ -167,17 +171,12 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
         private void UpdateCategory(int catId)
         {
             // Implement your update logic here
-            frmCategoryAdd editForm = new frmCategoryAdd();
+            var editForm = new frmCategoryAdd();
             editForm.SetCategoryInfo(catId, GetCategoryName(catId));
-            editForm.CategoryUpdated += FrmCategoryAdd_CategoryUpdated;
+            editForm.ProductUpdated += FrmCategoryAdd_CategoryUpdated;
+            MainClass.BlurbackGround(editForm);
 
-            // Show the form as a dialog
-            if (editForm.ShowDialog() == DialogResult.OK)
-            {
-                // Reload the data from the database after the update action
-                cat_datagridview.Rows.Clear();
-                LoadDataFromDatabase();
-            }
+
         }
 
         private string GetCategoryName(int catId)

@@ -1,4 +1,5 @@
 ﻿using Restaurant_POS_and_Ordering_Sytem.Models;
+using Restaurant_POS_and_Ordering_Sytem.View;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,19 +15,25 @@ namespace Restaurant_POS_and_Ordering_Sytem
     public partial class Subform : Form
     {
         private string username;
-
+        private int userID;
         public Subform(string username)
         {
             InitializeComponent();
             this.username = username;
+            this.userID = userID;
+        }
+
+        public Subform(string username, int userID) : this(username)
+        {
+            this.userID = userID;
         }
 
         private void btnPOS_Click(object sender, EventArgs e)
         {
-            frmPos POS = new frmPos(username);
+            frmPos POS = new frmPos(username,userID);
 
             // Assuming you have a property to store the user role in SubForm
-            POS.UserRole = "cashier";
+            POS.userRole = "cashier";
 
             POS.Show();
         }
@@ -76,6 +83,19 @@ namespace Restaurant_POS_and_Ordering_Sytem
         private void Subform_Load(object sender, EventArgs e)
         {
             lbluser.Text = $" {username}!";
+        }
+
+        private void btnkitchen_Click(object sender, EventArgs e)
+        {
+            AddControls(new frmKitchenView());
+        }
+        public void AddControls(Form f)
+        {
+            ControlsPanel.Controls.Clear();
+            f.Dock = DockStyle.Fill;
+            f.TopLevel = false;
+            ControlsPanel.Controls.Add(f);
+            f.Show();
         }
     }
 }
