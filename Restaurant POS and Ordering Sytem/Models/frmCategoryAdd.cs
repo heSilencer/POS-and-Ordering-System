@@ -25,10 +25,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             InitializeComponent();
         }
 
-        public frmCategoryAdd(Action<object, EventArgs> frmCategoryAdd_CategoryUpdated)
-        {
-            this.frmCategoryAdd_CategoryUpdated = frmCategoryAdd_CategoryUpdated;
-        }
+     
 
         public void SetCategoryInfo(int id, string categoryName)
         {

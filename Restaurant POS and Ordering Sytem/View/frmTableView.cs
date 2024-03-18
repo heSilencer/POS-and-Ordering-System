@@ -57,6 +57,8 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
             deleteColumn.ImageLayout = DataGridViewImageCellLayout.Zoom;
             guna2DataGridView1.Columns.Add(deleteColumn);
 
+            guna2DataGridView1.DefaultCellStyle.Font = new Font("Segue", 14);
+            guna2DataGridView1.RowTemplate.Height = 40;
 
 
             // Handle the CellClick event to perform actions when the buttons are clicked
@@ -66,9 +68,9 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
       
         public override void btnAdd_Click(object sender, EventArgs e)
         {
-            frmTableAdd addTableForm = new frmTableAdd();
+            var addTableForm = new frmTableAdd();
             addTableForm.TableUpdated += FrmTableAdd_TableUpdated; // Subscribe to the event
-            addTableForm.ShowDialog();
+            MainClass.BlurbackGround(addTableForm);
 
         }
         public override void txtSearch_TextChanged(object sender, EventArgs e)
@@ -121,8 +123,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
                 else if (guna2DataGridView1.Columns[e.ColumnIndex].Name == "Update")
                 {
                     // Handle the update action
-                    frmTableAdd editForm = new frmTableAdd();
-                    editForm.Show();
+                 
                     UpdateTable(tableId);
                 }
             }
@@ -160,10 +161,10 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
         private void UpdateTable(int tableId)
         {
             // Implement your update logic here
-            frmTableAdd editForm = new frmTableAdd();
+            var editForm = new frmTableAdd();
             editForm.SetTableInfo(tableId, GetTableName(tableId));
             editForm.TableUpdated += FrmTableAdd_TableUpdated;
-            editForm.ShowDialog();
+            MainClass.BlurbackGround(editForm);
         }
         private string GetTableName(int tableId)
         {

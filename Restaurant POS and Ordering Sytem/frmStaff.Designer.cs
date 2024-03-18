@@ -60,7 +60,7 @@
             this.btnWaiter.Name = "btnWaiter";
             this.btnWaiter.Size = new System.Drawing.Size(208, 57);
             this.btnWaiter.TabIndex = 1;
-            this.btnWaiter.Text = "Staff";
+            this.btnWaiter.Text = "Staff Category";
             this.btnWaiter.Click += new System.EventHandler(this.btnWaiter_Click);
             // 
             // btnCashier
@@ -78,7 +78,7 @@
             this.btnCashier.Name = "btnCashier";
             this.btnCashier.Size = new System.Drawing.Size(208, 56);
             this.btnCashier.TabIndex = 2;
-            this.btnCashier.Text = "Staff Category";
+            this.btnCashier.Text = "Staff ";
             this.btnCashier.Click += new System.EventHandler(this.btnCashier_Click);
             // 
             // ControlsPanel

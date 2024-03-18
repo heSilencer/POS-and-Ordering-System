@@ -61,9 +61,20 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             guna2DataGridView1.Columns.Add(deleteColumn);
         }
 
+        public frmPos(int userID, int mainId)
+        {
+            this.userID = userID;
+            MainID = mainId;
+        }
+
+      
 
         public string OrderType;
         private int MainID;
+        private string productName;
+        private int quantity;
+        private decimal amount;
+        private decimal price;
 
         private void guna2PictureBox2_Click(object sender, EventArgs e)
         {
@@ -626,6 +637,9 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             return productID;
         }
 
-       
+        private void guna2Panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

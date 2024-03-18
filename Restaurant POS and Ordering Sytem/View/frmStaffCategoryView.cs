@@ -58,16 +58,17 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
             deleteColumn.ImageLayout = DataGridViewImageCellLayout.Zoom;
             guna2DataGridView1.Columns.Add(deleteColumn);
 
-
+            guna2DataGridView1.DefaultCellStyle.Font = new Font("Segue", 14);
+            guna2DataGridView1.RowTemplate.Height = 40;
 
             // Handle the CellClick event to perform actions when the buttons are clicked
             guna2DataGridView1.CellClick += GunaDataGridView2_CellClick;
         }
         public override void btnAdd_Click(object sender, EventArgs e)
         {
-            frmStaffcategoryAdd addCategoryForm = new frmStaffcategoryAdd();
+            var addCategoryForm = new frmStaffcategoryAdd();
             addCategoryForm.CategoryUpdated += FrmCategoryAdd_CategoryUpdated; // Subscribe to the event
-            addCategoryForm.ShowDialog();
+            MainClass.BlurbackGround(addCategoryForm);
 
         }
         public override void txtSearch_TextChanged(object sender, EventArgs e)
@@ -149,17 +150,12 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
         private void UpdateCategory(int catId)
         {
             // Implement your update logic here
-            frmStaffcategoryAdd editForm = new frmStaffcategoryAdd();
+            var editForm = new frmStaffcategoryAdd();
             editForm.SetCategoryInfo(catId, GetCategoryName(catId));
             editForm.CategoryUpdated += FrmCategoryAdd_CategoryUpdated;
-
+            MainClass.BlurbackGround(editForm);
             // Show the form as a dialog
-            if (editForm.ShowDialog() == DialogResult.OK)
-            {
-                // Reload the data from the database after the update action
-                guna2DataGridView1.Rows.Clear();
-                LoadDataFromDatabase();
-            }
+      
         }
 
 

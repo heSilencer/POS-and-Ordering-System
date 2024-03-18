@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
+using System.Text.RegularExpressions;
+
 namespace Restaurant_POS_and_Ordering_Sytem.Models
 {
     public partial class frmStaffAdd : Form
@@ -32,17 +34,39 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             lblEmail.Text = email;
             cmbxcat.SelectedItem = staffCategory;
 
-            // Check if it's an update, then change the button text
-            if (staffId > 0)
-            {
-                btnSave.Text = "Update";
-            }
+            // Change the button text to "Update" if staffId is greater than 0 (indicating an update)
+            btnSave.Text = staffId > 0 ? "Update" : "Save";
         }
+
 
 
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+        private bool IsValidEmail(string email)
+        {
+            // Simple email validation using regular expression
+            // This pattern checks for basic email format but may not cover all cases
+            string pattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
+            return Regex.IsMatch(email, pattern);
+        }
+
+        private bool IsValidPhoneNumber(string phone)
+        {
+            // Phone number validation: exactly 11 digits
+            string pattern = @"^\d{11}$";
+            return Regex.IsMatch(phone, pattern);
+        }
+        private bool EmailExists(string email, MySqlConnection connection)
+        {
+            string query = "SELECT COUNT(*) FROM tbl_staff WHERE staffEmail = @email";
+            using (MySqlCommand command = new MySqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@email", email);
+                int count = Convert.ToInt32(command.ExecuteScalar());
+                return count > 0;
+            }
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -68,72 +92,90 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                         MessageBox.Show("Please fill in all required fields.");
                         return;
                     }
-
-                    int categoryId = GetCategoryId(category);
-
-                    if (categoryId == -1)
+                    if (!IsValidEmail(email))
                     {
-                        MessageBox.Show("The selected category does not exist. Please choose a valid category.");
+                        MessageBox.Show("Please enter a valid email address.");
+                        return;
+                    }
+                    if (staffId == 0 && EmailExists(email, connection))
+                    {
+                        MessageBox.Show("Email already exists. Please use a different email address.");
                         return;
                     }
 
-                    // Your logic to get the image as byte[] (similar to the product example)
-
-
-                    string insertUpdateQuery;
-
-                    if (staffId == 0)
+                    // Validate phone number format
+                    if (!IsValidPhoneNumber(phone))
                     {
-                        // Insert a new staff
-                        insertUpdateQuery = "INSERT INTO tbl_staff (staffFname, staffLname, staffAddress, staffPhone, staffEmail, staffcatID, `Staff Category`) " +
-                                            "VALUES (@fname, @lname, @address, @phone, @email, @staffCategoryId, @staffCategory)";
+                        MessageBox.Show("Please enter a valid phone number with 11 digits.");
+                        return;
                     }
-                    else
-                    {
-                        // Update an existing staff
-                        insertUpdateQuery = "UPDATE tbl_staff SET staffFname = @fname, staffLname = @lname, staffAddress = @address, " +
-                                            "staffPhone = @phone, staffEmail = @email, staffcatID = @staffCategoryId, " +
-                                            "`Staff Category` = @staffCategory WHERE staffId = @staffId";
-                    }
+                        int categoryId = GetCategoryId(category);
 
-
-                    using (MySqlCommand command = new MySqlCommand(insertUpdateQuery, connection))
-                    {
-                        command.Parameters.AddWithValue("@staffId", staffId);
-                        command.Parameters.AddWithValue("@fname", fname);
-                        command.Parameters.AddWithValue("@lname", lname);
-                        command.Parameters.AddWithValue("@address", address);
-                        command.Parameters.AddWithValue("@phone", phone);
-                        command.Parameters.AddWithValue("@email", email);
-                        command.Parameters.AddWithValue("@staffCategoryId", categoryId);
-                        command.Parameters.AddWithValue("@staffCategory", category);
-
-                        // Add image parameter
-
-                        command.ExecuteNonQuery();
-
-                        MessageBox.Show(staffId == 0 ? "Staff added successfully!" : "Staff updated successfully!");
-
-                        // Your additional logic as needed
-
-                        lblfname.Text = "";
-                        lblLname.Text = "";
-                        lblAddress.Text = "";
-                        lblPhone.Text = "";
-                        lblEmail.Text = "";
-                        cmbxcat.SelectedItem = null;
-
-                        OnStaffUpdated();
-                        if (staffId != 0)
+                        if (categoryId == -1)
                         {
-                            // Close the form only if it was an update operation
-                            this.Close();
+                            MessageBox.Show("The selected category does not exist. Please choose a valid category.");
+                            return;
                         }
 
-                        // Dispose of the image properly
-                        // Your logic to dispose of the image
+
+
+
+                        string insertUpdateQuery;
+
+                        if (staffId == 0)
+                        {
+                            // Insert a new staff
+                            insertUpdateQuery = "INSERT INTO tbl_staff (staffFname, staffLname, staffAddress, staffPhone, staffEmail, staffcatID, `Staff Category`) " +
+                                                "VALUES (@fname, @lname, @address, @phone, @email, @staffCategoryId, @staffCategory)";
+                        }
+                        else
+                        {
+                            // Update an existing staff
+                            insertUpdateQuery = "UPDATE tbl_staff SET staffFname = @fname, staffLname = @lname, staffAddress = @address, " +
+                                                "staffPhone = @phone, staffEmail = @email, staffcatID = @staffCategoryId, " +
+                                                "`Staff Category` = @staffCategory WHERE staffId = @staffId";
+                        }
+
+
+                        using (MySqlCommand command = new MySqlCommand(insertUpdateQuery, connection))
+                        {
+                            command.Parameters.AddWithValue("@staffId", staffId);
+                            command.Parameters.AddWithValue("@fname", fname);
+                            command.Parameters.AddWithValue("@lname", lname);
+                            command.Parameters.AddWithValue("@address", address);
+                            command.Parameters.AddWithValue("@phone", phone);
+                            command.Parameters.AddWithValue("@email", email);
+                            command.Parameters.AddWithValue("@staffCategoryId", categoryId);
+                            command.Parameters.AddWithValue("@staffCategory", category);
+
+                            // Add image parameter
+
+                            command.ExecuteNonQuery();
+
+                            MessageBox.Show(staffId == 0 ? "Staff added successfully!" : "Staff updated successfully!");
+
+                            // Your additional logic as needed
+
+                            lblfname.Text = "";
+                            lblLname.Text = "";
+                            lblAddress.Text = "";
+                            lblPhone.Text = "";
+                            lblEmail.Text = "";
+                            cmbxcat.SelectedItem = null;
+
+                            OnStaffUpdated();
+                            if (staffId != 0)
+                            {
+                                // Close the form only if it was an update operation
+                                this.Close();
+                            }
+
+                            // Dispose of the image properly
+                            // Your logic to dispose of the image
+                        }
                     }
-                }
+                
+
             }
             catch (Exception ex)
             {
@@ -221,8 +263,9 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             StaffUpdated?.Invoke(this, EventArgs.Empty);
         }
 
-      
-     
-
+        internal void SetCategoryInfo(object catId, StaffInfo staffInfo)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

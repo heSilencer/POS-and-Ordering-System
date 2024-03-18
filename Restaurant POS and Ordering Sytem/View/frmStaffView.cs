@@ -43,6 +43,8 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
             updateColumn.ImageLayout = DataGridViewImageCellLayout.Zoom;
 
             guna2DataGridView1.Columns.Add(updateColumn);
+            guna2DataGridView1.DefaultCellStyle.Font = new Font("Segue", 14);
+            guna2DataGridView1.RowTemplate.Height = 40;
 
             DataGridViewImageColumn deleteColumn = new DataGridViewImageColumn();
             deleteColumn.Image = Properties.Resources.deleteicon; // Replace with your actual delete icon
@@ -72,10 +74,10 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
         }
         public override void btnAdd_Click(object sender, EventArgs e)
         {
-            frmStaffAdd addSatffForm = new frmStaffAdd();
-           // MainClass.BlurbackGround(new frmStaffAdd);
+            var addSatffForm = new frmStaffAdd();
+          
             addSatffForm.StaffUpdated += FrmStaffAdd_staffUpdated; // Subscribe to the event
-            addSatffForm.ShowDialog();
+            MainClass.BlurbackGround(addSatffForm);
 
         }
         public override void txtSearch_TextChanged(object sender, EventArgs e)
@@ -121,7 +123,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
                 }
                 else if (guna2DataGridView1.Columns[e.ColumnIndex].Name == "Update")
                 {
-                    await UpdateStaff(staffId);
+                     await UpdateStaff(staffId);
                 }
             }
         }
@@ -190,21 +192,23 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
 
         private async Task UpdateStaff(int staffId)
         {
-            frmStaffAdd editForm = new frmStaffAdd();
+            var editForm = new frmStaffAdd();
 
+            // Retrieve staff information using GetStaffInfo method
             StaffInfo staffInfo = GetStaffInfo(staffId);
 
+            // Set staff information in the frmStaffAdd form using SetStaffInfo method
             editForm.SetStaffInfo(staffId, staffInfo.Fname, staffInfo.Lname, staffInfo.Address, staffInfo.Phone, staffInfo.Email, staffInfo.Category);
 
+            // Subscribe to the StaffUpdated event
             editForm.StaffUpdated += FrmStaffAdd_staffUpdated;
 
-            if (editForm.ShowDialog() == DialogResult.OK)
-            {
-                guna2DataGridView1.Rows.Clear();
-                LoadStaffDataFromDatabase();
-            }
+            // Show the form
+            MainClass.BlurbackGround(editForm);
+
         }
 
+        // Method to retrieve staff information from the database
         private StaffInfo GetStaffInfo(int staffId)
         {
             using (MySqlConnection connection = new MySqlConnection(connectionString))
@@ -246,9 +250,16 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
                 return null;
             }
         }
-
-
-
+        public class StaffInfo
+        {
+            public int StaffId { get; set; }
+            public string Fname { get; set; }
+            public string Lname { get; set; }
+            public string Address { get; set; }
+            public string Phone { get; set; }
+            public string Email { get; set; }
+            public string Category { get; set; }
+        }
 
     }
 }

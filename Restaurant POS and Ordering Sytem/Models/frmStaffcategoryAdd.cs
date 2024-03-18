@@ -87,6 +87,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
 
                             DialogResult result = MessageBox.Show("Successfully updated");
                             OnCategoryUpdated();
+                            this.Close();
 
 
                         }

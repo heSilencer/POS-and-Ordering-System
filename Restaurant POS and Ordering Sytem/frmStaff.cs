@@ -28,12 +28,13 @@ namespace Restaurant_POS_and_Ordering_Sytem
 
         private void btnWaiter_Click(object sender, EventArgs e)
         {
-            AddControls(new frmStaffView());
+           
+            AddControls(new frmStaffCategoryView());
         }
 
         private void btnCashier_Click(object sender, EventArgs e)
         {
-            AddControls(new frmStaffCategoryView());
+            AddControls(new frmStaffView());
         }
     }
 }
