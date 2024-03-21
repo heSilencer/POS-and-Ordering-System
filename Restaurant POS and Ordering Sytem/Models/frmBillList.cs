@@ -86,7 +86,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                 }
             }
         }
-        private string GetStatusFromMainID(int mainID)
+        private string GetStatusFromMainID(int MainID)
         {
             string status = "";
             string query = "SELECT Status FROM tblMain WHERE MainID = @mainID";
@@ -96,7 +96,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                 connection.Open();
                 using (MySqlCommand cmd = new MySqlCommand(query, connection))
                 {
-                    cmd.Parameters.AddWithValue("@mainID", mainID);
+                    cmd.Parameters.AddWithValue("@mainID", MainID);
                     var result = cmd.ExecuteScalar();
                     if (result != null)
                     {

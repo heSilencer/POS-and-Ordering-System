@@ -33,7 +33,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             InitializeDataGridView();
 
         }
-     
+
         private void InitializeDataGridView()
         {
             // Add columns to the DataGridView
@@ -76,11 +76,11 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             MainID = mainId;
         }
 
-      
+
 
         public string OrderType;
         private int MainID;
-      
+
 
         private void guna2PictureBox2_Click(object sender, EventArgs e)
         {
@@ -97,7 +97,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             }
             else if (userRole == "cashier")
             {
-                Subform subForm = new Subform(username, userID,mainID); // Pass the UserID to Subform
+                Subform subForm = new Subform(username, userID, mainID); // Pass the UserID to Subform
                 subForm.Show();
                 this.Hide();
             }
@@ -440,7 +440,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             lbltotal.Visible = true;
             guna2DataGridView1.Rows.Clear();
         }
-     
+
         private void btnHold_Click(object sender, EventArgs e)
         {
             DateTime currentDate = DateTime.Now;
@@ -578,6 +578,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                     }
                 }
             }
+            MainID = mainID;
             UpdateTotalAmount();
         }
 
@@ -661,6 +662,8 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
 
             // Optionally, you can also reset the total amount label
             lbltotal.Text = "$0.00";
+            lbltxtTable.Text = "";
+            lbltxtWaiter.Text = "";
         }
         private void InsertIntoDetail(int mainID)
         {
@@ -718,39 +721,56 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
 
         }
 
+        private double CalculateTotalAmount()
+        {
+            double totalAmount = 0;
+            foreach (DataGridViewRow row in guna2DataGridView1.Rows)
+            {
+                if (!row.IsNewRow)
+                {
+                    double amount = Convert.ToDouble(row.Cells["Amount"].Value);
+                    totalAmount += amount;
+                }
+            }
+            return totalAmount;
+        }
+        private List<OrderDetail> GetOrderDetails()
+        {
+            List<OrderDetail> orderDetails = new List<OrderDetail>();
 
+            foreach (DataGridViewRow row in guna2DataGridView1.Rows)
+            {
+                OrderDetail detail = new OrderDetail
+                {
+                    ProductName = row.Cells["Name"].Value.ToString(),
+                    Quantity = Convert.ToInt32(row.Cells["Qty"].Value),
+                    Price = Convert.ToDouble(row.Cells["Price"].Value),
+                    Amount = Convert.ToDouble(row.Cells["Amount"].Value)
+                };
+                orderDetails.Add(detail);
+            }
+
+            return orderDetails;
+        }
+
+       
 
         private void btnCheckOut_Click_1(object sender, EventArgs e)
         {
-            if (MainID > 0)
-            {
-                // Proceed with checkout using SelectedMainID
-                LoadEntries(MainID);
-                UpdateTotalAmount(); // Update the total amount
+            double totalAmount = CalculateTotalAmount();
+            List<OrderDetail> orderDetails = GetOrderDetails();
 
-                // Prepare order details to pass to frmCheckOut
-                List<OrderDetail> orderDetails = new List<OrderDetail>();
-                foreach (DataGridViewRow row in guna2DataGridView1.Rows)
-                {
-                    OrderDetail detail = new OrderDetail
-                    {
-                        ProductName = row.Cells["Name"].Value.ToString(),
-                        Quantity = Convert.ToInt32(row.Cells["Qty"].Value),
-                        Price = Convert.ToDouble(row.Cells["Price"].Value),
-                        Amount = Convert.ToDouble(row.Cells["Amount"].Value)
-                    };
-                    orderDetails.Add(detail);
-                }
-
-                // Show the frmCheckOut form and pass the total amount and order details
-                frmCheckOut frmCO = new frmCheckOut(totalAmount, orderDetails, MainID);
-                MainClass.BlurbackGround(frmCO);
-            }
-            else
-            {
-                MessageBox.Show("Please select a row from the bill list to proceed with checkout.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            // Load entries and retrieve the MainID
+            LoadEntries(MainID);
+            guna2DataGridView1.Rows.Clear();
+            lbltotal.Text = "$0.00";
+            lbltxtTable.Text = "";
+            lbltxtWaiter.Text = "";
+            // Open the checkout form and pass all required parameters
+            frmCheckOut checkoutForm = new frmCheckOut(totalAmount, orderDetails, MainID);
+            MainClass.BlurbackGround(checkoutForm);
         }
+
     }
-  }
+}
 

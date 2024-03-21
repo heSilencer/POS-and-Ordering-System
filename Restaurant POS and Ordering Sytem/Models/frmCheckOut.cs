@@ -15,18 +15,22 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
     {
         string connectionString = @"server=localhost;database=pos_ordering_system;userid=root;password=;";
         private double totalAmount;
-        private List<OrderDetail> orderDetails;
-        private int mainID;
+        private int MainID;
         private double receivedAmount;
+        private List<OrderDetail> orderDetails;
         public frmCheckOut(double totalAmount, List<OrderDetail> orderDetails, int mainID)
         {
             InitializeComponent();
             this.totalAmount = totalAmount;
+            this.totalAmount = totalAmount;
             this.orderDetails = orderDetails;
-            this.mainID = mainID;
+            this.MainID = mainID;
+            txtBillAmount.Text = totalAmount.ToString();
+            txtChange.ReadOnly = true;
+            txtBillAmount.ReadOnly = true;
         }
-        
-        
+
+       
         private void txtBillAmount_TextChanged(object sender, EventArgs e)
         {
 
@@ -34,9 +38,9 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if (!double.TryParse(txtpRecieve.Text, out receivedAmount))
+            if (string.IsNullOrEmpty(txtpRecieve.Text) || !double.TryParse(txtpRecieve.Text, out receivedAmount))
             {
-                MessageBox.Show("Invalid input for received amount.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Please enter a valid received amount.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -44,7 +48,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             double change = receivedAmount - totalAmount;
 
             // Display the change in the txtChange textbox
-            txtChange.Text = change.ToString();
+            txtChange.Text = change.ToString("F2"); // Format the change to display with two decimal places
 
             // Update tblMain table in the database with the received amount and change
             UpdateMainTable(receivedAmount, change);
@@ -58,7 +62,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
         }
         private void UpdateMainTable(double receivedAmount, double change)
         {
-            string query = "UPDATE tblMain SET Received = @receivedAmount, Change = @change WHERE MainID = @mainID;";
+            string query = "UPDATE tblMain SET Received = @receivedAmount, `Change` = @change, Status = 'Check Out' WHERE MainID = @mainID;";
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
@@ -66,7 +70,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                 {
                     cmd.Parameters.AddWithValue("@receivedAmount", receivedAmount);
                     cmd.Parameters.AddWithValue("@change", change);
-                    cmd.Parameters.AddWithValue("@mainID", mainID);
+                    cmd.Parameters.AddWithValue("@mainID", MainID);
 
                     try
                     {
@@ -83,7 +87,36 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
         private void frmCheckOut_Load(object sender, EventArgs e)
         {
             txtBillAmount.Text = totalAmount.ToString();
+            UpdateChange();
         }
+
+        private void txtpRecieve_TextChanged(object sender, EventArgs e)
+        {
+            UpdateChange();
+        }
+        private void UpdateChange()
+        {
+            if (double.TryParse(txtpRecieve.Text, out receivedAmount))
+            {
+                // Calculate the change
+                double change = receivedAmount - totalAmount;
+
+                // Display the change in the txtChange textbox
+                txtChange.Text = change.ToString("F2"); // Format the change to display with two decimal places
+            }
+            else
+            {
+                // Clear the change textbox if the entered value is not a valid number
+                txtChange.Clear();
+            }
+         
+        }
+
+        private void txtChange_TextChanged(object sender, EventArgs e)
+        {
+           
+        }
+     
     }
 }
 public class OrderDetail
