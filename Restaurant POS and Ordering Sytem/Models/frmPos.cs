@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using Restaurant_POS_and_Ordering_Sytem.View;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,13 +22,21 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
         public string userRole { get; set; }
         private string username;
         private int userID;
-
-        public frmPos(string username, int userID)
+        private int mainID;
+        private double totalAmount;
+        public frmPos(string username, int userID, int mainID)
         {
             InitializeComponent();
             this.username = username;
             this.userID = userID;
+            this.mainID = mainID;
+            InitializeDataGridView();
 
+        }
+     
+        private void InitializeDataGridView()
+        {
+            // Add columns to the DataGridView
             guna2DataGridView1.Columns.Add("Sr#", "Sr#");
             guna2DataGridView1.Columns.Add("Name", "Name");
             guna2DataGridView1.Columns.Add("Qty", "Qty");
@@ -35,7 +44,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             guna2DataGridView1.Columns.Add("Amount", "Amount");
 
             // Adjust the font size
-            guna2DataGridView1.DefaultCellStyle.Font = new Font("Segoe UI", 13);
+            guna2DataGridView1.DefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 13);
 
             // Set the height of the header
             guna2DataGridView1.ColumnHeadersHeight = 40; // Adjust the height as needed
@@ -71,10 +80,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
 
         public string OrderType;
         private int MainID;
-        private string productName;
-        private int quantity;
-        private decimal amount;
-        private decimal price;
+      
 
         private void guna2PictureBox2_Click(object sender, EventArgs e)
         {
@@ -91,7 +97,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             }
             else if (userRole == "cashier")
             {
-                Subform subForm = new Subform(username, userID); // Pass the UserID to Subform
+                Subform subForm = new Subform(username, userID,mainID); // Pass the UserID to Subform
                 subForm.Show();
                 this.Hide();
             }
@@ -419,7 +425,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             lbltxtWaiter.Text = "";
             lbltxtTable.Visible = false;
             lbltxtWaiter.Visible = false;
-            OrderType = "Take Away";
+            OrderType = "Take Out";
         }
 
         private void btnAddnew_Click(object sender, EventArgs e)
@@ -499,12 +505,82 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             return mainID;
         }
 
-
+        public int id = 0;
         private void BtnBillList_Click(object sender, EventArgs e)
         {
             frmBillList bl = new frmBillList();
+            bl.FormClosed += (s, ev) =>
+            {
+                if (bl.MainID != 0)
+                {
+                    LoadEntries(bl.MainID);
+                }
+            };
             MainClass.BlurbackGround(bl);
+
         }
+        private void LoadEntries(int mainID)
+        {
+            string query = @"SELECT d.prodID, p.prodName, d.qty, d.price, d.amount, m.tableName, m.waiterName 
+                     FROM tbldetails d 
+                     INNER JOIN tbl_products p ON d.prodID = p.prodID 
+                     INNER JOIN tblMain m ON d.MainID = m.MainID 
+                     WHERE d.MainID = @mainID;";
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+                using (MySqlCommand cmd = new MySqlCommand(query, connection))
+                {
+                    cmd.Parameters.AddWithValue("@mainID", mainID);
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            string tableName = reader.GetString("tableName");
+                            string waiterName = reader.GetString("waiterName");
+
+                            // Display table name and waiter name in labels
+                            lbltxtTable.Text = tableName;
+                            lbltxtWaiter.Text = waiterName;
+
+                            // Clear DataGridView before adding new entries
+                            guna2DataGridView1.Rows.Clear();
+
+                            // Read remaining rows and add data to the DataGridView
+                            do
+                            {
+                                int productID = reader.GetInt32("prodID");
+                                string productName = reader.GetString("prodName");
+                                int quantity = reader.GetInt32("qty");
+                                double price = reader.GetDouble("price");
+                                double amount = reader.GetDouble("amount");
+
+                                // Add the data to the DataGridView
+                                int rowIndex = guna2DataGridView1.Rows.Add();
+                                guna2DataGridView1.Rows[rowIndex].Cells["Sr#"].Value = (rowIndex + 1).ToString();
+                                guna2DataGridView1.Rows[rowIndex].Cells["Name"].Value = productName;
+                                guna2DataGridView1.Rows[rowIndex].Cells["Qty"].Value = quantity.ToString();
+                                guna2DataGridView1.Rows[rowIndex].Cells["Price"].Value = price.ToString();
+                                guna2DataGridView1.Rows[rowIndex].Cells["Amount"].Value = amount.ToString();
+                            } while (reader.Read());
+
+                            // Hide the delete icon column
+                            guna2DataGridView1.Columns["Delete"].Visible = false;
+                        }
+                        else
+                        {
+                            // If no data found, clear labels and DataGridView
+                            lbltxtTable.Text = "";
+                            lbltxtWaiter.Text = "";
+                            guna2DataGridView1.Rows.Clear();
+                        }
+                    }
+                }
+            }
+            UpdateTotalAmount();
+        }
+
 
 
 
@@ -641,5 +717,40 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
         {
 
         }
+
+
+
+        private void btnCheckOut_Click_1(object sender, EventArgs e)
+        {
+            if (MainID > 0)
+            {
+                // Proceed with checkout using SelectedMainID
+                LoadEntries(MainID);
+                UpdateTotalAmount(); // Update the total amount
+
+                // Prepare order details to pass to frmCheckOut
+                List<OrderDetail> orderDetails = new List<OrderDetail>();
+                foreach (DataGridViewRow row in guna2DataGridView1.Rows)
+                {
+                    OrderDetail detail = new OrderDetail
+                    {
+                        ProductName = row.Cells["Name"].Value.ToString(),
+                        Quantity = Convert.ToInt32(row.Cells["Qty"].Value),
+                        Price = Convert.ToDouble(row.Cells["Price"].Value),
+                        Amount = Convert.ToDouble(row.Cells["Amount"].Value)
+                    };
+                    orderDetails.Add(detail);
+                }
+
+                // Show the frmCheckOut form and pass the total amount and order details
+                frmCheckOut frmCO = new frmCheckOut(totalAmount, orderDetails, MainID);
+                MainClass.BlurbackGround(frmCO);
+            }
+            else
+            {
+                MessageBox.Show("Please select a row from the bill list to proceed with checkout.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
-}
+  }
+

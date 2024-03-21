@@ -20,7 +20,7 @@ namespace Restaurant_POS_and_Ordering_Sytem
 
 
         private string username;
-
+        private int mainID;
         public frmlogin()
         {
             InitializeComponent();
@@ -64,7 +64,7 @@ namespace Restaurant_POS_and_Ordering_Sytem
                                 {
                                     string username = reader["uname"].ToString();
                                     string userRole = reader["role"].ToString();
-                                    OpenFormBasedOnRole(enteredUsername, userRole, username, userID); // Pass the UserID
+                                    OpenFormBasedOnRole(enteredUsername, userRole, username, userID,mainID); // Pass the UserID
                                 }
                                 else
                                 {
@@ -86,7 +86,7 @@ namespace Restaurant_POS_and_Ordering_Sytem
         }
 
 
-        private void OpenFormBasedOnRole(string enteredUsername, string userRole, string username, int userID)
+        private void OpenFormBasedOnRole(string enteredUsername, string userRole, string username, int userID, int mainID)
         {
             if (userRole == "Admin")
             {
@@ -96,7 +96,7 @@ namespace Restaurant_POS_and_Ordering_Sytem
             }
             else if (userRole == "Cashier")
             {
-                Subform subForm = new Subform(username, userID); // Pass the UserID to Subform
+                Subform subForm = new Subform(username, userID,mainID); // Pass the UserID to Subform
                 subForm.Show();
                 this.Hide();
             }

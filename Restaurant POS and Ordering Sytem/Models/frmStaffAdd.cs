@@ -267,5 +267,16 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
         {
             throw new NotImplementedException();
         }
+
+        private void btnBrowse_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            openFileDialog.Filter = "Choose Image(*.jpg;*.png;*.png;)|*.jpg;*.png;*.png;";
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                StaffImage.Image = Image.FromFile(openFileDialog.FileName);
+            }
+        }
     }
 }

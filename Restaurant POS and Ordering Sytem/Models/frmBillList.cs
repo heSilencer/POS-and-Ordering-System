@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+//using Restaurant_POS_and_Ordering_Sytem.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,24 +16,19 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
     {
         string connectionString = @"server=localhost;database=pos_ordering_system;userid=root;password=;";
         private int userID;
-
+        private string username;
+        public int MainID = 0;
         public frmBillList()
         {
             InitializeComponent();
-            InitializeDataGridView();
-            LoadBillData();
-
-        }
-        private void InitializeDataGridView()
-        {
-            cat_datagridview.Columns.Add("MainID", "MainID"); // Hidden column for MainID
-            cat_datagridview.Columns["MainID"].Visible = false; // Hide MainID column
-            cat_datagridview.Columns.Add("Sr#", "Sr#"); // Column for row count
-            cat_datagridview.Columns.Add("Table", "Table");
-            cat_datagridview.Columns.Add("Waiter", "Waiter");
-            cat_datagridview.Columns.Add("OrderType", "Order Type");
-            cat_datagridview.Columns.Add("Status", "Status");
-            cat_datagridview.Columns.Add("Total", "Total");
+            dgvBillList.Columns.Add("MainID", "MainID"); // Hidden column for MainID
+            dgvBillList.Columns["MainID"].Visible = false; // Hide MainID column
+            dgvBillList.Columns.Add("Sr#", "Sr#"); // Column for row count
+            dgvBillList.Columns.Add("Table", "Table");
+            dgvBillList.Columns.Add("Waiter", "Waiter");
+            dgvBillList.Columns.Add("OrderType", "Order Type");
+            dgvBillList.Columns.Add("Status", "Status");
+            dgvBillList.Columns.Add("Total", "Total");
 
             // Add column for update icon
             DataGridViewImageColumn updateColumn = new DataGridViewImageColumn();
@@ -45,25 +41,73 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             updateColumn.FillWeight = 30;
             updateColumn.MinimumWidth = 30;
             updateColumn.ImageLayout = DataGridViewImageCellLayout.Zoom;
-            cat_datagridview.Columns.Add(updateColumn);
+            dgvBillList.Columns.Add(updateColumn);
 
             // Set the width of each column
-            cat_datagridview.Columns["Sr#"].Width = 50;
-            cat_datagridview.Columns["Table"].Width = 80;
-            cat_datagridview.Columns["Waiter"].Width = 80;
-            cat_datagridview.Columns["OrderType"].Width = 80;
-            cat_datagridview.Columns["Status"].Width = 80;
-            cat_datagridview.Columns["Total"].Width = 80;
+            dgvBillList.Columns["Sr#"].Width = 50;
+            dgvBillList.Columns["Table"].Width = 80;
+            dgvBillList.Columns["Waiter"].Width = 80;
+            dgvBillList.Columns["OrderType"].Width = 80;
+            dgvBillList.Columns["Status"].Width = 80;
+            dgvBillList.Columns["Total"].Width = 80;
 
             // Set any additional properties for the DataGridView as needed
-            cat_datagridview.DefaultCellStyle.Font = new Font("Segoe UI", 13);
+            dgvBillList.DefaultCellStyle.Font = new Font("Segoe UI", 14);
             // Set the height of the header
-            cat_datagridview.ColumnHeadersHeight = 40;
+            dgvBillList.ColumnHeadersHeight = 40;
+            dgvBillList.RowTemplate.Height = 45;
+            dgvBillList.ColumnHeadersDefaultCellStyle.BackColor = Color.Gray;
+            dgvBillList.ColumnHeadersDefaultCellStyle.Font = new Font("Arial", 12, FontStyle.Regular);
 
             // Handle CellClick event for editing
-            //cat_datagridview.CellClick += Guna2DataGridViewProducts_CellClick;
-
+            dgvBillList.CellClick += Guna2DataGridViewProducts_CellClick;
+            LoadBillData();
         }
+        private void Guna2DataGridViewProducts_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == dgvBillList.Columns["Update"].Index && e.RowIndex >= 0)
+            {
+                MainID = Convert.ToInt32(dgvBillList.Rows[e.RowIndex].Cells["MainID"].Value);
+                string status = GetStatusFromMainID(MainID);
+
+                // Check if the status is not pending, Hold, or Check Out
+                if (status != "Pending" && status != "Hold" && status != "Check Out")
+                {
+                    // Proceed with updating
+                    this.Close(); // Close the frmBillList form
+                                  // You can perform additional actions here if needed
+                }
+                else
+                {
+                    // Display a message indicating that the action cannot be performed for the current status
+                    guna2MessageDialog1.Show("Cannot proceed with update for orders with status: " + status + "");
+                   
+
+                }
+            }
+        }
+        private string GetStatusFromMainID(int mainID)
+        {
+            string status = "";
+            string query = "SELECT Status FROM tblMain WHERE MainID = @mainID";
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+                using (MySqlCommand cmd = new MySqlCommand(query, connection))
+                {
+                    cmd.Parameters.AddWithValue("@mainID", mainID);
+                    var result = cmd.ExecuteScalar();
+                    if (result != null)
+                    {
+                        status = result.ToString();
+                    }
+                }
+            }
+
+            return status;
+        }
+
 
         private void LoadBillData()
         {
@@ -92,7 +136,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                             string status = row["Status"].ToString();
                             string total = row["Total"].ToString();
 
-                            cat_datagridview.Rows.Add(mainID, srNumber, table, waiter, orderType, status, total);
+                            dgvBillList.Rows.Add(mainID, srNumber, table, waiter, orderType, status, total);
                             srNumber++;
                         }
                     }
@@ -104,11 +148,27 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             }
         }
 
-     
-        private void frmBillList_Load(object sender, EventArgs e)
+        private void txtSearch_TextChanged(object sender, EventArgs e)
         {
-          
+            string searchText = txtSearch.Text.Trim().ToLower(); // Convert to lowercase and remove leading/trailing whitespace
+
+            foreach (DataGridViewRow row in dgvBillList.Rows)
+            {
+                string tableValue = row.Cells["Table"].Value?.ToString().Trim().ToLower() ?? "";
+                string waiterValue = row.Cells["Waiter"].Value?.ToString().Trim().ToLower() ?? "";
+                string statusValue = row.Cells["Status"].Value?.ToString().Trim().ToLower() ?? "";
+                string orderTypeValue = row.Cells["OrderType"].Value?.ToString().Trim().ToLower() ?? "";
+
+                if (tableValue.Contains(searchText) || waiterValue.Contains(searchText) ||
+                    statusValue.Contains(searchText) || orderTypeValue.Contains(searchText))
+                {
+                    row.Visible = true;
+                }
+                else
+                {
+                    row.Visible = false;
+                }
+            }
         }
-      
     }
 }

@@ -30,7 +30,6 @@
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
-            this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnClose = new Guna.UI2.WinForms.Guna2Button();
             this.btnSave = new Guna.UI2.WinForms.Guna2Button();
@@ -46,9 +45,14 @@
             this.label6 = new System.Windows.Forms.Label();
             this.cmbxcat = new Guna.UI2.WinForms.Guna2ComboBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.btnBrowse = new Guna.UI2.WinForms.Guna2Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.StaffImage = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.StaffImage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -59,7 +63,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(495, 108);
+            this.panel1.Size = new System.Drawing.Size(660, 108);
             this.panel1.TabIndex = 7;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
@@ -71,22 +75,9 @@
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(129, 36);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(339, 72);
+            this.label1.Size = new System.Drawing.Size(173, 37);
             this.label1.TabIndex = 2;
             this.label1.Text = "Staff Details";
-            // 
-            // guna2PictureBox1
-            // 
-            this.guna2PictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.guna2PictureBox1.Image = global::Restaurant_POS_and_Ordering_Sytem.Properties.Resources.icons8_staff_502;
-            this.guna2PictureBox1.ImageRotate = 0F;
-            this.guna2PictureBox1.Location = new System.Drawing.Point(30, 12);
-            this.guna2PictureBox1.Name = "guna2PictureBox1";
-            this.guna2PictureBox1.Size = new System.Drawing.Size(84, 80);
-            this.guna2PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.guna2PictureBox1.TabIndex = 1;
-            this.guna2PictureBox1.TabStop = false;
-            this.guna2PictureBox1.UseTransparentBackground = true;
             // 
             // panel2
             // 
@@ -96,7 +87,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel2.Location = new System.Drawing.Point(0, 409);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(495, 72);
+            this.panel2.Size = new System.Drawing.Size(660, 72);
             this.panel2.TabIndex = 8;
             // 
             // btnClose
@@ -110,7 +101,7 @@
             this.btnClose.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnClose.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnClose.ForeColor = System.Drawing.Color.White;
-            this.btnClose.Location = new System.Drawing.Point(364, 7);
+            this.btnClose.Location = new System.Drawing.Point(521, 5);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(127, 58);
             this.btnClose.TabIndex = 0;
@@ -128,7 +119,7 @@
             this.btnSave.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.btnSave.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnSave.ForeColor = System.Drawing.Color.White;
-            this.btnSave.Location = new System.Drawing.Point(222, 10);
+            this.btnSave.Location = new System.Drawing.Point(379, 8);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(127, 55);
             this.btnSave.TabIndex = 0;
@@ -141,7 +132,7 @@
             this.label2.Font = new System.Drawing.Font("Segoe UI", 17F);
             this.label2.Location = new System.Drawing.Point(19, 123);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(246, 62);
+            this.label2.Size = new System.Drawing.Size(124, 31);
             this.label2.TabIndex = 10;
             this.label2.Text = "First Name";
             // 
@@ -173,7 +164,7 @@
             this.label3.Font = new System.Drawing.Font("Segoe UI", 17F);
             this.label3.Location = new System.Drawing.Point(19, 213);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(242, 62);
+            this.label3.Size = new System.Drawing.Size(122, 31);
             this.label3.TabIndex = 12;
             this.label3.Text = "Last Name";
             // 
@@ -205,7 +196,7 @@
             this.label4.Font = new System.Drawing.Font("Segoe UI", 17F);
             this.label4.Location = new System.Drawing.Point(19, 304);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(191, 62);
+            this.label4.Size = new System.Drawing.Size(97, 31);
             this.label4.TabIndex = 14;
             this.label4.Text = "Address";
             // 
@@ -281,7 +272,7 @@
             this.label5.Font = new System.Drawing.Font("Segoe UI", 17F);
             this.label5.Location = new System.Drawing.Point(267, 213);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(135, 62);
+            this.label5.Size = new System.Drawing.Size(70, 31);
             this.label5.TabIndex = 18;
             this.label5.Text = "Email";
             // 
@@ -291,7 +282,7 @@
             this.label6.Font = new System.Drawing.Font("Segoe UI", 17F);
             this.label6.Location = new System.Drawing.Point(267, 123);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(156, 62);
+            this.label6.Size = new System.Drawing.Size(78, 31);
             this.label6.TabIndex = 17;
             this.label6.Text = "Phone";
             // 
@@ -316,14 +307,71 @@
             this.label7.Font = new System.Drawing.Font("Segoe UI", 17F);
             this.label7.Location = new System.Drawing.Point(267, 304);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(210, 62);
+            this.label7.Size = new System.Drawing.Size(106, 31);
             this.label7.TabIndex = 20;
             this.label7.Text = "Category";
+            // 
+            // btnBrowse
+            // 
+            this.btnBrowse.AutoRoundedCorners = true;
+            this.btnBrowse.BorderRadius = 26;
+            this.btnBrowse.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnBrowse.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnBrowse.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnBrowse.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnBrowse.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.btnBrowse.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnBrowse.ForeColor = System.Drawing.Color.White;
+            this.btnBrowse.Location = new System.Drawing.Point(500, 305);
+            this.btnBrowse.Name = "btnBrowse";
+            this.btnBrowse.Size = new System.Drawing.Size(139, 55);
+            this.btnBrowse.TabIndex = 21;
+            this.btnBrowse.Text = "Browse";
+            this.btnBrowse.Click += new System.EventHandler(this.btnBrowse_Click);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Segoe UI", 17F);
+            this.label8.Location = new System.Drawing.Point(532, 123);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(79, 31);
+            this.label8.TabIndex = 23;
+            this.label8.Text = "Profile";
+            // 
+            // StaffImage
+            // 
+            this.StaffImage.BackColor = System.Drawing.Color.Silver;
+            this.StaffImage.Image = global::Restaurant_POS_and_Ordering_Sytem.Properties.Resources.icons8_username_303;
+            this.StaffImage.ImageRotate = 0F;
+            this.StaffImage.Location = new System.Drawing.Point(494, 157);
+            this.StaffImage.Name = "StaffImage";
+            this.StaffImage.Size = new System.Drawing.Size(148, 140);
+            this.StaffImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.StaffImage.TabIndex = 24;
+            this.StaffImage.TabStop = false;
+            // 
+            // guna2PictureBox1
+            // 
+            this.guna2PictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.guna2PictureBox1.Image = global::Restaurant_POS_and_Ordering_Sytem.Properties.Resources.icons8_staff_502;
+            this.guna2PictureBox1.ImageRotate = 0F;
+            this.guna2PictureBox1.Location = new System.Drawing.Point(30, 12);
+            this.guna2PictureBox1.Name = "guna2PictureBox1";
+            this.guna2PictureBox1.Size = new System.Drawing.Size(84, 80);
+            this.guna2PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.guna2PictureBox1.TabIndex = 1;
+            this.guna2PictureBox1.TabStop = false;
+            this.guna2PictureBox1.UseTransparentBackground = true;
             // 
             // frmStaffAdd
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(495, 481);
+            this.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.ClientSize = new System.Drawing.Size(660, 481);
+            this.Controls.Add(this.StaffImage);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.btnBrowse);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.cmbxcat);
             this.Controls.Add(this.label5);
@@ -345,8 +393,9 @@
             this.Text = "frmWaiterAdd";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).EndInit();
             this.panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.StaffImage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -372,5 +421,8 @@
         private System.Windows.Forms.Label label6;
         private Guna.UI2.WinForms.Guna2ComboBox cmbxcat;
         private System.Windows.Forms.Label label7;
+        private Guna.UI2.WinForms.Guna2Button btnBrowse;
+        private System.Windows.Forms.Label label8;
+        private Guna.UI2.WinForms.Guna2PictureBox StaffImage;
     }
 }

@@ -16,6 +16,8 @@ namespace Restaurant_POS_and_Ordering_Sytem
     {
         private string username;
         private int userID;
+        private int mainID;
+
         public Subform(string username)
         {
             InitializeComponent();
@@ -23,14 +25,14 @@ namespace Restaurant_POS_and_Ordering_Sytem
             this.userID = userID;
         }
 
-        public Subform(string username, int userID) : this(username)
+        public Subform(string username, int userID, int mainID) : this(username)
         {
             this.userID = userID;
         }
 
         private void btnPOS_Click(object sender, EventArgs e)
         {
-            frmPos POS = new frmPos(username,userID);
+            frmPos POS = new frmPos(username,userID, mainID);
 
             // Assuming you have a property to store the user role in SubForm
             POS.userRole = "cashier";

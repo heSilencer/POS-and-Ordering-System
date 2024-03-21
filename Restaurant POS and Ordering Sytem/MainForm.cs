@@ -20,6 +20,8 @@ namespace Restaurant_POS_and_Ordering_Sytem
         private string username;
 
         private int userID;
+        private int mainID;
+
         public static MainForm Instance
         {
             get
@@ -104,7 +106,7 @@ namespace Restaurant_POS_and_Ordering_Sytem
 
         private void btnPOS_Click(object sender, EventArgs e)
         {
-            Models.frmPos frmpos = new Models.frmPos(username,userID);
+            Models.frmPos frmpos = new Models.frmPos(username,userID, mainID);
 
             // Assuming you have a property to store the user role in MainForm
             frmpos.userRole = "admin";
