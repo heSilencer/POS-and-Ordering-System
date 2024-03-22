@@ -35,7 +35,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             this.btnAddnew = new Guna.UI2.WinForms.Guna2Button();
-            this.BtnAddOn = new Guna.UI2.WinForms.Guna2Button();
             this.BtnDineIn = new Guna.UI2.WinForms.Guna2Button();
             this.BtnTakeAway = new Guna.UI2.WinForms.Guna2Button();
             this.Btnkot = new Guna.UI2.WinForms.Guna2Button();
@@ -47,6 +46,7 @@
             this.guna2PictureBox2 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.guna2Panel2 = new Guna.UI2.WinForms.Guna2Panel();
+            this.btnCheckOut = new Guna.UI2.WinForms.Guna2Button();
             this.CategoryPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.BtnAllCategory = new Guna.UI2.WinForms.Guna2Button();
             this.ProductPanel = new System.Windows.Forms.FlowLayoutPanel();
@@ -55,7 +55,6 @@
             this.lbltotal = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.txtSearch = new Guna.UI2.WinForms.Guna2TextBox();
-            this.btnCheckOut = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
@@ -69,7 +68,6 @@
             // 
             this.guna2Panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.guna2Panel1.Controls.Add(this.btnAddnew);
-            this.guna2Panel1.Controls.Add(this.BtnAddOn);
             this.guna2Panel1.Controls.Add(this.BtnDineIn);
             this.guna2Panel1.Controls.Add(this.BtnTakeAway);
             this.guna2Panel1.Controls.Add(this.Btnkot);
@@ -102,6 +100,8 @@
             this.btnAddnew.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.btnAddnew.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.btnAddnew.ForeColor = System.Drawing.Color.White;
+            this.btnAddnew.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.btnAddnew.HoverState.FillColor = System.Drawing.Color.Transparent;
             this.btnAddnew.Image = global::Restaurant_POS_and_Ordering_Sytem.Properties.Resources.icons8_new_ticket_30;
             this.btnAddnew.Location = new System.Drawing.Point(376, 8);
             this.btnAddnew.Name = "btnAddnew";
@@ -109,29 +109,6 @@
             this.btnAddnew.TabIndex = 5;
             this.btnAddnew.Text = "                  Add  New";
             this.btnAddnew.Click += new System.EventHandler(this.btnAddnew_Click);
-            // 
-            // BtnAddOn
-            // 
-            this.BtnAddOn.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.BtnAddOn.BorderRadius = 10;
-            this.BtnAddOn.BorderThickness = 2;
-            this.BtnAddOn.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.BtnAddOn.CustomizableEdges.BottomLeft = false;
-            this.BtnAddOn.CustomizableEdges.TopRight = false;
-            this.BtnAddOn.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.BtnAddOn.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.BtnAddOn.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.BtnAddOn.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.BtnAddOn.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.BtnAddOn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.BtnAddOn.ForeColor = System.Drawing.Color.White;
-            this.BtnAddOn.Image = global::Restaurant_POS_and_Ordering_Sytem.Properties.Resources.icons8_add_50;
-            this.BtnAddOn.Location = new System.Drawing.Point(892, 8);
-            this.BtnAddOn.Name = "BtnAddOn";
-            this.BtnAddOn.Size = new System.Drawing.Size(80, 80);
-            this.BtnAddOn.TabIndex = 4;
-            this.BtnAddOn.Text = "           Add On";
-            this.BtnAddOn.Click += new System.EventHandler(this.BtnAddOn_Click);
             // 
             // BtnDineIn
             // 
@@ -148,6 +125,8 @@
             this.BtnDineIn.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.BtnDineIn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.BtnDineIn.ForeColor = System.Drawing.Color.White;
+            this.BtnDineIn.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.BtnDineIn.HoverState.FillColor = System.Drawing.Color.Transparent;
             this.BtnDineIn.Image = global::Restaurant_POS_and_Ordering_Sytem.Properties.Resources.icons8_table;
             this.BtnDineIn.Location = new System.Drawing.Point(806, 8);
             this.BtnDineIn.Name = "BtnDineIn";
@@ -171,6 +150,8 @@
             this.BtnTakeAway.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.BtnTakeAway.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.BtnTakeAway.ForeColor = System.Drawing.Color.White;
+            this.BtnTakeAway.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.BtnTakeAway.HoverState.FillColor = System.Drawing.Color.Transparent;
             this.BtnTakeAway.Image = ((System.Drawing.Image)(resources.GetObject("BtnTakeAway.Image")));
             this.BtnTakeAway.Location = new System.Drawing.Point(720, 8);
             this.BtnTakeAway.Name = "BtnTakeAway";
@@ -194,6 +175,8 @@
             this.Btnkot.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.Btnkot.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.Btnkot.ForeColor = System.Drawing.Color.White;
+            this.Btnkot.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.Btnkot.HoverState.FillColor = System.Drawing.Color.Transparent;
             this.Btnkot.Image = ((System.Drawing.Image)(resources.GetObject("Btnkot.Image")));
             this.Btnkot.Location = new System.Drawing.Point(634, 8);
             this.Btnkot.Name = "Btnkot";
@@ -217,6 +200,8 @@
             this.BtnBillList.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.BtnBillList.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.BtnBillList.ForeColor = System.Drawing.Color.White;
+            this.BtnBillList.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.BtnBillList.HoverState.FillColor = System.Drawing.Color.Transparent;
             this.BtnBillList.Image = ((System.Drawing.Image)(resources.GetObject("BtnBillList.Image")));
             this.BtnBillList.Location = new System.Drawing.Point(548, 8);
             this.BtnBillList.Name = "BtnBillList";
@@ -240,6 +225,8 @@
             this.btnHold.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.btnHold.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.btnHold.ForeColor = System.Drawing.Color.White;
+            this.btnHold.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.btnHold.HoverState.FillColor = System.Drawing.Color.Transparent;
             this.btnHold.Image = ((System.Drawing.Image)(resources.GetObject("btnHold.Image")));
             this.btnHold.Location = new System.Drawing.Point(462, 8);
             this.btnHold.Name = "btnHold";
@@ -253,7 +240,7 @@
             this.lbltxtWaiter.BackColor = System.Drawing.Color.Transparent;
             this.lbltxtWaiter.Font = new System.Drawing.Font("Segoe UI", 19.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbltxtWaiter.ForeColor = System.Drawing.Color.White;
-            this.lbltxtWaiter.Location = new System.Drawing.Point(974, 48);
+            this.lbltxtWaiter.Location = new System.Drawing.Point(896, 45);
             this.lbltxtWaiter.Name = "lbltxtWaiter";
             this.lbltxtWaiter.Size = new System.Drawing.Size(128, 37);
             this.lbltxtWaiter.TabIndex = 2;
@@ -264,7 +251,7 @@
             this.lbltxtTable.BackColor = System.Drawing.Color.Transparent;
             this.lbltxtTable.Font = new System.Drawing.Font("Segoe UI", 19.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbltxtTable.ForeColor = System.Drawing.Color.White;
-            this.lbltxtTable.Location = new System.Drawing.Point(974, 0);
+            this.lbltxtTable.Location = new System.Drawing.Point(896, 0);
             this.lbltxtTable.Name = "lbltxtTable";
             this.lbltxtTable.Size = new System.Drawing.Size(128, 39);
             this.lbltxtTable.TabIndex = 2;
@@ -317,6 +304,24 @@
             this.guna2Panel2.Name = "guna2Panel2";
             this.guna2Panel2.Size = new System.Drawing.Size(1590, 97);
             this.guna2Panel2.TabIndex = 0;
+            // 
+            // btnCheckOut
+            // 
+            this.btnCheckOut.AutoRoundedCorners = true;
+            this.btnCheckOut.BorderRadius = 37;
+            this.btnCheckOut.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnCheckOut.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnCheckOut.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnCheckOut.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnCheckOut.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.btnCheckOut.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCheckOut.ForeColor = System.Drawing.Color.White;
+            this.btnCheckOut.Location = new System.Drawing.Point(1198, 9);
+            this.btnCheckOut.Name = "btnCheckOut";
+            this.btnCheckOut.Size = new System.Drawing.Size(239, 77);
+            this.btnCheckOut.TabIndex = 2;
+            this.btnCheckOut.Text = "Check Out";
+            this.btnCheckOut.Click += new System.EventHandler(this.btnCheckOut_Click_1);
             // 
             // CategoryPanel
             // 
@@ -476,24 +481,6 @@
             this.txtSearch.TabIndex = 6;
             this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
             // 
-            // btnCheckOut
-            // 
-            this.btnCheckOut.AutoRoundedCorners = true;
-            this.btnCheckOut.BorderRadius = 37;
-            this.btnCheckOut.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnCheckOut.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnCheckOut.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnCheckOut.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnCheckOut.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.btnCheckOut.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCheckOut.ForeColor = System.Drawing.Color.White;
-            this.btnCheckOut.Location = new System.Drawing.Point(1198, 9);
-            this.btnCheckOut.Name = "btnCheckOut";
-            this.btnCheckOut.Size = new System.Drawing.Size(239, 77);
-            this.btnCheckOut.TabIndex = 2;
-            this.btnCheckOut.Text = "Check Out";
-            this.btnCheckOut.Click += new System.EventHandler(this.btnCheckOut_Click_1);
-            // 
             // frmPos
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -529,7 +516,6 @@
         private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox1;
         private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox2;
         private Guna.UI2.WinForms.Guna2Button btnHold;
-        private Guna.UI2.WinForms.Guna2Button BtnAddOn;
         private Guna.UI2.WinForms.Guna2Button BtnDineIn;
         private Guna.UI2.WinForms.Guna2Button BtnTakeAway;
         private Guna.UI2.WinForms.Guna2Button Btnkot;

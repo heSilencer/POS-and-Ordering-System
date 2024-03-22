@@ -509,19 +509,15 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                 if (bl.MainID != 0)
                 {
                     LoadEntries(bl.MainID);
-                    //guna2DataGridView1.Rows.Clear();
-                   // double totalAmount = 0;// Reset the total amount to zero
-                   //lbltotal.Text = $"{totalAmount:C}";
-                   // lbltxtTable.Text = "";
-                   //lbltxtWaiter.Text = "";
+                  
                 }
             };
             MainClass.BlurbackGround(bl);
-
+           
         }
         public void LoadEntries(int mainID)
         {
-            string query = @"SELECT d.prodID, p.prodName, d.qty, d.price, d.amount, m.tableName, m.waiterName 
+            string query = @"SELECT d.prodID, p.prodName, d.qty, d.price, d.amount, m.tableName, m.waiterName, m.Status
                      FROM tbldetails d 
                      INNER JOIN tbl_products p ON d.prodID = p.prodID 
                      INNER JOIN tblMain m ON d.MainID = m.MainID 
@@ -537,36 +533,53 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                     {
                         if (reader.Read())
                         {
-                            string tableName = reader.GetString("tableName");
-                            string waiterName = reader.GetString("waiterName");
+                            string status = reader.GetString("Status");
 
-                            // Display table name and waiter name in labels
-                            lbltxtTable.Text = tableName;
-                            lbltxtWaiter.Text = waiterName;
-
-                            // Clear DataGridView before adding new entries
-                            guna2DataGridView1.Rows.Clear();
-
-                            // Read remaining rows and add data to the DataGridView
-                            do
+                            if (status != "Hold" && status != "Pending" && status != "Check Out")
                             {
-                                int productID = reader.GetInt32("prodID");
-                                string productName = reader.GetString("prodName");
-                                int quantity = reader.GetInt32("qty");
-                                double price = reader.GetDouble("price");
-                                double amount = reader.GetDouble("amount");
+                                string tableName = reader.GetString("tableName");
+                                string waiterName = reader.GetString("waiterName");
 
-                                // Add the data to the DataGridView
-                                int rowIndex = guna2DataGridView1.Rows.Add();
-                                guna2DataGridView1.Rows[rowIndex].Cells["Sr#"].Value = (rowIndex + 1).ToString();
-                                guna2DataGridView1.Rows[rowIndex].Cells["Name"].Value = productName;
-                                guna2DataGridView1.Rows[rowIndex].Cells["Qty"].Value = quantity.ToString();
-                                guna2DataGridView1.Rows[rowIndex].Cells["Price"].Value = price.ToString();
-                                guna2DataGridView1.Rows[rowIndex].Cells["Amount"].Value = amount.ToString();
-                            } while (reader.Read());
+                                // Display table name and waiter name in labels
+                                lbltxtTable.Text = tableName;
+                                lbltxtWaiter.Text = waiterName;
 
-                            // Hide the delete icon column
-                            guna2DataGridView1.Columns["Delete"].Visible = false;
+                                // Clear DataGridView before adding new entries
+                                guna2DataGridView1.Rows.Clear();
+
+                                // Read remaining rows and add data to the DataGridView
+                                do
+                                {
+                                    int productID = reader.GetInt32("prodID");
+                                    string productName = reader.GetString("prodName");
+                                    int quantity = reader.GetInt32("qty");
+                                    double price = reader.GetDouble("price");
+                                    double amount = reader.GetDouble("amount");
+
+                                    // Add the data to the DataGridView
+                                    int rowIndex = guna2DataGridView1.Rows.Add();
+                                    guna2DataGridView1.Rows[rowIndex].Cells["Sr#"].Value = (rowIndex + 1).ToString();
+                                    guna2DataGridView1.Rows[rowIndex].Cells["Name"].Value = productName;
+                                    guna2DataGridView1.Rows[rowIndex].Cells["Qty"].Value = quantity.ToString();
+                                    guna2DataGridView1.Rows[rowIndex].Cells["Price"].Value = price.ToString();
+                                    guna2DataGridView1.Rows[rowIndex].Cells["Amount"].Value = amount.ToString();
+                                } while (reader.Read());
+
+                                // Hide the delete icon column
+                                guna2DataGridView1.Columns["Delete"].Visible = false;
+
+                                MainID = mainID;
+                                UpdateTotalAmount();
+                            }
+                            else
+                            {
+                                // If the status is Hold, Pending, or Check Out, clear labels and DataGridView
+                                lbltxtTable.Text = "";
+                                lbltxtWaiter.Text = "";
+                                guna2DataGridView1.Rows.Clear();
+                                double totalAmount1 = 0; // Reset the total amount to zero
+                                lbltotal.Text = $"{totalAmount1:C}";
+                            }
                         }
                         else
                         {
@@ -574,12 +587,14 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                             lbltxtTable.Text = "";
                             lbltxtWaiter.Text = "";
                             guna2DataGridView1.Rows.Clear();
+                            double totalAmount1 = 0; // Reset the total amount to zero
+                            lbltotal.Text = $"{totalAmount1:C}";
                         }
                     }
                 }
             }
-            MainID = mainID;
-            UpdateTotalAmount();
+
+         
         }
 
 
