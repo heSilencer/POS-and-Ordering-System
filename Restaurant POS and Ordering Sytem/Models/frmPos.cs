@@ -24,6 +24,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
         private int userID;
         private int mainID;
         private double totalAmount;
+
         public frmPos(string username, int userID, int mainID)
         {
             InitializeComponent();
@@ -69,13 +70,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             deleteColumn.ImageLayout = DataGridViewImageCellLayout.Zoom;
             guna2DataGridView1.Columns.Add(deleteColumn);
         }
-
-        public frmPos(int userID, int mainId)
-        {
-            this.userID = userID;
-            MainID = mainId;
-        }
-
+        
 
 
         public string OrderType;
@@ -434,7 +429,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             lbltxtWaiter.Text = "";
             OrderType = "";
             double totalAmount = 0;// Reset the total amount to zero
-            lbltotal.Text = $"{MainID:C}";
+            lbltotal.Text = $"{totalAmount:C}";
             lbltxtTable.Visible = false;
             lbltxtWaiter.Visible = false;
             lbltotal.Visible = true;
@@ -473,10 +468,10 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
         private int InsertIntoMain(DateTime currentDate, string currentTime, string tableName, string waiterName, string status, string orderType, double totalAmount, int userID)
         {
             int mainID = 0;
-            string query = "INSERT INTO tblMain (aDate, aTime, TableName, WaiterName, Status, OrderType, Total, userID) " +
-                           "VALUES (@aDate, @aTime, @TableName, @WaiterName, @Status, @OrderType, @Total, @UserID); " +
+            string tableStatus = "Not Ready";
+            string query = "INSERT INTO tblMain (aDate, aTime, TableName, WaiterName, Status, OrderType, Total, userID, Table_Status) " +
+                           "VALUES (@aDate, @aTime, @TableName, @WaiterName, @Status, @OrderType, @Total, @UserID, @TableStatus); " +
                            "SELECT LAST_INSERT_ID();"; // Get the last inserted ID
-
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 using (MySqlCommand cmd = new MySqlCommand(query, connection))
@@ -492,6 +487,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                         cmd.Parameters.AddWithValue("@OrderType", orderType);
                         cmd.Parameters.AddWithValue("@Total", totalAmount);
                         cmd.Parameters.AddWithValue("@UserID", userID); // Add userID parameter
+                        cmd.Parameters.AddWithValue("@TableStatus", tableStatus); // Add Table_Status parameter
 
                         mainID = Convert.ToInt32(cmd.ExecuteScalar());
                     }
@@ -505,7 +501,6 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             return mainID;
         }
 
-        public int id = 0;
         private void BtnBillList_Click(object sender, EventArgs e)
         {
             frmBillList bl = new frmBillList();
@@ -514,12 +509,17 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                 if (bl.MainID != 0)
                 {
                     LoadEntries(bl.MainID);
+                    //guna2DataGridView1.Rows.Clear();
+                   // double totalAmount = 0;// Reset the total amount to zero
+                   //lbltotal.Text = $"{totalAmount:C}";
+                   // lbltxtTable.Text = "";
+                   //lbltxtWaiter.Text = "";
                 }
             };
             MainClass.BlurbackGround(bl);
 
         }
-        private void LoadEntries(int mainID)
+        public void LoadEntries(int mainID)
         {
             string query = @"SELECT d.prodID, p.prodName, d.qty, d.price, d.amount, m.tableName, m.waiterName 
                      FROM tbldetails d 
@@ -661,7 +661,8 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             OrderType = "";
 
             // Optionally, you can also reset the total amount label
-            lbltotal.Text = "$0.00";
+            double totalAmount1 = 0;// Reset the total amount to zero
+            lbltotal.Text = $"{totalAmount1:C}";
             lbltxtTable.Text = "";
             lbltxtWaiter.Text = "";
         }
@@ -763,7 +764,8 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             // Load entries and retrieve the MainID
             LoadEntries(MainID);
             guna2DataGridView1.Rows.Clear();
-            lbltotal.Text = "$0.00";
+            double totalAmount1 = 0;// Reset the total amount to zero
+            lbltotal.Text = $"{totalAmount1:C}";
             lbltxtTable.Text = "";
             lbltxtWaiter.Text = "";
             // Open the checkout form and pass all required parameters

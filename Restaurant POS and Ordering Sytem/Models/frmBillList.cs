@@ -18,6 +18,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
         private int userID;
         private string username;
         public int MainID = 0;
+
         public frmBillList()
         {
             InitializeComponent();
@@ -63,9 +64,12 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             dgvBillList.CellClick += Guna2DataGridViewProducts_CellClick;
             LoadBillData();
         }
+
+       
+
         private void Guna2DataGridViewProducts_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == dgvBillList.Columns["Update"].Index && e.RowIndex >= 0)
+            if (e.RowIndex >= 0 && e.ColumnIndex == dgvBillList.Columns["Update"].Index)
             {
                 MainID = Convert.ToInt32(dgvBillList.Rows[e.RowIndex].Cells["MainID"].Value);
                 string status = GetStatusFromMainID(MainID);
@@ -81,8 +85,6 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                 {
                     // Display a message indicating that the action cannot be performed for the current status
                     guna2MessageDialog1.Show("Cannot proceed with update for orders with status: " + status + "");
-                   
-
                 }
             }
         }
@@ -170,5 +172,12 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                 }
             }
         }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+          
+        }
+
+      
     }
 }

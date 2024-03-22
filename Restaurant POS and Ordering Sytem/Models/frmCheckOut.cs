@@ -62,7 +62,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
         }
         private void UpdateMainTable(double receivedAmount, double change)
         {
-            string query = "UPDATE tblMain SET Received = @receivedAmount, `Change` = @change, Status = 'Check Out' WHERE MainID = @mainID;";
+            string query = "UPDATE tblMain SET Received = @receivedAmount, `Change` = @change, Status = 'Check Out', Table_Status = 'Ready' WHERE MainID = @mainID;";
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
