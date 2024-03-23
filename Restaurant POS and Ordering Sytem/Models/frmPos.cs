@@ -104,6 +104,8 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
 
         private void frmPos_Load(object sender, EventArgs e)
         {
+            btnCheckOut.Visible = false;
+
             AddCategory();
             ShowProducts("All Categories");
             UpdateTotalAmount();
@@ -425,6 +427,11 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
 
         private void btnAddnew_Click(object sender, EventArgs e)
         {
+            btnCheckOut.Visible = false;
+            BtnDineIn.Visible = true;
+            btnHold.Visible = true;
+            Btnkot.Visible = true;
+            BtnTakeAway.Visible = true;
             lbltxtTable.Text = "";
             lbltxtWaiter.Text = "";
             OrderType = "";
@@ -460,7 +467,11 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             InsertIntoDetail(mainID);
 
             MessageBox.Show("Order held successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            lbltxtTable.Text = "";
+            lbltxtWaiter.Text = "";
             guna2DataGridView1.Rows.Clear();
+            lbltotal.Text = $"{0:C}";
+
 
         }
 
@@ -517,11 +528,12 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
         }
         public void LoadEntries(int mainID)
         {
-            string query = @"SELECT d.prodID, p.prodName, d.qty, d.price, d.amount, m.tableName, m.waiterName, m.Status
+            string query = @"SELECT d.prodID, p.prodName, d.qty, d.price, d.amount, m.tableName, m.waiterName, m.Status, m.OrderType
                      FROM tbldetails d 
                      INNER JOIN tbl_products p ON d.prodID = p.prodID 
                      INNER JOIN tblMain m ON d.MainID = m.MainID 
-                     WHERE d.MainID = @mainID;";
+                     WHERE d.MainID = @mainID
+                     AND m.Status IN ('Hold', 'Complete');";
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
@@ -531,16 +543,16 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                     cmd.Parameters.AddWithValue("@mainID", mainID);
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
-                        if (reader.Read())
+                        if (reader.HasRows)
                         {
-                            string status = reader.GetString("Status");
-
-                            if (status != "Hold" && status != "Pending" && status != "Check Out")
+                            while (reader.Read())
                             {
+                                string status = reader.GetString("Status");
+
                                 string tableName = reader.GetString("tableName");
                                 string waiterName = reader.GetString("waiterName");
 
-                                // Display table name and waiter name in labels
+                                // Display table name, waiter name, and order type in labels
                                 lbltxtTable.Text = tableName;
                                 lbltxtWaiter.Text = waiterName;
 
@@ -568,17 +580,29 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                                 // Hide the delete icon column
                                 guna2DataGridView1.Columns["Delete"].Visible = false;
 
+                                // Clear buttons if status is Hold
+                                if (status == "Hold")
+                                {
+                                    BtnDineIn.Visible = false;
+                                    btnHold.Visible = false;
+                                    Btnkot.Visible = false;
+                                    BtnTakeAway.Visible = false;
+                                    btnCheckOut.Visible = false;
+                                    UpdateStatusToPending(mainID);
+                                }
+                                if (status == "Complete")
+                                {
+                                    BtnDineIn.Visible = false;
+                                    btnHold.Visible = false;
+                                    Btnkot.Visible = false;
+                                    BtnTakeAway.Visible = false;
+                                    btnCheckOut.Visible = true;
+
+                                    // Delete entries if status is Hold
+                                }
+
                                 MainID = mainID;
                                 UpdateTotalAmount();
-                            }
-                            else
-                            {
-                                // If the status is Hold, Pending, or Check Out, clear labels and DataGridView
-                                lbltxtTable.Text = "";
-                                lbltxtWaiter.Text = "";
-                                guna2DataGridView1.Rows.Clear();
-                                double totalAmount1 = 0; // Reset the total amount to zero
-                                lbltotal.Text = $"{totalAmount1:C}";
                             }
                         }
                         else
@@ -593,8 +617,28 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                     }
                 }
             }
+        }
 
-         
+        private void UpdateStatusToPending(int mainID)
+        {
+            string updateQuery = "UPDATE tblMain SET Status = 'Pending' WHERE MainID = @mainID AND Status = 'Hold'";
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                using (MySqlCommand cmd = new MySqlCommand(updateQuery, connection))
+                {
+                    try
+                    {
+                        connection.Open();
+                        cmd.Parameters.AddWithValue("@mainID", mainID);
+                        cmd.ExecuteNonQuery();
+                    }
+                    catch (MySqlException ex)
+                    {
+                        // Handle database exception
+                        MessageBox.Show($"Database error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
         }
 
 
@@ -658,29 +702,33 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                 return;
             }
 
-            // Set the status to pending
+            // Set the status to "Pending"
             string status = "Pending";
 
             // Use the previously set OrderType
             string orderType = OrderType;
 
-            // Execute the query to insert into tblMain
-            int mainID = InsertIntoMain(currentDate, currentTime, tableName, waiterName, status, orderType, totalAmount, userID);
+            // Check if the existing order needs to be updated from "Hold" to "Pending"
+         
+
+            // Execute the query to insert into tblMain for the new order
+            int newMainID = InsertIntoMain(currentDate, currentTime, tableName, waiterName, status, orderType, totalAmount, userID);
 
             // Execute the query to insert into tblDetail for each item in the order
-            InsertIntoDetail(mainID);
+            InsertIntoDetail(newMainID);
 
-            // Optional: You can provide feedback to the user here if needed
+            // Optional: Provide feedback to the user
             MessageBox.Show("Order placed successfully.");
             guna2DataGridView1.Rows.Clear();
             OrderType = "";
 
-            // Optionally, you can also reset the total amount label
-            double totalAmount1 = 0;// Reset the total amount to zero
-            lbltotal.Text = $"{totalAmount1:C}";
+            // Optionally, reset the total amount label
+            lbltotal.Text = $"{0:C}";
             lbltxtTable.Text = "";
             lbltxtWaiter.Text = "";
         }
+      
+        
         private void InsertIntoDetail(int mainID)
         {
             string query = "INSERT INTO tbldetails (MainID, prodID, qty, price, amount) " +

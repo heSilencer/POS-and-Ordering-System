@@ -75,7 +75,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                 string status = GetStatusFromMainID(MainID);
 
                 // Check if the status is not pending, Hold, or Check Out
-                if (status != "Pending" && status != "Hold" && status != "Check Out")
+                if (status != "Pending"  && status != "Check Out")
                 {
                     // Proceed with updating
                     this.Close(); // Close the frmBillList form
