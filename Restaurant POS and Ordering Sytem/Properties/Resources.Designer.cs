@@ -273,6 +273,16 @@ namespace Restaurant_POS_and_Ordering_Sytem.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icons8_dollar_sign_241 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-dollar-sign-241", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_down_24 {
             get {
                 object obj = ResourceManager.GetObject("icons8-down-24", resourceCulture);
@@ -416,6 +426,16 @@ namespace Restaurant_POS_and_Ordering_Sytem.Properties {
         internal static System.Drawing.Bitmap icons8_password_501 {
             get {
                 object obj = ResourceManager.GetObject("icons8-password-501", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_philippine_peso_64 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-philippine-peso-64", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

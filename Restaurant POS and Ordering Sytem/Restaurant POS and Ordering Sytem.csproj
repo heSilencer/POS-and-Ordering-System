@@ -56,6 +56,7 @@
     <Reference Include="System.Design" />
     <Reference Include="System.Management" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -508,6 +509,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\icons8-check-out-66.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-dollar-sign-241.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-philippine-peso-64.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
