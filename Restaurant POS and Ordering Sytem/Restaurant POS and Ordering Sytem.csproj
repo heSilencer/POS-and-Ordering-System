@@ -171,6 +171,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="RecieptPrint\frmPrint.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RecieptPrint\frmPrint.Designer.cs">
+      <DependentUpon>frmPrint.cs</DependentUpon>
+    </Compile>
     <Compile Include="SampleView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -290,6 +296,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RecieptPrint\frmPrint.resx">
+      <DependentUpon>frmPrint.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SampleView.resx">
       <DependentUpon>SampleView.cs</DependentUpon>
@@ -515,6 +524,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\icons8-philippine-peso-64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\printIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

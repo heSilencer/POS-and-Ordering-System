@@ -44,6 +44,18 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             updateColumn.ImageLayout = DataGridViewImageCellLayout.Zoom;
             dgvBillList.Columns.Add(updateColumn);
 
+           // DataGridViewImageColumn printColumn = new DataGridViewImageColumn();
+           // printColumn.Image = Properties.Resources.printIcon; // Replace with your actual update icon
+            //printColumn.Name = "Print";
+           // printColumn.HeaderText = ""; // Set the header text to an empty string
+           // printColumn.HeaderCell.Style.NullValue = "";
+           // printColumn.Width = 30;
+           // printColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+           // printColumn.FillWeight = 30;
+           // printColumn.MinimumWidth = 30;
+           // printColumn.ImageLayout = DataGridViewImageCellLayout.Zoom;
+            //dgvBillList.Columns.Add(printColumn);
+
             // Set the width of each column
             dgvBillList.Columns["Sr#"].Width = 50;
             dgvBillList.Columns["Table"].Width = 80;

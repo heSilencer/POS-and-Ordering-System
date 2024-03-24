@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using System.IO;
+using System.Drawing.Imaging;
 
 namespace Restaurant_POS_and_Ordering_Sytem.Models
 {
@@ -105,90 +106,102 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
         {
             string connectionString = @"server=localhost;database=pos_ordering_system;userid=root;password=;";
 
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            try
             {
-                try
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
                     connection.Open();
 
-                    string productName = txttablename.Text;
+                    string productName = txttablename.Text.Trim();
                     decimal price;
+
+                    // Validate product name
                     if (string.IsNullOrEmpty(productName))
                     {
-                        MessageBox.Show("Please Input a Product name.");
-                        return;
-                    }
-                    if (string.IsNullOrEmpty(txtlblprice.Text))
-                    {
-                        MessageBox.Show("Please input a price.");
+                        MessageBox.Show("Please input a product name.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
 
+                    // Validate price
                     if (!decimal.TryParse(txtlblprice.Text, out price))
                     {
-                        MessageBox.Show("Invalid price. Please enter a valid numeric value.");
+                        MessageBox.Show("Invalid price. Please enter a valid numeric value.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
 
                     string category = categorycmbx.SelectedItem?.ToString();
 
+                    // Validate category selection
                     if (string.IsNullOrEmpty(category))
                     {
-                        MessageBox.Show("Please select a category.");
+                        MessageBox.Show("Please select a category.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
-                    }
-
-                    if (productImage.Image == null)
-                    {
-                        DialogResult result = MessageBox.Show("You haven't selected an image. Do you want to continue without an image?", "Confirmation", MessageBoxButtons.YesNo);
-
-                        if (result == DialogResult.No)
-                        {
-                            // User chose not to continue without an image
-                            return;
-                        }
-                        // If the user chooses to continue without an image, your code can proceed without further checks.
                     }
 
                     int categoryId = GetCategoryId(category);
 
+                    // Validate category ID
                     if (categoryId == -1)
                     {
-                        MessageBox.Show("The selected category does not exist. Please choose a valid category.");
+                        MessageBox.Show("The selected category does not exist. Please choose a valid category.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
 
-
                     byte[] img = null;
 
+                    // Check if an image is selected
                     if (productImage.Image != null)
                     {
                         using (MemoryStream ms = new MemoryStream())
                         {
-                            // Save the image to the MemoryStream
-                            productImage.Image.Save(ms, productImage.Image.RawFormat);
-                            img = ms.ToArray();
+                            // Get all available image formats
+                            ImageFormat[] formats = { ImageFormat.Jpeg, ImageFormat.Png, ImageFormat.Gif, ImageFormat.Bmp, ImageFormat.Tiff, ImageFormat.Icon };
+
+                            // Iterate through each format and try to save the image
+                            foreach (ImageFormat format in formats)
+                            {
+                                try
+                                {
+                                    // Save the image to the MemoryStream with the current format
+                                    productImage.Image.Save(ms, format);
+                                    img = ms.ToArray();
+                                    break; // Exit the loop if the image is successfully saved
+                                }
+                                catch (Exception)
+                                {
+                                    // If saving fails, try the next format
+                                    continue;
+                                }
+                            }
                         }
                     }
 
-                    string insertUpdateQuery;
+                    string query;
 
+                    // Determine whether to insert or update the product
                     if (productId == 0)
                     {
                         // Insert a new product
-                        insertUpdateQuery = "INSERT INTO tbl_products (prodName, prodPrice, catID, prodcategory, prodImage) " +
-                                            "VALUES (@prodName, @prodPrice, @catID, @prodcategory, @prodImage)";
+                        query = "INSERT INTO tbl_products (prodName, prodPrice, catID, prodcategory, prodImage) " +
+                                "VALUES (@prodName, @prodPrice, @catID, @prodcategory, @prodImage)";
                     }
                     else
                     {
                         // Update an existing product
-                        insertUpdateQuery = "UPDATE tbl_products SET prodName = @prodName, prodPrice = @prodPrice, " +
-                                            "catID = @catID, prodcategory = @prodcategory" +
-                                            (img != null ? ", prodImage = @prodImage " : "") +
-                                            "WHERE prodID = @prodID";
+                        query = "UPDATE tbl_products SET prodName = @prodName, prodPrice = @prodPrice, " +
+                                "catID = @catID, prodcategory = @prodcategory";
+
+                        // Add image update part conditionally
+                        if (img != null)
+                        {
+                            query += ", prodImage = @prodImage";
+                        }
+
+                        query += " WHERE prodID = @prodID";
                     }
 
-                    using (MySqlCommand command = new MySqlCommand(insertUpdateQuery, connection))
+                    // Execute the SQL command
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@prodID", productId);
                         command.Parameters.AddWithValue("@prodName", productName);
@@ -196,16 +209,20 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                         command.Parameters.AddWithValue("@catID", categoryId);
                         command.Parameters.AddWithValue("@prodcategory", category);
 
-                        // Add image parameter only if it's not null
-                        if (img != null)
+
+
+                        if (img != null && productId == 0)
                             command.Parameters.AddWithValue("@prodImage", img);
 
-                        command.ExecuteNonQuery();
+                        int rowsAffected = command.ExecuteNonQuery();
 
-                        MessageBox.Show(productId == 0 ? "Product added successfully!" : "Product updated successfully!");
+                        // Show success message
+                        MessageBox.Show(productId == 0 ? "Product added successfully!" : "Product updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+                        // Invoke the ProductUpdated event
                         ProductUpdated?.Invoke(this, EventArgs.Empty);
 
+                        // Clear input fields
                         txttablename.Text = "";
                         txtlblprice.Text = "";
                         categorycmbx.SelectedItem = null;
@@ -216,13 +233,17 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                             productImage.Image.Dispose();
                             productImage.Image = null;
                         }
+                        if (rowsAffected > 0 && productId != 0)
+                        {
+                            this.Close();
+                        }
                     }
                 }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"An error occurred: {ex.Message}");
-                    MessageBox.Show($"An unexpected error occurred: {ex.Message}\n\nStack Trace:\n{ex.StackTrace}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+            }
+            catch (Exception ex)
+            {
+                // Handle any unexpected errors
+                MessageBox.Show($"An unexpected error occurred: {ex.Message}\n\nStack Trace:\n{ex.StackTrace}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

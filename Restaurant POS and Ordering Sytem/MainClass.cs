@@ -56,6 +56,8 @@ namespace Restaurant_POS_and_Ordering_Sytem
                 Model.Owner = BackGround;
                 Model.ShowDialog(BackGround);
                 BackGround.Dispose();
+
+             
             }
         }
 

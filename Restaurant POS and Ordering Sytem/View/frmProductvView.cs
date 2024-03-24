@@ -95,8 +95,8 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
             LoadProductDataFromDatabase();
 
 
-
         }
+
         public override void btnAdd_Click(object sender, EventArgs e)
         {
             //frmProductsAdd addProductForm = new frmProductsAdd();
@@ -162,8 +162,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
                 else if (guna2DataGridViewProducts.Columns[e.ColumnIndex].Name == "Update")
                 {
                     // Handle the update action
-                    frmProductsAdd editForm = new frmProductsAdd();
-                    editForm.Show();
+               
                     UpdateProduct(productId);
                 }
             }
@@ -206,13 +205,16 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
 
             if (editForm == null)
             {
+                // If the form is not open, create a new instance
                 editForm = new frmProductsAdd();
                 editForm.ProductUpdated += FrmProductsAdd_ProductUpdated;
-                editForm.Show();
             }
 
+            // Set the product information in the form
             editForm.SetProductInfo(productId, GetProductName(productId), GetProductPrice(productId), GetProductImage(productId));
-            editForm.BringToFront();
+
+            // Apply the blur background effect and show the form
+            MainClass.BlurbackGround(editForm);
         }
 
         private string GetProductName(int productId)

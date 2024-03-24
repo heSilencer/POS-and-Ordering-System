@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using Restaurant_POS_and_Ordering_Sytem.RecieptPrint;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -55,7 +56,8 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
 
             // Optionally, perform any additional actions after checkout
             MessageBox.Show("Checkout successful.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+            frmPrint printForm = new frmPrint(totalAmount, receivedAmount, change, orderDetails, MainID);
+            printForm.ShowDialog();
             // Close the frmCheckOut form with OK result
             this.DialogResult = DialogResult.OK;
             this.Close();
