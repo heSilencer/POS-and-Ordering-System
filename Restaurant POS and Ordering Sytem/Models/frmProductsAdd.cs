@@ -17,6 +17,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
     {
         private int productId;
         public Action<object, EventArgs> ProductUpdated { get; internal set; }
+        string connectionString = @"server=localhost;database=pos_ordering_system;userid=root;password=;";
 
         public frmProductsAdd()
         {
@@ -104,8 +105,6 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            string connectionString = @"server=localhost;database=pos_ordering_system;userid=root;password=;";
-
             try
             {
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
@@ -209,10 +208,11 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                         command.Parameters.AddWithValue("@catID", categoryId);
                         command.Parameters.AddWithValue("@prodcategory", category);
 
-
-
-                        if (img != null && productId == 0)
+                        // Add image parameter only if an image is selected or for update operation
+                        if (img != null)
+                        {
                             command.Parameters.AddWithValue("@prodImage", img);
+                        }
 
                         int rowsAffected = command.ExecuteNonQuery();
 
@@ -233,6 +233,8 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                             productImage.Image.Dispose();
                             productImage.Image = null;
                         }
+
+                        // Close the form if an update was successful
                         if (rowsAffected > 0 && productId != 0)
                         {
                             this.Close();

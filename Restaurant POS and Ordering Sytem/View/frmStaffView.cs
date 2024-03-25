@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
+using System.IO;
+
 namespace Restaurant_POS_and_Ordering_Sytem.View
 {
     public partial class frmStaffView : SampleView
@@ -27,9 +29,19 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
             guna2DataGridView1.Columns.Add("staffEmail", "Email");
             guna2DataGridView1.Columns.Add("staffcatID", "Category ID"); // Set staffcatID column to be invisible
             guna2DataGridView1.Columns.Add("Staff Category", "Staff Category");
-
-            guna2DataGridView1.Columns["staffID"].Visible = false;
             guna2DataGridView1.Columns["staffcatID"].Visible = false;
+            guna2DataGridView1.Columns["staffID"].Visible = false;
+
+
+
+            DataGridViewImageColumn staffImageColumn = new DataGridViewImageColumn();
+            staffImageColumn.Name = "staffImage";
+            staffImageColumn.HeaderText = "Staff Image";
+            staffImageColumn.ImageLayout = DataGridViewImageCellLayout.Stretch;
+            staffImageColumn.DefaultCellStyle.WrapMode = DataGridViewTriState.True; // Allow image to be fully visible
+
+            guna2DataGridView1.Columns.Add(staffImageColumn);
+
 
             DataGridViewImageColumn updateColumn = new DataGridViewImageColumn();
             updateColumn.Image = Properties.Resources.Updateicon; // Replace with your actual update icon
@@ -160,7 +172,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
                 {
                     connection.Open();
 
-                    string query = "SELECT staffID, staffFname, staffLname, staffAddress, staffPhone, staffEmail, staffcatID, `Staff Category` FROM tbl_staff";
+                    string query = "SELECT staffID, staffFname, staffLname, staffAddress, staffPhone, staffEmail, staffcatID, `Staff Category`, staffImage FROM tbl_staff";
 
                     using (MySqlCommand command = new MySqlCommand(query, connection))
                     using (MySqlDataReader reader = command.ExecuteReader())
@@ -178,7 +190,21 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
                             string staffcatID = reader["staffcatID"].ToString();
                             string staffCategory = reader["Staff Category"].ToString();
 
-                            guna2DataGridView1.Rows.Add(srNumber, staffID, staffFname, staffLname, staffAddress, staffPhone, staffEmail, staffcatID, staffCategory);
+                            // Retrieve image data as byte array from database
+                            byte[] imageData = (byte[])reader["staffImage"];
+
+                            // Convert byte array to Image
+                            Image image = null;
+                            if (imageData != null && imageData.Length > 0)
+                            {
+                                using (MemoryStream ms = new MemoryStream(imageData))
+                                {
+                                    image = Image.FromStream(ms);
+                                }
+                            }
+
+                            // Add staff data to DataGridView
+                            guna2DataGridView1.Rows.Add(srNumber, staffID, staffFname, staffLname, staffAddress, staffPhone, staffEmail, staffcatID, staffCategory, image);
                             srNumber++;
                         }
                     }
@@ -198,7 +224,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
             StaffInfo staffInfo = GetStaffInfo(staffId);
 
             // Set staff information in the frmStaffAdd form using SetStaffInfo method
-            editForm.SetStaffInfo(staffId, staffInfo.Fname, staffInfo.Lname, staffInfo.Address, staffInfo.Phone, staffInfo.Email, staffInfo.Category);
+            editForm.SetStaffInfo(staffId, staffInfo.Fname, staffInfo.Lname, staffInfo.Address, staffInfo.Phone, staffInfo.Email, staffInfo.Category, staffInfo.ImageData);
 
             // Subscribe to the StaffUpdated event
             editForm.StaffUpdated += FrmStaffAdd_staffUpdated;
@@ -217,7 +243,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
                 {
                     connection.Open();
 
-                    string selectQuery = "SELECT staffFname, staffLname, staffEmail, staffPhone, staffAddress, `Staff Category` FROM tbl_staff WHERE staffID = @staffId";
+                    string selectQuery = "SELECT staffFname, staffLname, staffEmail, staffPhone, staffAddress, `Staff Category`, staffImage FROM tbl_staff WHERE staffID = @staffId";
 
                     using (MySqlCommand selectCommand = new MySqlCommand(selectQuery, connection))
                     {
@@ -234,7 +260,8 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
                                     Email = reader["staffEmail"].ToString(),
                                     Phone = reader["staffPhone"].ToString(),
                                     Address = reader["staffAddress"].ToString(),
-                                    Category = reader["Staff Category"].ToString()
+                                    Category = reader["Staff Category"].ToString(),
+                                    ImageData = reader["staffImage"] as byte[]
                                 };
 
                                 return staffInfo;
@@ -259,6 +286,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
             public string Phone { get; set; }
             public string Email { get; set; }
             public string Category { get; set; }
+            public byte[] ImageData { get; set; }
         }
 
     }
