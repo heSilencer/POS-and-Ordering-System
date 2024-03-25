@@ -21,58 +21,78 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
         {
             InitializeComponent();
             guna2DataGridView1.Columns.Add("srNumber", "Sr#");
-            guna2DataGridView1.Columns.Add("staffID", "Staff ID"); // Set wtrID column to be invisible
-            guna2DataGridView1.Columns.Add("staffFname", "First Name");
-            guna2DataGridView1.Columns.Add("staffLname", "Last Name");
-            guna2DataGridView1.Columns.Add("staffAddress", "Address");
-            guna2DataGridView1.Columns.Add("staffPhone", "Phone");
-            guna2DataGridView1.Columns.Add("staffEmail", "Email");
-            guna2DataGridView1.Columns.Add("staffcatID", "Category ID"); // Set staffcatID column to be invisible
-            guna2DataGridView1.Columns.Add("Staff Category", "Staff Category");
-            guna2DataGridView1.Columns["staffcatID"].Visible = false;
+            guna2DataGridView1.Columns["srNumber"].DefaultCellStyle.Font = new Font("Segoe UI", 14);
+
+            guna2DataGridView1.Columns.Add("staffID", "Staff ID");
             guna2DataGridView1.Columns["staffID"].Visible = false;
 
+            guna2DataGridView1.Columns.Add("staffFname", "First Name");
+            guna2DataGridView1.Columns["staffFname"].DefaultCellStyle.Font = new Font("Segoe UI", 14);
 
+            guna2DataGridView1.Columns.Add("staffLname", "Last Name");
+            guna2DataGridView1.Columns["staffLname"].DefaultCellStyle.Font = new Font("Segoe UI", 14);
 
+            guna2DataGridView1.Columns.Add("staffAddress", "Address");
+            guna2DataGridView1.Columns["staffAddress"].DefaultCellStyle.Font = new Font("Segoe UI", 14);
+
+            guna2DataGridView1.Columns.Add("staffPhone", "Phone");
+            guna2DataGridView1.Columns["staffPhone"].DefaultCellStyle.Font = new Font("Segoe UI", 14);
+
+            guna2DataGridView1.Columns.Add("staffEmail", "Email");
+            guna2DataGridView1.Columns["staffEmail"].DefaultCellStyle.Font = new Font("Segoe UI", 14);
+
+            guna2DataGridView1.Columns.Add("staffcatID", "Category ID");
+            guna2DataGridView1.Columns["staffcatID"].Visible = false;
+
+            guna2DataGridView1.Columns.Add("Staff Category", "Staff Category");
+            guna2DataGridView1.Columns["Staff Category"].DefaultCellStyle.Font = new Font("Segoe UI", 14);
+
+            // Add staff image column
             DataGridViewImageColumn staffImageColumn = new DataGridViewImageColumn();
             staffImageColumn.Name = "staffImage";
             staffImageColumn.HeaderText = "Staff Image";
             staffImageColumn.ImageLayout = DataGridViewImageCellLayout.Stretch;
-            staffImageColumn.DefaultCellStyle.WrapMode = DataGridViewTriState.True; // Allow image to be fully visible
-
+            staffImageColumn.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             guna2DataGridView1.Columns.Add(staffImageColumn);
 
-
+            // Add update column
             DataGridViewImageColumn updateColumn = new DataGridViewImageColumn();
             updateColumn.Image = Properties.Resources.Updateicon; // Replace with your actual update icon
             updateColumn.Name = "Update";
-            updateColumn.HeaderText = ""; // Set the header text to an empty string
+            updateColumn.HeaderText = "";
             updateColumn.HeaderCell.Style.NullValue = "";
-            updateColumn.Width = 50;
+            updateColumn.Width = 30;
             updateColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            updateColumn.FillWeight = 50;
-            updateColumn.MinimumWidth = 50;
+            updateColumn.FillWeight = 30;
+            updateColumn.MinimumWidth = 30;
             updateColumn.ImageLayout = DataGridViewImageCellLayout.Zoom;
-
             guna2DataGridView1.Columns.Add(updateColumn);
-            guna2DataGridView1.DefaultCellStyle.Font = new Font("Segue", 14);
-            guna2DataGridView1.RowTemplate.Height = 40;
 
+            // Add delete column
             DataGridViewImageColumn deleteColumn = new DataGridViewImageColumn();
             deleteColumn.Image = Properties.Resources.deleteicon; // Replace with your actual delete icon
             deleteColumn.Name = "Delete";
-            deleteColumn.HeaderText = ""; // Set the header text to an empty string
+            deleteColumn.HeaderText = "";
             deleteColumn.HeaderCell.Style.NullValue = "";
-            deleteColumn.Width = 50;
+            deleteColumn.Width = 30;
             deleteColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            deleteColumn.FillWeight = 50;
-            deleteColumn.MinimumWidth = 50;
+            deleteColumn.FillWeight = 30;
+            deleteColumn.MinimumWidth = 30;
             deleteColumn.ImageLayout = DataGridViewImageCellLayout.Zoom;
             guna2DataGridView1.Columns.Add(deleteColumn);
 
+            // Set the default font for the entire DataGridView
+            guna2DataGridView1.DefaultCellStyle.Font = new Font("Segoe UI", 12);
+
+            // Adjust row height
+            int customRowHeight = 130; // Adjust this value as needed
+            guna2DataGridView1.RowTemplate.Height = customRowHeight;
+
+            // Load data and attach event handler
             LoadStaffDataFromDatabase();
             guna2DataGridView1.CellClick += GunaDataGridView1_CellClick;
 
+ 
         }
         private void FrmStaffAdd_staffUpdated(object sender, EventArgs e)
         {

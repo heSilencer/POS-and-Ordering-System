@@ -47,7 +47,7 @@
             // 
             // label2
             // 
-            this.label2.Size = new System.Drawing.Size(230, 72);
+            this.label2.Size = new System.Drawing.Size(116, 37);
             this.label2.Text = "Staff List";
             // 
             // guna2DataGridView1
@@ -90,7 +90,7 @@
             this.guna2DataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.guna2DataGridView1.RowHeadersVisible = false;
             this.guna2DataGridView1.RowTemplate.Height = 33;
-            this.guna2DataGridView1.Size = new System.Drawing.Size(1256, 506);
+            this.guna2DataGridView1.Size = new System.Drawing.Size(1256, 614);
             this.guna2DataGridView1.TabIndex = 6;
             this.guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
             this.guna2DataGridView1.ThemeStyle.AlternatingRowsStyle.Font = null;
@@ -116,9 +116,9 @@
             // 
             // frmStaffView
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1294, 708);
+            this.ClientSize = new System.Drawing.Size(1294, 800);
             this.Controls.Add(this.guna2DataGridView1);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "frmStaffView";
