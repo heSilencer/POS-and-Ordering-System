@@ -57,4 +57,3 @@ C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\
 C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\obj\Debug\Restaurant_POS_and_Ordering_Sytem.Models.frmBillList.resources
 C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\obj\Debug\Restaurant_POS_and_Ordering_Sytem.Models.frmCheckOut.resources
 C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\obj\Debug\Restaurant_POS_and_Ordering_Sytem.RecieptPrint.frmPrint.resources
-C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\obj\Debug\Restaurant POS and Ordering Sytem.csprojResolveAssemblyReference.cache

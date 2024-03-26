@@ -427,6 +427,10 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
 
         private void btnAddnew_Click(object sender, EventArgs e)
         {
+            btntk1.Visible = false;
+            btndineIn1.Visible = false;
+            btnhold1.Visible = false;
+            btnhold2.Visible = false;
             btnCheckOut.Visible = false;
             BtnDineIn.Visible = true;
             btnHold.Visible = true;
@@ -445,8 +449,17 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
 
         private void btnHold_Click(object sender, EventArgs e)
         {
+            if (guna2DataGridView1.Rows.Count == 0)
+            {
+                MessageBox.Show("No items in the order.");
+                return;
+            }
+
+            // Get the current date and time
             DateTime currentDate = DateTime.Now;
             string currentTime = currentDate.ToString("HH:mm:ss");
+
+            // Get table name and waiter name
             string tableName = lbltxtTable.Text;
             string waiterName = lbltxtWaiter.Text;
             double totalAmount;
@@ -458,19 +471,35 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                 return;
             }
 
+            // Set the status to "Hold"
+            string status = "Hold";
+
+            // Get the selected order type
             string orderType = OrderType;
 
-            // Call InsertIntoMain with status parameter set to "Hold"
-            int mainID = InsertIntoMain(currentDate, currentTime, tableName, waiterName, "Hold", orderType, totalAmount, userID);
+            // Validate if an order type is selected
+            if (string.IsNullOrEmpty(orderType))
+            {
+                MessageBox.Show("Please select an order type.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
-            // Insert held products into tbldetails
-            InsertIntoDetail(mainID);
+            // Execute the query to insert into tblMain for the new order
+            int newMainID = InsertIntoMain(currentDate, currentTime, tableName, waiterName, status, orderType, totalAmount, userID);
 
-            MessageBox.Show("Order held successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            // Execute the query to insert into tblDetail for each item in the order
+            InsertIntoDetail(newMainID);
+
+            // Optional: Provide feedback to the user
+            MessageBox.Show("Order hold successfully.");
+            guna2DataGridView1.Rows.Clear();
+            OrderType = "";
+
+            // Optionally, reset the total amount label
+            lbltotal.Text = $"{0:C}";
             lbltxtTable.Text = "";
             lbltxtWaiter.Text = "";
-            guna2DataGridView1.Rows.Clear();
-            lbltotal.Text = $"{0:C}";
+
 
 
         }
@@ -586,8 +615,16 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                                     BtnDineIn.Visible = false;
                                     btnHold.Visible = false;
                                     Btnkot.Visible = false;
+                                    btnHoldKot.Visible = true;
+                                    btnKot2.Visible = false;
+
+                                    btnhold1.Visible = true;
+                                    btnhold2.Visible = false;
                                     BtnTakeAway.Visible = false;
                                     btnCheckOut.Visible = false;
+
+                                    btntk1.Visible = true;
+                                    btndineIn1.Visible = true;
                                     UpdateStatusToPending(mainID);
                                 }
                                 if (status == "Complete")
@@ -597,7 +634,14 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                                     Btnkot.Visible = false;
                                     BtnTakeAway.Visible = false;
                                     btnCheckOut.Visible = true;
+                                    btnCheckOut.Visible = true;
+                                    btnKot2.Visible = true;
 
+                                    btnHoldKot.Visible = false;
+                                    btntk1.Visible = true;
+                                    btndineIn1.Visible = true;
+                                    btnhold1.Visible = false;
+                                    btnhold2.Visible = true;
                                     // Delete entries if status is Hold
                                 }
 
@@ -673,11 +717,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
 
 
 
-        private void BtnAddOn_Click(object sender, EventArgs e)
-        {
-
-
-        }
+  
         private void Btnkot_Click(object sender, EventArgs e)
         {
             if (guna2DataGridView1.Rows.Count == 0)
@@ -707,9 +747,12 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
 
             // Use the previously set OrderType
             string orderType = OrderType;
+            if (string.IsNullOrEmpty(orderType))
+            {
+                MessageBox.Show("Please select an order type.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
-            // Check if the existing order needs to be updated from "Hold" to "Pending"
-         
 
             // Execute the query to insert into tblMain for the new order
             int newMainID = InsertIntoMain(currentDate, currentTime, tableName, waiterName, status, orderType, totalAmount, userID);
@@ -831,11 +874,82 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             lbltotal.Text = $"{totalAmount1:C}";
             lbltxtTable.Text = "";
             lbltxtWaiter.Text = "";
+            
+            btnCheckOut.Visible = true;
+            btnHoldKot.Visible = true;
+            BtnDineIn.Visible = true;
+            btnHold.Visible = true;
+            Btnkot.Visible = true;
+            BtnTakeAway.Visible = true;
+
+            btnCheckOut.Visible = false;
+            btntk1.Visible = false;
+            btndineIn1.Visible = false;
+            btnhold1.Visible = false;
+            btnhold2.Visible = false;
+            btnKot2.Visible = false;
+            btnHoldKot.Visible = false;
             // Open the checkout form and pass all required parameters
             frmCheckOut checkoutForm = new frmCheckOut(totalAmount, orderDetails, MainID);
             MainClass.BlurbackGround(checkoutForm);
         }
 
+        private void btnHoldKot_Click(object sender, EventArgs e)
+        {
+            btntk1.Visible = false;
+            btndineIn1.Visible = false;
+            btnhold1.Visible = false;
+            btnhold2.Visible = false;
+            btnCheckOut.Visible = false;
+            BtnDineIn.Visible = true;
+            btnHold.Visible = true;
+            Btnkot.Visible = true;
+            BtnTakeAway.Visible = true;
+            lbltxtTable.Text = "";
+            lbltxtWaiter.Text = "";
+            OrderType = "";
+            double totalAmount = 0;// Reset the total amount to zero
+            lbltotal.Text = $"{totalAmount:C}";
+            lbltxtTable.Visible = false;
+            lbltxtWaiter.Visible = false;
+            lbltotal.Visible = true;
+            guna2DataGridView1.Rows.Clear();
+        
+            MessageBox.Show("Orde Placed SuccessFully");
+        }
+
+        private void btnKot2_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Can not Make  Kitchen order ticket with a status Complete", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            btnHoldKot.Visible = false;
+
+        }
+
+        private void btnhold1_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("The Status is Hold Already ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+
+        }
+
+        private void btnhold2_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Can not Make it Hold with a status Complete ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+
+        }
+
+        private void btntk1_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Cannot Choose Order Type", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+        }
+
+        private void btndineIn1_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Cannot Choose Order Type", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+        }
     }
 }
 

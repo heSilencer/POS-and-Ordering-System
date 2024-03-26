@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPos));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPos));
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             this.btnAddnew = new Guna.UI2.WinForms.Guna2Button();
             this.BtnDineIn = new Guna.UI2.WinForms.Guna2Button();
@@ -55,6 +55,12 @@
             this.lbltotal = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.txtSearch = new Guna.UI2.WinForms.Guna2TextBox();
+            this.btnHoldKot = new Guna.UI2.WinForms.Guna2Button();
+            this.btnKot2 = new Guna.UI2.WinForms.Guna2Button();
+            this.btnhold1 = new Guna.UI2.WinForms.Guna2Button();
+            this.btnhold2 = new Guna.UI2.WinForms.Guna2Button();
+            this.btntk1 = new Guna.UI2.WinForms.Guna2Button();
+            this.btndineIn1 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
@@ -67,6 +73,12 @@
             // guna2Panel1
             // 
             this.guna2Panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.guna2Panel1.Controls.Add(this.btndineIn1);
+            this.guna2Panel1.Controls.Add(this.btntk1);
+            this.guna2Panel1.Controls.Add(this.btnhold2);
+            this.guna2Panel1.Controls.Add(this.btnhold1);
+            this.guna2Panel1.Controls.Add(this.btnKot2);
+            this.guna2Panel1.Controls.Add(this.btnHoldKot);
             this.guna2Panel1.Controls.Add(this.btnAddnew);
             this.guna2Panel1.Controls.Add(this.BtnDineIn);
             this.guna2Panel1.Controls.Add(this.BtnTakeAway);
@@ -481,6 +493,162 @@
             this.txtSearch.TabIndex = 6;
             this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
             // 
+            // btnHoldKot
+            // 
+            this.btnHoldKot.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.btnHoldKot.BorderRadius = 10;
+            this.btnHoldKot.BorderThickness = 2;
+            this.btnHoldKot.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.btnHoldKot.CustomizableEdges.BottomLeft = false;
+            this.btnHoldKot.CustomizableEdges.TopRight = false;
+            this.btnHoldKot.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnHoldKot.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnHoldKot.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnHoldKot.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnHoldKot.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.btnHoldKot.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.btnHoldKot.ForeColor = System.Drawing.Color.White;
+            this.btnHoldKot.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.btnHoldKot.HoverState.FillColor = System.Drawing.Color.Transparent;
+            this.btnHoldKot.Image = ((System.Drawing.Image)(resources.GetObject("btnHoldKot.Image")));
+            this.btnHoldKot.Location = new System.Drawing.Point(548, 8);
+            this.btnHoldKot.Name = "btnHoldKot";
+            this.btnHoldKot.Size = new System.Drawing.Size(80, 80);
+            this.btnHoldKot.TabIndex = 6;
+            this.btnHoldKot.Text = "                   KOT";
+            this.btnHoldKot.Visible = false;
+            this.btnHoldKot.Click += new System.EventHandler(this.btnHoldKot_Click);
+            // 
+            // btnKot2
+            // 
+            this.btnKot2.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.btnKot2.BorderRadius = 10;
+            this.btnKot2.BorderThickness = 2;
+            this.btnKot2.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.btnKot2.CustomizableEdges.BottomLeft = false;
+            this.btnKot2.CustomizableEdges.TopRight = false;
+            this.btnKot2.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnKot2.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnKot2.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnKot2.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnKot2.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.btnKot2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.btnKot2.ForeColor = System.Drawing.Color.White;
+            this.btnKot2.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.btnKot2.HoverState.FillColor = System.Drawing.Color.Transparent;
+            this.btnKot2.Image = ((System.Drawing.Image)(resources.GetObject("btnKot2.Image")));
+            this.btnKot2.Location = new System.Drawing.Point(548, 8);
+            this.btnKot2.Name = "btnKot2";
+            this.btnKot2.Size = new System.Drawing.Size(80, 80);
+            this.btnKot2.TabIndex = 7;
+            this.btnKot2.Text = "                   KOT";
+            this.btnKot2.Visible = false;
+            this.btnKot2.Click += new System.EventHandler(this.btnKot2_Click);
+            // 
+            // btnhold1
+            // 
+            this.btnhold1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.btnhold1.BorderRadius = 10;
+            this.btnhold1.BorderThickness = 2;
+            this.btnhold1.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.btnhold1.CustomizableEdges.BottomLeft = false;
+            this.btnhold1.CustomizableEdges.TopRight = false;
+            this.btnhold1.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnhold1.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnhold1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnhold1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnhold1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.btnhold1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.btnhold1.ForeColor = System.Drawing.Color.White;
+            this.btnhold1.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.btnhold1.HoverState.FillColor = System.Drawing.Color.Transparent;
+            this.btnhold1.Image = ((System.Drawing.Image)(resources.GetObject("btnhold1.Image")));
+            this.btnhold1.Location = new System.Drawing.Point(634, 8);
+            this.btnhold1.Name = "btnhold1";
+            this.btnhold1.Size = new System.Drawing.Size(80, 80);
+            this.btnhold1.TabIndex = 8;
+            this.btnhold1.Text = "                    Hold";
+            this.btnhold1.Visible = false;
+            this.btnhold1.Click += new System.EventHandler(this.btnhold1_Click);
+            // 
+            // btnhold2
+            // 
+            this.btnhold2.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.btnhold2.BorderRadius = 10;
+            this.btnhold2.BorderThickness = 2;
+            this.btnhold2.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.btnhold2.CustomizableEdges.BottomLeft = false;
+            this.btnhold2.CustomizableEdges.TopRight = false;
+            this.btnhold2.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnhold2.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnhold2.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnhold2.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnhold2.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.btnhold2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.btnhold2.ForeColor = System.Drawing.Color.White;
+            this.btnhold2.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.btnhold2.HoverState.FillColor = System.Drawing.Color.Transparent;
+            this.btnhold2.Image = ((System.Drawing.Image)(resources.GetObject("btnhold2.Image")));
+            this.btnhold2.Location = new System.Drawing.Point(634, 8);
+            this.btnhold2.Name = "btnhold2";
+            this.btnhold2.Size = new System.Drawing.Size(80, 80);
+            this.btnhold2.TabIndex = 9;
+            this.btnhold2.Text = "                    Hold";
+            this.btnhold2.Visible = false;
+            this.btnhold2.Click += new System.EventHandler(this.btnhold2_Click);
+            // 
+            // btntk1
+            // 
+            this.btntk1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.btntk1.BorderRadius = 10;
+            this.btntk1.BorderThickness = 2;
+            this.btntk1.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.btntk1.CustomizableEdges.BottomLeft = false;
+            this.btntk1.CustomizableEdges.TopRight = false;
+            this.btntk1.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btntk1.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btntk1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btntk1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btntk1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.btntk1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.btntk1.ForeColor = System.Drawing.Color.White;
+            this.btntk1.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.btntk1.HoverState.FillColor = System.Drawing.Color.Transparent;
+            this.btntk1.Image = ((System.Drawing.Image)(resources.GetObject("btntk1.Image")));
+            this.btntk1.Location = new System.Drawing.Point(720, 8);
+            this.btntk1.Name = "btntk1";
+            this.btntk1.Size = new System.Drawing.Size(80, 80);
+            this.btntk1.TabIndex = 10;
+            this.btntk1.Text = "                   Take  Away";
+            this.btntk1.Visible = false;
+            this.btntk1.Click += new System.EventHandler(this.btntk1_Click);
+            // 
+            // btndineIn1
+            // 
+            this.btndineIn1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.btndineIn1.BorderRadius = 10;
+            this.btndineIn1.BorderThickness = 2;
+            this.btndineIn1.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.btndineIn1.CustomizableEdges.BottomLeft = false;
+            this.btndineIn1.CustomizableEdges.TopRight = false;
+            this.btndineIn1.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btndineIn1.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btndineIn1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btndineIn1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btndineIn1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.btndineIn1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.btndineIn1.ForeColor = System.Drawing.Color.White;
+            this.btndineIn1.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.btndineIn1.HoverState.FillColor = System.Drawing.Color.Transparent;
+            this.btndineIn1.Image = global::Restaurant_POS_and_Ordering_Sytem.Properties.Resources.icons8_table;
+            this.btndineIn1.Location = new System.Drawing.Point(806, 8);
+            this.btndineIn1.Name = "btndineIn1";
+            this.btndineIn1.Size = new System.Drawing.Size(80, 80);
+            this.btndineIn1.TabIndex = 11;
+            this.btndineIn1.Text = "                   Dine  In";
+            this.btndineIn1.Visible = false;
+            this.btndineIn1.Click += new System.EventHandler(this.btndineIn1_Click);
+            // 
             // frmPos
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -533,5 +701,11 @@
         private System.Windows.Forms.Label label1;
         private Guna.UI2.WinForms.Guna2Button btnAddnew;
         private Guna.UI2.WinForms.Guna2Button btnCheckOut;
+        private Guna.UI2.WinForms.Guna2Button btnHoldKot;
+        private Guna.UI2.WinForms.Guna2Button btnKot2;
+        private Guna.UI2.WinForms.Guna2Button btnhold2;
+        private Guna.UI2.WinForms.Guna2Button btnhold1;
+        private Guna.UI2.WinForms.Guna2Button btntk1;
+        private Guna.UI2.WinForms.Guna2Button btndineIn1;
     }
 }
