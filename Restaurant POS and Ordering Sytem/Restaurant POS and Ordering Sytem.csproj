@@ -37,11 +37,19 @@
       <HintPath>..\packages\BCrypt.Net-Next.4.0.3\lib\net35\BCrypt.Net-Next.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.9.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
+      <HintPath>..\packages\BouncyCastle.1.8.9\lib\BouncyCastle.Crypto.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Guna.UI">
       <HintPath>..\..\..\..\..\Desktop\Guna.UI-Framework-Lib-master\Guna.UI-Framework-Lib-master\Guna.UI WinForms\.net 4.0\Guna.UI.dll</HintPath>
     </Reference>
     <Reference Include="Guna.UI2, Version=2.0.4.6, Culture=neutral, PublicKeyToken=8b9d14aa5142e261, processorArchitecture=MSIL">
       <HintPath>..\packages\Guna.UI2.WinForms.2.0.4.6\lib\net45\Guna.UI2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.3, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13.3\lib\itextsharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
@@ -171,11 +179,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="RecieptPrint\frmPrint.cs">
+    <Compile Include="RecieptPrint\ReceiptPrint.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="RecieptPrint\frmPrint.Designer.cs">
-      <DependentUpon>frmPrint.cs</DependentUpon>
+    <Compile Include="RecieptPrint\ReceiptPrint.Designer.cs">
+      <DependentUpon>ReceiptPrint.cs</DependentUpon>
     </Compile>
     <Compile Include="SampleView.cs">
       <SubType>Form</SubType>
@@ -297,8 +305,8 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="RecieptPrint\frmPrint.resx">
-      <DependentUpon>frmPrint.cs</DependentUpon>
+    <EmbeddedResource Include="RecieptPrint\ReceiptPrint.resx">
+      <DependentUpon>ReceiptPrint.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SampleView.resx">
       <DependentUpon>SampleView.cs</DependentUpon>
@@ -528,6 +536,7 @@
   <ItemGroup>
     <None Include="Resources\printIcon.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

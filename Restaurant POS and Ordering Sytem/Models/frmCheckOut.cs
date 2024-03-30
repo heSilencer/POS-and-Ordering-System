@@ -1,5 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
-using Restaurant_POS_and_Ordering_Sytem.RecieptPrint;
+using Restaurant_POS_and_Ordering_Sytem.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -56,10 +56,13 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
 
             // Optionally, perform any additional actions after checkout
             MessageBox.Show("Checkout successful.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            frmPrint printForm = new frmPrint(totalAmount, receivedAmount, change, orderDetails, MainID);
-            printForm.ShowDialog();
+
             // Close the frmCheckOut form with OK result
             this.DialogResult = DialogResult.OK;
+
+            // Open the frmPrint form after setting DialogResult
+         
+
             this.Close();
         }
         private void UpdateMainTable(double receivedAmount, double change)
@@ -127,4 +130,9 @@ public class OrderDetail
     public int Quantity { get; set; }
     public double Price { get; set; }
     public double Amount { get; set; }
+    public int ProductID { get; internal set; }
+    public string OrderType { get; internal set; }
+    public double Total { get; internal set; }
+    public double Received { get; internal set; }
+    public double Change { get; internal set; }
 }

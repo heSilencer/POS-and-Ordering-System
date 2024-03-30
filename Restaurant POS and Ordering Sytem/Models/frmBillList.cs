@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using Restaurant_POS_and_Ordering_Sytem.RecieptPrint;
 //using Restaurant_POS_and_Ordering_Sytem.Models;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
         private int userID;
         private string username;
         public int MainID = 0;
+        private List<OrderDetail> orderDetails;
 
         public frmBillList()
         {
@@ -44,19 +46,20 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             updateColumn.ImageLayout = DataGridViewImageCellLayout.Zoom;
             dgvBillList.Columns.Add(updateColumn);
 
-           // DataGridViewImageColumn printColumn = new DataGridViewImageColumn();
-           // printColumn.Image = Properties.Resources.printIcon; // Replace with your actual update icon
-            //printColumn.Name = "Print";
-           // printColumn.HeaderText = ""; // Set the header text to an empty string
-           // printColumn.HeaderCell.Style.NullValue = "";
-           // printColumn.Width = 30;
-           // printColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-           // printColumn.FillWeight = 30;
-           // printColumn.MinimumWidth = 30;
-           // printColumn.ImageLayout = DataGridViewImageCellLayout.Zoom;
-            //dgvBillList.Columns.Add(printColumn);
+            DataGridViewImageColumn printColumn = new DataGridViewImageColumn();
+            printColumn.Image = Properties.Resources.printIcon; // Replace with your actual update icon
+            printColumn.Name = "Print";
+            printColumn.HeaderText = ""; // Set the header text to an empty string
+            printColumn.HeaderCell.Style.NullValue = "";
+            printColumn.Width = 30;
+            printColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            printColumn.FillWeight = 30;
+            printColumn.MinimumWidth = 30;
+            printColumn.ImageLayout = DataGridViewImageCellLayout.Zoom;
+            dgvBillList.Columns.Add(printColumn);
 
-            // Set the width of each column
+
+         
             dgvBillList.Columns["Sr#"].Width = 50;
             dgvBillList.Columns["Table"].Width = 80;
             dgvBillList.Columns["Waiter"].Width = 80;
@@ -81,25 +84,47 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
 
         private void Guna2DataGridViewProducts_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0 && e.ColumnIndex == dgvBillList.Columns["Update"].Index)
+            if (e.RowIndex >= 0)
             {
-                MainID = Convert.ToInt32(dgvBillList.Rows[e.RowIndex].Cells["MainID"].Value);
-                string status = GetStatusFromMainID(MainID);
+                if (dgvBillList.Columns[e.ColumnIndex].Name == "Update")
+                {
+                    MainID = Convert.ToInt32(dgvBillList.Rows[e.RowIndex].Cells["MainID"].Value);
+                    string status = GetStatusFromMainID(MainID);
 
-                // Check if the status is not pending, Hold, or Check Out
-                if (status != "Pending"  && status != "Check Out")
-                {
-                    // Proceed with updating
-                    this.Close(); // Close the frmBillList form
-                                  // You can perform additional actions here if needed
+                    // Check if the status is not pending, Hold, or Check Out
+                    if (status != "Pending" && status != "Check Out")
+                    {
+                        // Proceed with updating
+                        this.Close(); // Close the frmBillList form
+                                      // You can perform additional actions here if needed
+                    }
+                    else
+                    {
+                        // Display a message indicating that the action cannot be performed for the current status
+                        guna2MessageDialog1.Show("Cannot proceed with update for orders with status: " + status + "");
+                    }
                 }
-                else
+                else if (dgvBillList.Columns[e.ColumnIndex].Name == "Print")
                 {
-                    // Display a message indicating that the action cannot be performed for the current status
-                    guna2MessageDialog1.Show("Cannot proceed with update for orders with status: " + status + "");
+                    MainID = Convert.ToInt32(dgvBillList.Rows[e.RowIndex].Cells["MainID"].Value);
+                    string status = GetStatusFromMainID(MainID);
+
+                    // Check if the status is "Check Out" for printing
+                    if (status == "Check Out")
+                    {
+                        List<OrderDetail> orderDetails = GetOrderDetails(MainID);
+                        ReceiptPrint printForm = new ReceiptPrint();
+                        printForm.DisplayOrderDetails(orderDetails);
+                        printForm.ShowDialog();
+                    }
+                    else
+                    {
+                        // Display a message indicating that printing is not allowed for orders with other statuses
+                        guna2MessageDialog1.Show("Printing is only allowed for orders with 'Check Out' status.");
+                    }
                 }
             }
-        }
+        }   
         private string GetStatusFromMainID(int MainID)
         {
             string status = "";
@@ -125,14 +150,12 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
 
         private void LoadBillData()
         {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            try
             {
-                try
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
                     connection.Open();
-
                     string query = "SELECT * FROM tblMain";
-
                     using (MySqlCommand command = new MySqlCommand(query, connection))
                     using (MySqlDataAdapter adapter = new MySqlDataAdapter(command))
                     {
@@ -155,10 +178,10 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                         }
                     }
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error: " + ex.Message);
-                }
+            }
+            catch (Exception ex)
+            {
+                OnErrorOccurred(ex.Message);
             }
         }
 
@@ -190,6 +213,73 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
           
         }
 
-      
+
+        private List<OrderDetail> GetOrderDetails(int MainID)
+        {
+            orderDetails = new List<OrderDetail>();
+            string query = @"SELECT
+                        D.qty,
+                        P.prodName AS ProductName,
+                        D.prodID AS ProductID,
+                        D.price AS Price, -- Added price column
+                        D.amount AS Amount,
+                        M.OrderType,
+                        M.Total,
+                        M.Received,
+                        M.Change
+                    FROM
+                        tbldetails AS D
+                    JOIN
+                        tblMain AS M ON D.MainID = M.MainID
+                    JOIN
+                        tbl_products AS P ON D.prodID = P.prodID
+                    WHERE
+                        D.MainID = @MainID";
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                using (MySqlCommand command = new MySqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@MainID", MainID);
+
+                    try
+                    {
+                        connection.Open();
+                        using (MySqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                OrderDetail detail = new OrderDetail();
+                                detail.Quantity = Convert.ToInt32(reader["qty"]);
+                                detail.ProductID = Convert.ToInt32(reader["ProductID"]);
+                                detail.ProductName = reader["ProductName"].ToString();
+                                detail.Price = Convert.ToDouble(reader["Price"]); // Added price
+                                detail.Amount = Convert.ToDouble(reader["Amount"]);
+                                detail.OrderType = reader["OrderType"].ToString();
+                                detail.Total = Convert.ToDouble(reader["Total"]);
+                                detail.Received = Convert.ToDouble(reader["Received"]);
+                                detail.Change = Convert.ToDouble(reader["Change"]);
+                                orderDetails.Add(detail);
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        OnErrorOccurred(ex.Message);
+                    }
+                }
+            }
+
+            return orderDetails;
+        }
+
+        // Event declaration
+        public event EventHandler<string> ErrorOccurred;
+
+        // Event raising method
+        protected virtual void OnErrorOccurred(string errorMessage)
+        {
+            ErrorOccurred?.Invoke(this, errorMessage);
+        }
     }
 }
