@@ -62,6 +62,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Design" />
+    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Management" />
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms.DataVisualization" />
@@ -185,6 +186,18 @@
     <Compile Include="RecieptPrint\ReceiptPrint.Designer.cs">
       <DependentUpon>ReceiptPrint.cs</DependentUpon>
     </Compile>
+    <Compile Include="Reports\frmReports.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reports\frmReports.Designer.cs">
+      <DependentUpon>frmReports.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\MenuList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reports\MenuList.Designer.cs">
+      <DependentUpon>MenuList.cs</DependentUpon>
+    </Compile>
     <Compile Include="SampleView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -307,6 +320,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="RecieptPrint\ReceiptPrint.resx">
       <DependentUpon>ReceiptPrint.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\frmReports.resx">
+      <DependentUpon>frmReports.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\MenuList.resx">
+      <DependentUpon>MenuList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SampleView.resx">
       <DependentUpon>SampleView.cs</DependentUpon>

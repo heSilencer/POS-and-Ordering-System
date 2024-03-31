@@ -9,8 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using Restaurant_POS_and_Ordering_Sytem.View;
-
-
+using Restaurant_POS_and_Ordering_Sytem.Reports;
 
 namespace Restaurant_POS_and_Ordering_Sytem
 {
@@ -147,7 +146,7 @@ namespace Restaurant_POS_and_Ordering_Sytem
 
         private void btnReports_Click(object sender, EventArgs e)
         {
-
+            AddControls(new frmReports());
         }
 
         private void btnMinimized_Click(object sender, EventArgs e)

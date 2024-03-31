@@ -117,7 +117,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
         }
         private void DisplayTotalRevenue()
         {
-            string query = "SELECT SUM(Total) AS TotalRevenue FROM tblMain WHERE Status = 'Check Out'";
+            string query = "SELECT  SUM(Total) AS TotalRevenue FROM tblMain WHERE Status = 'Check Out'";
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
@@ -466,6 +466,11 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
         }
 
         private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void guna2PictureBox1_Click(object sender, EventArgs e)
         {
 
         }
