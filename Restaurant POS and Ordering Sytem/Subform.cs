@@ -38,6 +38,7 @@ namespace Restaurant_POS_and_Ordering_Sytem
             POS.userRole = "cashier";
 
             POS.Show();
+            this.Close();
         }
 
         private void btnLogout_Click(object sender, EventArgs e)

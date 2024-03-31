@@ -14,84 +14,97 @@ using System.Windows.Forms;
 
 namespace Restaurant_POS_and_Ordering_Sytem.Reports
 {
-    public partial class MenuList : Form
+    public partial class StaffList : Form
     {
-        public MenuList()
+        public StaffList()
         {
             InitializeComponent();
-
             InitializeDataGridView();
             LoadProducts();
         }
-
         private void InitializeDataGridView()
         {
             guna2DataGridViewProducts.RowTemplate.Height = 200; // Set the row height to accommodate the images
 
             DataGridViewImageColumn imageColumn = new DataGridViewImageColumn();
-            imageColumn.Name = "prodImage";
-            imageColumn.HeaderText = "Product Image";
+            imageColumn.Name = "staffImage";
+            imageColumn.HeaderText = "Staff Image";
             imageColumn.ImageLayout = DataGridViewImageCellLayout.Stretch; // Stretch the image to fill the cell
             imageColumn.Width = 200; // Set the width of the image column
             guna2DataGridViewProducts.Columns.Add(imageColumn);
 
-            // Add columns for product name and price
-            guna2DataGridViewProducts.Columns.Add("prodName", "Product Name");
-            guna2DataGridViewProducts.Columns["prodName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill; // Fill the remaining space
-            guna2DataGridViewProducts.Columns["prodName"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter; // Center-align the header text
-            guna2DataGridViewProducts.Columns["prodName"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter; // Center-align the data
+            // Add columns for staff details
+            guna2DataGridViewProducts.Columns.Add("staffName", "Staff Name");
+            guna2DataGridViewProducts.Columns["staffName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill; // Fill the remaining space
+            guna2DataGridViewProducts.Columns["staffName"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter; // Center-align the header text
+            guna2DataGridViewProducts.Columns["staffName"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter; // Center-align the data
 
-            guna2DataGridViewProducts.Columns.Add("prodPrice", "Product Price");
-            guna2DataGridViewProducts.Columns["prodPrice"].Width = 150; // Set a fixed width for the price column
-            guna2DataGridViewProducts.Columns["prodPrice"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter; // Center-align the data
-        
-    }
+            guna2DataGridViewProducts.Columns.Add("staffEmail", "Email");
+            guna2DataGridViewProducts.Columns["staffEmail"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            guna2DataGridViewProducts.Columns["staffEmail"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            guna2DataGridViewProducts.Columns["staffEmail"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
+            guna2DataGridViewProducts.Columns.Add("staffPhone", "Phone");
+            guna2DataGridViewProducts.Columns["staffPhone"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            guna2DataGridViewProducts.Columns["staffPhone"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            guna2DataGridViewProducts.Columns["staffPhone"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            guna2DataGridViewProducts.Columns.Add("staffAddress", "Address");
+            guna2DataGridViewProducts.Columns["staffAddress"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            guna2DataGridViewProducts.Columns["staffAddress"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            guna2DataGridViewProducts.Columns["staffAddress"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+        }
         private void LoadProducts()
         {
-            DataTable products = GetProductsFromDatabase();
+            DataTable staffData = GetStaffDataFromDatabase();
 
-            foreach (DataRow product in products.Rows)
+            foreach (DataRow staff in staffData.Rows)
             {
-                // Set product image from database
-                byte[] imgData = (byte[])product["prodImage"];
-                System.Drawing.Image image; // Fully qualify System.Drawing.Image
+                // Set staff image from database
+                byte[] imgData = (byte[])staff["staffImage"];
+                System.Drawing.Image image;
                 using (MemoryStream ms = new MemoryStream(imgData))
                 {
-                    image = System.Drawing.Image.FromStream(ms); // Fully qualify System.Drawing.Image
+                    image = System.Drawing.Image.FromStream(ms);
                 }
 
                 // Add row to DataGridView
-                guna2DataGridViewProducts.Rows.Add(new object[] { image, product["prodName"].ToString(), product["prodPrice"].ToString() });
+                guna2DataGridViewProducts.Rows.Add(new object[] { image, staff["staffFname"].ToString() + " " + staff["staffLname"].ToString(), staff["staffEmail"].ToString(), staff["staffPhone"].ToString(), staff["staffAddress"].ToString() });
             }
         }
 
-        private DataTable GetProductsFromDatabase()
+        private DataTable GetStaffDataFromDatabase()
         {
             string connectionString = "server=localhost;database=pos_ordering_system;userid=root;password=;";
-            string query = "SELECT prodName, prodPrice, prodImage FROM tbl_products";
+            string query = "SELECT staffFname, staffLname, staffEmail, staffPhone, staffAddress, staffImage FROM tbl_staff";
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 MySqlCommand command = new MySqlCommand(query, connection);
-                DataTable products = new DataTable();
+                DataTable staffData = new DataTable();
 
                 try
                 {
                     connection.Open();
                     MySqlDataReader reader = command.ExecuteReader();
-                    products.Load(reader);
+                    staffData.Load(reader);
                 }
                 catch (MySqlException ex)
                 {
                     MessageBox.Show("Error: " + ex.Message);
                 }
 
-                return products;
+                return staffData;
             }
         }
 
-        private void btnSavetoPDF_Click(object sender, EventArgs e)
+      
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnSavetoPDF_Click_1(object sender, EventArgs e)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "PDF files (*.pdf)|*.pdf";
@@ -104,7 +117,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
 
                 using (FileStream fs = new FileStream(fileName, FileMode.Create, FileAccess.Write, FileShare.None))
                 {
-                    iTextSharp.text.Document document = new iTextSharp.text.Document(); // Fully qualify iTextSharp.text.Document
+                    Document document = new Document();
                     PdfWriter.GetInstance(document, fs);
 
                     document.Open();
@@ -114,7 +127,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
                     // Add headers
                     foreach (DataGridViewColumn column in guna2DataGridViewProducts.Columns)
                     {
-                        PdfPCell headerCell = new PdfPCell(new iTextSharp.text.Phrase(column.HeaderText));
+                        PdfPCell headerCell = new PdfPCell(new Phrase(column.HeaderText));
                         headerCell.HorizontalAlignment = Element.ALIGN_CENTER; // Center-align header text
                         table.AddCell(headerCell);
                     }
@@ -126,13 +139,14 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
                         {
                             if (cell.ColumnIndex == 0) // Check if the cell is in the image column
                             {
-                                if (cell.Value != null && cell.Value is System.Drawing.Image) // Fully qualify System.Drawing.Image
+                                if (cell.Value != null && cell.Value is System.Drawing.Image)
                                 {
                                     // Convert System.Drawing.Image to iTextSharp.text.Image
-                                    System.Drawing.Image img = (System.Drawing.Image)cell.Value; // Fully qualify System.Drawing.Image
+                                    System.Drawing.Image img = (System.Drawing.Image)cell.Value;
                                     iTextSharp.text.Image iTextImage = iTextSharp.text.Image.GetInstance(img, BaseColor.WHITE);
                                     PdfPCell imageCell = new PdfPCell(iTextImage, true);
                                     imageCell.HorizontalAlignment = Element.ALIGN_CENTER; // Center-align image
+                                    imageCell.VerticalAlignment = Element.ALIGN_MIDDLE; // Center-align vertically
                                     table.AddCell(imageCell);
                                 }
                                 else
@@ -143,22 +157,13 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
                             }
                             else
                             {
-                                PdfPCell dataCell = new PdfPCell(new iTextSharp.text.Phrase(cell.Value?.ToString() ?? ""));
-                                if (cell.ColumnIndex == 1 || cell.ColumnIndex == 2) // Check if the cell is in the Product name or Price column
-                                {
-                                    dataCell.HorizontalAlignment = Element.ALIGN_CENTER; // Center-align Product name and Price horizontally
-                                    dataCell.VerticalAlignment = Element.ALIGN_MIDDLE; // Center-align vertically
-                                }
-                                else
-                                {
-                                    dataCell.HorizontalAlignment = Element.ALIGN_LEFT; // Align other cells to the left
-                                    dataCell.VerticalAlignment = Element.ALIGN_MIDDLE; // Align vertically
-                                }
+                                PdfPCell dataCell = new PdfPCell(new Phrase(cell.Value?.ToString() ?? ""));
+                                dataCell.HorizontalAlignment = Element.ALIGN_CENTER; // Center-align horizontally
+                                dataCell.VerticalAlignment = Element.ALIGN_MIDDLE; // Center-align vertically
                                 table.AddCell(dataCell);
                             }
                         }
                     }
-
 
                     document.Add(table);
                     document.Close();
@@ -167,11 +172,6 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
                 MessageBox.Show("PDF file saved successfully.");
                 this.Close();
             }
-        }
-
-        private void btnExit_Click(object sender, EventArgs e)
-        {
-            this.Close();
         }
     }
 }

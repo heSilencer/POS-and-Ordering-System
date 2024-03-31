@@ -32,8 +32,9 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                 {
                     connection.Open();
 
-                    // Replace "tbl_staff" with the actual table name in your database
-                    string query = "SELECT staffFname FROM tbl_staff";
+                    // Modify the query to select only staff names with category "Cashier"
+                    string query = "SELECT staffID, staffFname FROM tbl_staff WHERE staffcatID IN (SELECT staffcatID FROM tbl_staffcategory WHERE catName IN ('Cashier', 'Admin', 'Manager'))";
+
 
                     using (MySqlCommand command = new MySqlCommand(query, connection))
                     using (MySqlDataReader reader = command.ExecuteReader())
@@ -46,9 +47,11 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                             {
                                 // Assuming "staffFname" is a column in your table
                                 string staffFname = reader["staffFname"].ToString();
+                                string staffID = reader["staffID"].ToString();
 
-                                // Add the staffFname to the ComboBox
+                                // Store staffID as the Tag of each item
                                 cmbxName.Items.Add(staffFname);
+                                cmbxName.Tag = staffID;
                             }
                         }
                         else
@@ -80,11 +83,20 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
         private void btnSave_Click(object sender, EventArgs e)
         {
             string staffFname = cmbxName.SelectedItem?.ToString();
+            if (string.IsNullOrEmpty(staffFname))
+            {
+                MessageBox.Show("Please select a cashier.");
+                return;
+            }
+
+            // Retrieve staffID from the ComboBox's Tag
+            string staffID = cmbxName.Tag.ToString();
+
             string username = txtuser.Text;
             string password = txtpass.Text;
             string staffrole = cmbxrole.SelectedItem?.ToString();
 
-            if (string.IsNullOrEmpty(staffFname) || string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
                 MessageBox.Show("Please fill in all required fields.");
                 return;
@@ -97,8 +109,8 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                 try
                 {
                     connection.Open();
-                    string insertQuery = "INSERT INTO users (uname, username, userpass, role) " +
-                                        "VALUES (@uname, @username, @userpass, @role)";
+                    string insertQuery = "INSERT INTO users (uname, username, userpass, role, staffID) " +
+                                        "VALUES (@uname, @username, @userpass, @role, @staffID)";
 
                     using (MySqlCommand command = new MySqlCommand(insertQuery, connection))
                     {
@@ -106,6 +118,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                         command.Parameters.AddWithValue("@username", username);
                         command.Parameters.AddWithValue("@userpass", hashedPassword);
                         command.Parameters.AddWithValue("@role", staffrole);
+                        command.Parameters.AddWithValue("@staffID", staffID);
 
                         command.ExecuteNonQuery();
 
@@ -132,6 +145,11 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
         {
             cmbxrole.Items.Add("Admin");
             cmbxrole.Items.Add("Cashier");
+        }
+
+        private void cmbxName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -19,8 +19,20 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
 
         private void btnMenuList_Click(object sender, EventArgs e)
         {
-            MenuList Ml = new MenuList();
-            Ml.Show();
+            var Ml = new MenuList();
+            MainClass.BlurbackGround(Ml);
+        }
+
+        private void btnStaffList_Click(object sender, EventArgs e)
+        {
+            var SL = new StaffList();
+            MainClass.BlurbackGround(SL);
+        }
+
+        private void btnSalesbyCashier_Click(object sender, EventArgs e)
+        {
+            var SBC = new SalesByCashier();
+            MainClass.BlurbackGround(SBC);
         }
     }
 }

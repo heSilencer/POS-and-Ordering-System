@@ -45,6 +45,8 @@
             this.btnMenuList.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.btnMenuList.Font = new System.Drawing.Font("Segoe UI", 10.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMenuList.ForeColor = System.Drawing.Color.White;
+            this.btnMenuList.Image = global::Restaurant_POS_and_Ordering_Sytem.Properties.Resources.icons8_bill_50;
+            this.btnMenuList.ImageSize = new System.Drawing.Size(50, 50);
             this.btnMenuList.Location = new System.Drawing.Point(29, 51);
             this.btnMenuList.Name = "btnMenuList";
             this.btnMenuList.Size = new System.Drawing.Size(278, 156);
@@ -61,11 +63,13 @@
             this.btnStaffList.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.btnStaffList.Font = new System.Drawing.Font("Segoe UI", 10.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnStaffList.ForeColor = System.Drawing.Color.White;
+            this.btnStaffList.ImageSize = new System.Drawing.Size(50, 50);
             this.btnStaffList.Location = new System.Drawing.Point(325, 51);
             this.btnStaffList.Name = "btnStaffList";
             this.btnStaffList.Size = new System.Drawing.Size(278, 156);
             this.btnStaffList.TabIndex = 1;
             this.btnStaffList.Text = "Staff List";
+            this.btnStaffList.Click += new System.EventHandler(this.btnStaffList_Click);
             // 
             // btnSalesbyCategory
             // 
@@ -96,6 +100,7 @@
             this.btnSalesbyCashier.Size = new System.Drawing.Size(278, 156);
             this.btnSalesbyCashier.TabIndex = 3;
             this.btnSalesbyCashier.Text = "Sales By Cashier";
+            this.btnSalesbyCashier.Click += new System.EventHandler(this.btnSalesbyCashier_Click);
             // 
             // frmReports
             // 

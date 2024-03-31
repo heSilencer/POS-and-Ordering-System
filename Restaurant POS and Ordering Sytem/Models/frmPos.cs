@@ -690,7 +690,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
 
         private void BtnDineIn_Click(object sender, EventArgs e)
         {
-            Table tbl = new Table();
+            var tbl = new Table();
             MainClass.BlurbackGround(tbl);
             if (tbl.TableName != "")
             {
@@ -702,7 +702,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             }
 
 
-            Waiter wtr = new Waiter();
+            var wtr = new Waiter();
             MainClass.BlurbackGround(wtr);
             if (wtr.WaiterName != "")
             {

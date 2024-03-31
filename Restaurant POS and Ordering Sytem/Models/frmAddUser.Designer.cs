@@ -234,6 +234,7 @@
             this.cmbxName.Name = "cmbxName";
             this.cmbxName.Size = new System.Drawing.Size(217, 36);
             this.cmbxName.TabIndex = 35;
+            this.cmbxName.SelectedIndexChanged += new System.EventHandler(this.cmbxName_SelectedIndexChanged);
             // 
             // label4
             // 
