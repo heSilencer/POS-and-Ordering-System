@@ -125,6 +125,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "frmAddUserView";
             this.Text = "frmAddUserView";
+            this.Load += new System.EventHandler(this.frmAddUserView_Load);
             this.Controls.SetChildIndex(this.label2, 0);
             this.Controls.SetChildIndex(this.btnAdd, 0);
             this.Controls.SetChildIndex(this.Add_UserView, 0);

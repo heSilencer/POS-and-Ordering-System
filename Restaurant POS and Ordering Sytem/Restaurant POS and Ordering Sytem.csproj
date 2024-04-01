@@ -204,11 +204,11 @@
     <Compile Include="Reports\SalesByCashier.Designer.cs">
       <DependentUpon>SalesByCashier.cs</DependentUpon>
     </Compile>
-    <Compile Include="Reports\SelectDateForCashier.cs">
+    <Compile Include="Reports\SalesByCategory.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Reports\SelectDateForCashier.Designer.cs">
-      <DependentUpon>SelectDateForCashier.cs</DependentUpon>
+    <Compile Include="Reports\SalesByCategory.Designer.cs">
+      <DependentUpon>SalesByCategory.cs</DependentUpon>
     </Compile>
     <Compile Include="Reports\StaffList.cs">
       <SubType>Form</SubType>
@@ -348,8 +348,8 @@
     <EmbeddedResource Include="Reports\SalesByCashier.resx">
       <DependentUpon>SalesByCashier.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reports\SelectDateForCashier.resx">
-      <DependentUpon>SelectDateForCashier.cs</DependentUpon>
+    <EmbeddedResource Include="Reports\SalesByCategory.resx">
+      <DependentUpon>SalesByCategory.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\StaffList.resx">
       <DependentUpon>StaffList.cs</DependentUpon>
@@ -582,7 +582,9 @@
   <ItemGroup>
     <None Include="Resources\printIcon.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\icons8-pdf-50.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

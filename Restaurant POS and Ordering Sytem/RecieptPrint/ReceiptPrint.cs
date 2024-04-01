@@ -23,6 +23,8 @@ namespace Restaurant_POS_and_Ordering_Sytem.RecieptPrint
 
         internal void DisplayOrderDetails(List<OrderDetail> orderDetails)
         {
+            panel1.Controls.Clear();
+
             Label lblQtyHeader = new Label();
             lblQtyHeader.Text = "Qty";
             lblQtyHeader.Location = new Point(10, 10);
@@ -30,17 +32,17 @@ namespace Restaurant_POS_and_Ordering_Sytem.RecieptPrint
 
             Label lblProductNameHeader = new Label();
             lblProductNameHeader.Text = "Product Name";
-            lblProductNameHeader.Location = new Point(150, 10); // Adjusted location for better alignment
+            lblProductNameHeader.Location = new Point(106, 10); // Adjusted location for better alignment
             panel1.Controls.Add(lblProductNameHeader);
 
             Label lblPriceHeader = new Label(); // New label for price header
             lblPriceHeader.Text = "Price";
-            lblPriceHeader.Location = new Point(325, 10); // Adjusted location for better alignment
+            lblPriceHeader.Location = new Point(206, 10); // Adjusted location for better alignment
             panel1.Controls.Add(lblPriceHeader);
 
             Label lblAmountHeader = new Label();
             lblAmountHeader.Text = "Amount";
-            lblAmountHeader.Location = new Point(450, 10); // Adjusted location for better alignment
+            lblAmountHeader.Location = new Point(306, 10); // Adjusted location for better alignment
             panel1.Controls.Add(lblAmountHeader);
 
             int yOffset = 40; // Initial Y position for data
@@ -56,31 +58,35 @@ namespace Restaurant_POS_and_Ordering_Sytem.RecieptPrint
 
                 Label lblProductName = new Label();
                 lblProductName.Text = orderDetail.ProductName;
-                lblProductName.Location = new Point(150, yOffset); // Adjusted location for better alignment
+                lblProductName.Location = new Point(106, yOffset); // Adjusted location for better alignment
                 lblProductName.AutoSize = true;
                 panel1.Controls.Add(lblProductName);
 
                 Label lblPrice = new Label(); // New label for price
                 lblPrice.Text = orderDetail.Price.ToString("0.00");
-                lblPrice.Location = new Point(325, yOffset); // Adjusted location for better alignment
+                lblPrice.Location = new Point(206, yOffset); // Adjusted location for better alignment
                 panel1.Controls.Add(lblPrice);
 
                 Label lblAmount = new Label();
                 lblAmount.Text = orderDetail.Amount.ToString("0.00");
-                lblAmount.Location = new Point(450, yOffset); // Adjusted location for better alignment
+                lblAmount.Location = new Point(306, yOffset); // Adjusted location for better alignment
                 panel1.Controls.Add(lblAmount);
 
                 // Increment Y position for the next set of labels
                 yOffset += 30;
             }
+
             // Set other details like order type, total, received, and change
             // Example:
             lblOderType.Text = orderDetails.First().OrderType; // Assuming all items have the same order type
             lbltotal.Text = orderDetails.First().Total.ToString("0.00"); // Assuming total is the same for all items
             lblCash.Text = orderDetails.First().Received.ToString("0.00"); // Assuming received amount is the same for all items
-            lblChnage.Text = orderDetails.First().Change.ToString("0.00");
+            lblChange.Text = orderDetails.First().Change.ToString("0.00");
+
+            // Resize controls to accommodate the content
         }
 
+     
         private void BtnPrint_Click(object sender, EventArgs e)
         {
             PrintDocument pd = new PrintDocument();
@@ -109,7 +115,12 @@ namespace Restaurant_POS_and_Ordering_Sytem.RecieptPrint
             {
                 using (FileStream stream = new FileStream(saveFileDialog.FileName, FileMode.Create))
                 {
-                    Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 10f, 10f);
+                    // Convert pixels to points
+                    float panelWidthInPoints = (float)(receiptPanel.Width * 1.05); // Assuming 1 pixel = 0.75 points
+                    float panelHeightInPoints = (float)(receiptPanel.Height * 1.02); // Assuming 1 pixel = 0.75 points
+
+                    // Create the PDF document with the calculated size
+                    Document pdfDoc = new Document(new iTextSharp.text.Rectangle(panelWidthInPoints, panelHeightInPoints), 10f, 10f, 10f, 10f);
                     PdfWriter.GetInstance(pdfDoc, stream);
                     pdfDoc.Open();
 
@@ -124,7 +135,23 @@ namespace Restaurant_POS_and_Ordering_Sytem.RecieptPrint
 
                     pdfDoc.Close();
                 }
+                MessageBox.Show("PDF file saved successfully.");
             }
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void guna2Separator1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label11_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

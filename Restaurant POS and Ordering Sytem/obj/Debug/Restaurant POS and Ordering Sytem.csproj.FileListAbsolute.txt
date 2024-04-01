@@ -28,7 +28,6 @@ C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\
 C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\bin\Debug\itextsharp.dll
 C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\bin\Debug\BCrypt.Net-Next.xml
 C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\bin\Debug\itextsharp.xml
-C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\obj\Debug\Restaurant POS and Ordering Sytem.csprojResolveAssemblyReference.cache
 C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\obj\Debug\Restaurant_POS_and_Ordering_Sytem.ForgotPassword.frmCheckUser.resources
 C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\obj\Debug\Restaurant_POS_and_Ordering_Sytem.ForgotPassword.frmNewPassword.resources
 C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\obj\Debug\Restaurant_POS_and_Ordering_Sytem.frmlogin.resources
@@ -65,4 +64,5 @@ C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\
 C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\obj\Debug\Restaurant_POS_and_Ordering_Sytem.Reports.MenuList.resources
 C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\obj\Debug\Restaurant_POS_and_Ordering_Sytem.Reports.StaffList.resources
 C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\obj\Debug\Restaurant_POS_and_Ordering_Sytem.Reports.SalesByCashier.resources
-C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\obj\Debug\Restaurant_POS_and_Ordering_Sytem.Reports.SelectDateForCashier.resources
+C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\obj\Debug\Restaurant_POS_and_Ordering_Sytem.Reports.SalesByCategory.resources
+C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\obj\Debug\Restaurant POS and Ordering Sytem.csprojResolveAssemblyReference.cache

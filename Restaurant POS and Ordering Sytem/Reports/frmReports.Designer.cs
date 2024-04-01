@@ -85,6 +85,7 @@
             this.btnSalesbyCategory.Size = new System.Drawing.Size(278, 156);
             this.btnSalesbyCategory.TabIndex = 2;
             this.btnSalesbyCategory.Text = "Sales By Category";
+            this.btnSalesbyCategory.Click += new System.EventHandler(this.btnSalesbyCategory_Click);
             // 
             // btnSalesbyCashier
             // 

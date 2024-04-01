@@ -20,8 +20,8 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
             InitializeComponent();
             Add_UserView.Columns.Add("srNumber", "Sr#");
             Add_UserView.Columns.Add("userId", "User ID");
-            Add_UserView.Columns.Add("uname", "Username");
-            Add_UserView.Columns.Add("username", "Full Name");
+            Add_UserView.Columns.Add("uname", "Full Name");
+            Add_UserView.Columns.Add("username", "UserName");
             Add_UserView.Columns.Add("userpass", "Password");
             Add_UserView.Columns.Add("role", "Role");
             Add_UserView.Columns["Role"].DefaultCellStyle.Font = new Font("Segoe UI", 14);
@@ -53,15 +53,22 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
             Add_UserView.Columns.Add(deleteColumn);
 
             // Load data from the database into the DataGridView
-            LoadDataFromDatabase();
             Add_UserView.CellClick += Add_UserView_CellClick;
+
+        }
+        private void FrmAddUser_UserAddedOrUpdated(object sender, EventArgs e)
+        {
+            // Refresh data from the database
+            Add_UserView.Rows.Clear(); // Clear the existing rows before loading new data
+
+            LoadDataFromDatabase();
         }
         public override void btnAdd_Click(object sender, EventArgs e)
         {
-          
-             var  addUserForm = new frmAddUser();
+            var addUserForm = new frmAddUser();
+            addUserForm.UserAddedOrUpdated += FrmAddUser_UserAddedOrUpdated; // Subscribe to the event
             MainClass.BlurbackGround(addUserForm);
-           
+
 
         }
         public override void txtSearch_TextChanged(object sender, EventArgs e)
@@ -95,6 +102,8 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
         }
         private void LoadDataFromDatabase()
         {
+            Add_UserView.Rows.Clear(); // Clear the existing rows before loading new data
+
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 try
@@ -154,7 +163,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
                     connection.Open();
 
                     // Delete user with the specified ID
-                    string query = "DELETE FROM users WHERE userId = @userId"; // Replace 'your_table_name' with the actual table name
+                    string query = "DELETE FROM users WHERE userId = @userId"; //
 
                     using (MySqlCommand command = new MySqlCommand(query, connection))
                     {
@@ -172,6 +181,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
                                     break;
                                 }
                             }
+                            LoadDataFromDatabase();
 
                             MessageBox.Show("User deleted successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
@@ -186,6 +196,11 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
                     MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private void frmAddUserView_Load(object sender, EventArgs e)
+        {
+            LoadDataFromDatabase();
         }
     }
 }

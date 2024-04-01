@@ -15,6 +15,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
     public partial class frmAddUser : Form
     {
         string connectionString = @"server=localhost;database=pos_ordering_system;userid=root;password=;";
+        public event EventHandler UserAddedOrUpdated;
 
 
         public frmAddUser()
@@ -22,6 +23,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             InitializeComponent();
             LoadStaffNames();
         }
+
         private void LoadStaffNames()
         {
             cmbxName.Items.Clear();
@@ -123,6 +125,11 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                         command.ExecuteNonQuery();
 
                         MessageBox.Show("User added successfully!");
+
+                        // Raise the UserAddedOrUpdated event
+                        UserAddedOrUpdated?.Invoke(this, e);
+
+
                         this.Close();
                     }
                 }
@@ -143,6 +150,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
 
         private void frmAddUser_Load(object sender, EventArgs e)
         {
+
             cmbxrole.Items.Add("Admin");
             cmbxrole.Items.Add("Cashier");
         }
@@ -151,6 +159,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
         {
 
         }
+        
     }
 }
 

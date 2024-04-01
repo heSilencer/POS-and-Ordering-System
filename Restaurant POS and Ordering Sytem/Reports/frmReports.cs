@@ -34,5 +34,11 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
             var SBC = new SalesByCashier();
             MainClass.BlurbackGround(SBC);
         }
+
+        private void btnSalesbyCategory_Click(object sender, EventArgs e)
+        {
+            var SBC = new SalesByCategory();
+            MainClass.BlurbackGround(SBC);
+        }
     }
 }

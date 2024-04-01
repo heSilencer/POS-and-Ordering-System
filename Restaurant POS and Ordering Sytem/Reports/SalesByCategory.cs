@@ -15,29 +15,27 @@ using Image = System.Drawing.Image;
 using Font = System.Drawing.Font;
 namespace Restaurant_POS_and_Ordering_Sytem.Reports
 {
-    public partial class SalesByCashier : Form
+    public partial class SalesByCategory : Form
     {
         string connectionString = "server=localhost;database=pos_ordering_system;userid=root;password=;";
 
-        public SalesByCashier()
+        public SalesByCategory()
         {
             InitializeComponent();
-            LoadCashierNames();
-            guna2DataGridViewSalesbYCashier.RowTemplate.Height = 200;
-
+            LoadCategories();
+            guna2DataGridViewSalesByCategory.RowTemplate.Height = 200; // Set row height
         }
 
-        private void LoadCashierNames()
+        private void LoadCategories()
         {
-            cmbxCashierName.Items.Clear();
+            cmbxCategory.Items.Clear();
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 try
                 {
                     connection.Open();
-                    string query = "SELECT staffID, staffFname FROM tbl_staff WHERE staffcatID IN (SELECT staffcatID FROM tbl_staffcategory WHERE catName IN ('Cashier', 'Admin', 'Manager'))";
-
+                    string query = "SELECT catID, catName FROM tbl_Category";
 
                     using (MySqlCommand command = new MySqlCommand(query, connection))
                     using (MySqlDataReader reader = command.ExecuteReader())
@@ -46,13 +44,13 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
                         {
                             while (reader.Read())
                             {
-                                string staffFname = reader["staffFname"].ToString();
-                                cmbxCashierName.Items.Add(staffFname);
+                                string categoryName = reader["catName"].ToString();
+                                cmbxCategory.Items.Add(categoryName);
                             }
                         }
                         else
                         {
-                            MessageBox.Show("No cashiers found.");
+                            MessageBox.Show("No categories found.");
                         }
                     }
                 }
@@ -63,41 +61,38 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
             }
         }
 
-      
-
-        private void btnShow_Click_1(object sender, EventArgs e)
+        private void btnShow_Click(object sender, EventArgs e)
         {
-            string cashierName = cmbxCashierName.SelectedItem?.ToString();
-            DateTime startDate = guna2DateTimePicker1.Value;
-            DateTime endDate = guna2DateTimePicker2.Value;
+            string categoryName = cmbxCategory.SelectedItem?.ToString();
 
-            if (string.IsNullOrEmpty(cashierName))
+            if (string.IsNullOrEmpty(categoryName))
             {
-                MessageBox.Show("Please select a cashier.");
+                MessageBox.Show("Please select a category.");
                 return;
             }
+
+            DateTime startDate = guna2DateTimePicker1.Value;
+            DateTime endDate = guna2DateTimePicker2.Value;
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 try
                 {
                     connection.Open();
-                    string query = "SELECT tbl_staff.staffImage, tbl_staff.staffFname, SUM(tblmain.total) AS TotalSales " +
+                    string query = "SELECT tbl_products.prodImage, tbl_products.prodName, SUM(tbldetails.qty * tbldetails.price) AS TotalSales " +
                                      "FROM tblmain " +
-                                     "INNER JOIN users ON tblmain.userId = users.userId " +
-                                     "INNER JOIN tbl_staff ON users.staffID = tbl_staff.staffID " +
-                                     "WHERE tbl_staff.staffFname = @cashierName " +
-                                     "AND DATE(tblmain.aDate) BETWEEN DATE(@startDate) AND DATE(@endDate) " +  // Consider dates within the specified range
-                                     "AND tblmain.status = 'check Out' " +
-                                     "GROUP BY tbl_staff.staffImage, tbl_staff.staffFname";
-
-
-
+                                     "INNER JOIN tbldetails ON tblmain.MainID = tbldetails.MainID " +
+                                     "INNER JOIN tbl_products ON tbldetails.prodID = tbl_products.prodID " +
+                                     "INNER JOIN tbl_Category ON tbl_products.catID = tbl_Category.catID " +
+                                     "WHERE tbl_Category.catName = @categoryName " +
+                                     "AND DATE(tblmain.aDate) BETWEEN DATE(@startDate) AND DATE(@endDate) " + // Date range filter
+                                     "AND tblmain.status = 'Check Out' " +
+                                     "GROUP BY tbl_products.prodImage, tbl_products.prodName";
 
 
                     using (MySqlCommand command = new MySqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@cashierName", cashierName);
+                        command.Parameters.AddWithValue("@categoryName", categoryName);
                         command.Parameters.AddWithValue("@startDate", startDate);
                         command.Parameters.AddWithValue("@endDate", endDate);
 
@@ -108,46 +103,35 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
 
                             if (salesData.Rows.Count > 0)
                             {
-                                // Bind sales data to DataGridView
-                                guna2DataGridViewSalesbYCashier.DataSource = salesData;
+                                guna2DataGridViewSalesByCategory.DataSource = salesData;
 
-                                // Adjust DataGridViewImageColumn properties
-                                guna2DataGridViewSalesbYCashier.DataSource = salesData;
+                                DataGridViewImageColumn imageColumn = (DataGridViewImageColumn)guna2DataGridViewSalesByCategory.Columns["prodImage"];
+                                imageColumn.ImageLayout = DataGridViewImageCellLayout.Stretch;
+                                imageColumn.Width = 150;
 
-                                // Adjust DataGridViewImageColumn properties
-                                DataGridViewImageColumn imageColumn = (DataGridViewImageColumn)guna2DataGridViewSalesbYCashier.Columns["staffImage"];
-                                imageColumn.ImageLayout = DataGridViewImageCellLayout.Stretch; // Stretch image to fit cell
-
-
-                                // Set width and height for the image
-                                imageColumn.Width = 150; // Set the width as desired
-
-                                if (salesData.Rows[0]["staffImage"] != DBNull.Value)
+                                if (salesData.Rows[0]["prodImage"] != DBNull.Value)
                                 {
-                                    byte[] imageData = (byte[])salesData.Rows[0]["staffImage"];
+                                    byte[] imageData = (byte[])salesData.Rows[0]["prodImage"];
                                     using (MemoryStream ms = new MemoryStream(imageData))
                                     {
-                                        Image cashierImage = Image.FromStream(ms);
-                                        imageColumn.DefaultCellStyle.NullValue = null; // Clear any existing null value
-                                        imageColumn.DefaultCellStyle.NullValue = cashierImage; // Assign the image again to reflect changes
+                                        Image prodImage = Image.FromStream(ms);
+                                        imageColumn.DefaultCellStyle.NullValue = null;
+                                        imageColumn.DefaultCellStyle.NullValue = prodImage;
                                     }
                                 }
 
-                                // Set column headers
-                                guna2DataGridViewSalesbYCashier.Columns["staffFname"].DefaultCellStyle.Font = new Font("Arial", 12); // Increase font size
-                                guna2DataGridViewSalesbYCashier.Columns["staffFname"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter; // Center-align the header text
-                                guna2DataGridViewSalesbYCashier.Columns["TotalSales"].DefaultCellStyle.Font = new Font("Arial", 12); // Increase font size
-                                guna2DataGridViewSalesbYCashier.Columns["TotalSales"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter; // Center-align the header text
-                                guna2DataGridViewSalesbYCashier.Columns["staffFname"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter; // Center-align staff name
-                                guna2DataGridViewSalesbYCashier.Columns["TotalSales"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter; // Center-align sales
-                                guna2DataGridViewSalesbYCashier.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill; // Fill DataGridView width
-                                                                                                                            // Set row height for the DataGridView
-
+                                guna2DataGridViewSalesByCategory.Columns["prodName"].DefaultCellStyle.Font = new Font("Arial", 12);
+                                guna2DataGridViewSalesByCategory.Columns["prodName"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                                guna2DataGridViewSalesByCategory.Columns["TotalSales"].DefaultCellStyle.Font = new Font("Arial", 12);
+                                guna2DataGridViewSalesByCategory.Columns["TotalSales"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                                guna2DataGridViewSalesByCategory.Columns["prodName"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                                guna2DataGridViewSalesByCategory.Columns["TotalSales"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                                guna2DataGridViewSalesByCategory.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                             }
                             else
                             {
-                                MessageBox.Show("No sales data found for the selected cashier within the specified date range.");
-                                guna2DataGridViewSalesbYCashier.DataSource = null;
+                                MessageBox.Show("No sales data found for the selected category within the specified date range.");
+                                guna2DataGridViewSalesByCategory.DataSource = null;
                             }
                         }
                     }
@@ -161,7 +145,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
 
         private void btnSavetoPDF_Click(object sender, EventArgs e)
         {
-            if (guna2DataGridViewSalesbYCashier.Rows.Count == 0)
+            if (guna2DataGridViewSalesByCategory.Rows.Count == 0)
             {
                 MessageBox.Show("No data to save.");
                 return;
@@ -186,10 +170,10 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
 
                             document.Open();
 
-                            PdfPTable table = new PdfPTable(guna2DataGridViewSalesbYCashier.Columns.Count);
+                            PdfPTable table = new PdfPTable(guna2DataGridViewSalesByCategory.Columns.Count);
 
                             // Add headers
-                            foreach (DataGridViewColumn column in guna2DataGridViewSalesbYCashier.Columns)
+                            foreach (DataGridViewColumn column in guna2DataGridViewSalesByCategory.Columns)
                             {
                                 PdfPCell headerCell = new PdfPCell(new iTextSharp.text.Phrase(column.HeaderText));
                                 headerCell.HorizontalAlignment = Element.ALIGN_CENTER; // Center-align header text
@@ -197,11 +181,11 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
                             }
 
                             // Add rows
-                            foreach (DataGridViewRow row in guna2DataGridViewSalesbYCashier.Rows)
+                            foreach (DataGridViewRow row in guna2DataGridViewSalesByCategory.Rows)
                             {
                                 foreach (DataGridViewCell cell in row.Cells)
                                 {
-                                    if (cell.OwningColumn.Name == "staffImage") // Check if the cell is in the image column
+                                    if (cell.OwningColumn.Name == "prodImage") // Check if the cell is in the image column
                                     {
                                         if (cell.Value != null && cell.Value != DBNull.Value)
                                         {
@@ -249,9 +233,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
             }
         }
 
-    
-
-    private void btnExit_Click(object sender, EventArgs e)
+        private void btnExit_Click(object sender, EventArgs e)
         {
             this.Close();
         }
