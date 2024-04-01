@@ -64,7 +64,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error: " + ex.Message);
+                    guna2MessageDialog1.Show("Error: " + ex.Message);
                 }
             }
         }
@@ -87,7 +87,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             string staffFname = cmbxName.SelectedItem?.ToString();
             if (string.IsNullOrEmpty(staffFname))
             {
-                MessageBox.Show("Please select a cashier.");
+                guna2MessageDialog1.Show("Please select a cashier.");
                 return;
             }
 
@@ -100,7 +100,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
 
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
-                MessageBox.Show("Please fill in all required fields.");
+                guna2MessageDialog1.Show("Please fill in all required fields.");
                 return;
             }
 
@@ -124,7 +124,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
 
                         command.ExecuteNonQuery();
 
-                        MessageBox.Show("User added successfully!");
+                        guna2MessageDialog1.Show("User added successfully!");
 
                         // Raise the UserAddedOrUpdated event
                         UserAddedOrUpdated?.Invoke(this, e);
@@ -135,7 +135,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error: " + ex.Message);
+                    guna2MessageDialog2.Show("Error: " + ex.Message);
                 }
             }
         }

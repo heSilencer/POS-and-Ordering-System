@@ -34,6 +34,15 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             InitializeDataGridView();
 
         }
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000;
+                return cp;
+            }
+        }
 
         private void InitializeDataGridView()
         {
@@ -328,7 +337,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                     else
                     {
                         // Handle invalid amount format gracefully
-                        MessageBox.Show($"Invalid amount format: {amountString}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        guna2MessageDialog2.Show($"Invalid amount format: {amountString}");
                     }
                 }
             }
@@ -451,7 +460,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
         {
             if (guna2DataGridView1.Rows.Count == 0)
             {
-                MessageBox.Show("No items in the order.");
+                guna2MessageDialog1.Show("No items in the order.");
                 return;
             }
 
@@ -467,7 +476,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             // Calculate the total amount and check if it's valid
             if (!CalculateTotalAmount(out totalAmount))
             {
-                MessageBox.Show("One or more amounts are invalid. Please correct them before proceeding.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                guna2MessageDialog2.Show("One or more amounts are invalid. Please correct them before proceeding.");
                 return;
             }
 
@@ -480,7 +489,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             // Validate if an order type is selected
             if (string.IsNullOrEmpty(orderType))
             {
-                MessageBox.Show("Please select an order type.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                guna2MessageDialog2.Show("Please select an order type.");
                 return;
             }
 
@@ -491,7 +500,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             InsertIntoDetail(newMainID);
 
             // Optional: Provide feedback to the user
-            MessageBox.Show("Order hold successfully.");
+            guna2MessageDialog1.Show("Order hold successfully.");
             guna2DataGridView1.Rows.Clear();
             OrderType = "";
 
@@ -534,7 +543,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                     catch (MySqlException ex)
                     {
                         // Handle database exception
-                        MessageBox.Show($"Database error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        guna2MessageDialog2.Show($"Database error: {ex.Message}");
                     }
                 }
             }
@@ -679,7 +688,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                     catch (MySqlException ex)
                     {
                         // Handle database exception
-                        MessageBox.Show($"Database error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        guna2MessageDialog2.Show($"Database error: {ex.Message}");
                     }
                 }
             }
@@ -722,7 +731,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
         {
             if (guna2DataGridView1.Rows.Count == 0)
             {
-                MessageBox.Show("No items in the order.");
+                guna2MessageDialog1.Show("No items in the order.");
                 return;
             }
 
@@ -738,7 +747,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             // Calculate the total amount and check if it's valid
             if (!CalculateTotalAmount(out totalAmount))
             {
-                MessageBox.Show("One or more amounts are invalid. Please correct them before proceeding.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                guna2MessageDialog2.Show("One or more amounts are invalid. Please correct them before proceeding.");
                 return;
             }
 
@@ -749,7 +758,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             string orderType = OrderType;
             if (string.IsNullOrEmpty(orderType))
             {
-                MessageBox.Show("Please select an order type.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                guna2MessageDialog2.Show("Please select an order type.");
                 return;
             }
 
@@ -761,7 +770,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             InsertIntoDetail(newMainID);
 
             // Optional: Provide feedback to the user
-            MessageBox.Show("Order placed successfully.");
+            guna2MessageDialog1.Show("Order placed successfully.");
             guna2DataGridView1.Rows.Clear();
             OrderType = "";
 
@@ -914,40 +923,40 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             lbltxtWaiter.Visible = false;
             lbltotal.Visible = true;
             guna2DataGridView1.Rows.Clear();
-        
-            MessageBox.Show("Orde Placed SuccessFully");
+
+            guna2MessageDialog1.Show("Orde Placed SuccessFully");
         }
 
         private void btnKot2_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Can not Make  Kitchen order ticket with a status Complete", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            guna2MessageDialog2.Show("Can not Make  Kitchen order ticket with a status Complete");
             btnHoldKot.Visible = false;
 
         }
 
         private void btnhold1_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("The Status is Hold Already ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            guna2MessageDialog2.Show("The Status is Hold Already ");
 
 
         }
 
         private void btnhold2_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Can not Make it Hold with a status Complete ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            guna2MessageDialog2.Show("Can not Make it Hold with a status Complete ");
 
 
         }
 
         private void btntk1_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Cannot Choose Order Type", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            guna2MessageDialog2.Show("Cannot Choose Order Type");
 
         }
 
         private void btndineIn1_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Cannot Choose Order Type", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            guna2MessageDialog2.Show("Cannot Choose Order Type");
 
         }
     }

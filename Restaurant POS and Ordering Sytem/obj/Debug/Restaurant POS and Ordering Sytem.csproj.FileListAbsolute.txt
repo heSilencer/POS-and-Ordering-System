@@ -65,4 +65,10 @@ C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\
 C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\obj\Debug\Restaurant_POS_and_Ordering_Sytem.Reports.StaffList.resources
 C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\obj\Debug\Restaurant_POS_and_Ordering_Sytem.Reports.SalesByCashier.resources
 C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\obj\Debug\Restaurant_POS_and_Ordering_Sytem.Reports.SalesByCategory.resources
+C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\bin\Debug\ClosedXML.dll
+C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\bin\Debug\DocumentFormat.OpenXml.dll
+C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\bin\Debug\FastMember.Signed.dll
+C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\bin\Debug\ClosedXML.pdb
+C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\bin\Debug\ClosedXML.xml
+C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\bin\Debug\DocumentFormat.OpenXml.xml
 C:\Users\JAQUILYN\Documents\Visual Studio 2015\Projects\Pos and Ordering System\Restaurant POS and Ordering Sytem\obj\Debug\Restaurant POS and Ordering Sytem.csprojResolveAssemblyReference.cache

@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.receiptPanel = new System.Windows.Forms.Panel();
+            this.label11 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblty = new System.Windows.Forms.Label();
             this.lblChange = new System.Windows.Forms.Label();
@@ -51,7 +52,8 @@
             this.BtnPrint = new Guna.UI2.WinForms.Guna2ImageButton();
             this.btnExit = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Separator3 = new Guna.UI2.WinForms.Guna2Separator();
-            this.label11 = new System.Windows.Forms.Label();
+            this.guna2MessageDialog1 = new Guna.UI2.WinForms.Guna2MessageDialog();
+            this.guna2MessageDialog2 = new Guna.UI2.WinForms.Guna2MessageDialog();
             this.receiptPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -82,6 +84,16 @@
             this.receiptPanel.Name = "receiptPanel";
             this.receiptPanel.Size = new System.Drawing.Size(357, 815);
             this.receiptPanel.TabIndex = 3;
+            // 
+            // label11
+            // 
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.125F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(3, 175);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(129, 26);
+            this.label11.TabIndex = 19;
+            this.label11.Text = "Order Type:";
+            this.label11.Click += new System.EventHandler(this.label11_Click);
             // 
             // panel1
             // 
@@ -257,7 +269,7 @@
             this.label1.Font = new System.Drawing.Font("Bauhaus 93", 13.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(128, 4);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(82, 21);
+            this.label1.Size = new System.Drawing.Size(156, 42);
             this.label1.TabIndex = 0;
             this.label1.Text = " Reciept";
             // 
@@ -319,15 +331,23 @@
             this.guna2Separator3.Size = new System.Drawing.Size(368, 10);
             this.guna2Separator3.TabIndex = 19;
             // 
-            // label11
+            // guna2MessageDialog1
             // 
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.125F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(3, 175);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(129, 26);
-            this.label11.TabIndex = 19;
-            this.label11.Text = "Order Type:";
-            this.label11.Click += new System.EventHandler(this.label11_Click);
+            this.guna2MessageDialog1.Buttons = Guna.UI2.WinForms.MessageDialogButtons.OK;
+            this.guna2MessageDialog1.Caption = "INFORMATION";
+            this.guna2MessageDialog1.Icon = Guna.UI2.WinForms.MessageDialogIcon.Information;
+            this.guna2MessageDialog1.Parent = this;
+            this.guna2MessageDialog1.Style = Guna.UI2.WinForms.MessageDialogStyle.Light;
+            this.guna2MessageDialog1.Text = null;
+            // 
+            // guna2MessageDialog2
+            // 
+            this.guna2MessageDialog2.Buttons = Guna.UI2.WinForms.MessageDialogButtons.OK;
+            this.guna2MessageDialog2.Caption = "WARNING";
+            this.guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Warning;
+            this.guna2MessageDialog2.Parent = null;
+            this.guna2MessageDialog2.Style = Guna.UI2.WinForms.MessageDialogStyle.Dark;
+            this.guna2MessageDialog2.Text = null;
             // 
             // ReceiptPrint
             // 
@@ -374,5 +394,7 @@
         private Guna.UI2.WinForms.Guna2Separator guna2Separator3;
         private System.Windows.Forms.Label lblChange;
         private System.Windows.Forms.Label label11;
+        private Guna.UI2.WinForms.Guna2MessageDialog guna2MessageDialog1;
+        private Guna.UI2.WinForms.Guna2MessageDialog guna2MessageDialog2;
     }
 }

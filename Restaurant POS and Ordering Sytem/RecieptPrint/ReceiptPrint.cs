@@ -135,7 +135,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.RecieptPrint
 
                     pdfDoc.Close();
                 }
-                MessageBox.Show("PDF file saved successfully.");
+                guna2MessageDialog1.Show("PDF file saved successfully.");
             }
         }
 

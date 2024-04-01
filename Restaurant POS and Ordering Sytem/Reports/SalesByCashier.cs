@@ -13,6 +13,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Image = System.Drawing.Image;
 using Font = System.Drawing.Font;
+using ClosedXML.Excel;
+
 namespace Restaurant_POS_and_Ordering_Sytem.Reports
 {
     public partial class SalesByCashier : Form
@@ -24,6 +26,11 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
             InitializeComponent();
             LoadCashierNames();
             guna2DataGridViewSalesbYCashier.RowTemplate.Height = 200;
+
+            cmbxCashierName.SelectedIndexChanged += (sender, e) => { RetrieveSalesData(); };
+            // Subscribe to the value changed events of the date pickers
+            guna2DateTimePicker1.ValueChanged += (sender, e) => { RetrieveSalesData(); };
+            guna2DateTimePicker2.ValueChanged += (sender, e) => { RetrieveSalesData(); };
 
         }
 
@@ -52,20 +59,20 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
                         }
                         else
                         {
-                            MessageBox.Show("No cashiers found.");
+                            guna2MessageDialog1.Show("No cashiers found.");
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error: " + ex.Message);
+                    guna2MessageDialog2.Show("Error: " + ex.Message);
                 }
             }
         }
 
-      
 
-        private void btnShow_Click_1(object sender, EventArgs e)
+
+        private void RetrieveSalesData()
         {
             string cashierName = cmbxCashierName.SelectedItem?.ToString();
             DateTime startDate = guna2DateTimePicker1.Value;
@@ -73,7 +80,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
 
             if (string.IsNullOrEmpty(cashierName))
             {
-                MessageBox.Show("Please select a cashier.");
+                guna2MessageDialog1.Show("Please select a cashier.");
                 return;
             }
 
@@ -146,7 +153,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
                             }
                             else
                             {
-                                MessageBox.Show("No sales data found for the selected cashier within the specified date range.");
+                                guna2MessageDialog1.Show("No sales data found for the selected cashier within the specified date range.");
                                 guna2DataGridViewSalesbYCashier.DataSource = null;
                             }
                         }
@@ -154,7 +161,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error: " + ex.Message);
+                    guna2MessageDialog2.Show("Error: " + ex.Message);
                 }
             }
         }
@@ -163,7 +170,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
         {
             if (guna2DataGridViewSalesbYCashier.Rows.Count == 0)
             {
-                MessageBox.Show("No data to save.");
+                guna2MessageDialog1.Show("No data to save.");
                 return;
             }
 
@@ -239,13 +246,13 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
                             document.Close();
                         }
 
-                        MessageBox.Show("PDF file saved successfully.");
+                        guna2MessageDialog1.Show("PDF file saved successfully.");
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: " + ex.Message);
+                guna2MessageDialog2.Show("Error: " + ex.Message);
             }
         }
 
@@ -254,6 +261,74 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
     private void btnExit_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void guna2DateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void guna2DateTimePicker2_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cmbxCashierName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnSaveAsExcel_Click(object sender, EventArgs e)
+        {
+            if (guna2DataGridViewSalesbYCashier.Rows.Count == 0)
+            {
+                guna2MessageDialog1.Show("No data to save.");
+                return;
+            }
+
+            try
+            {
+                using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+                {
+                    saveFileDialog.Filter = "Excel files (*.xlsx)|*.xlsx";
+                    saveFileDialog.FilterIndex = 1;
+                    saveFileDialog.RestoreDirectory = true;
+
+                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        string fileName = saveFileDialog.FileName;
+
+                        using (var workbook = new XLWorkbook())
+                        {
+                            var worksheet = workbook.Worksheets.Add("Sales Data");
+
+                            // Add headers
+                            worksheet.Cell(1, 1).Value = "Staff Name";
+                            worksheet.Cell(1, 2).Value = "Total Sales";
+
+                            // Add data
+                            for (int i = 0; i < guna2DataGridViewSalesbYCashier.Rows.Count; i++)
+                            {
+                                // Retrieve staff name and total sales from DataGridView
+                                string staffName = guna2DataGridViewSalesbYCashier.Rows[i].Cells["staffFname"].Value?.ToString() ?? "";
+                                string totalSales = guna2DataGridViewSalesbYCashier.Rows[i].Cells["TotalSales"].Value?.ToString() ?? "";
+
+                                // Write staff name and total sales to Excel worksheet
+                                worksheet.Cell(i + 2, 1).Value = staffName;
+                                worksheet.Cell(i + 2, 2).Value = totalSales;
+                            }
+
+                            workbook.SaveAs(fileName);
+                        }
+
+                        guna2MessageDialog1.Show("Excel file saved successfully.");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                guna2MessageDialog2.Show("Error: " + ex.Message);
+            }
         }
     }
 }

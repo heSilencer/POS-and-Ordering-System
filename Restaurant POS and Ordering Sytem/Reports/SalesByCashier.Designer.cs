@@ -37,11 +37,13 @@
             this.guna2DataGridViewSalesbYCashier = new Guna.UI2.WinForms.Guna2DataGridView();
             this.cmbxCashierName = new Guna.UI2.WinForms.Guna2ComboBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.btnShow = new Guna.UI2.WinForms.Guna2Button();
             this.label2 = new System.Windows.Forms.Label();
             this.guna2DateTimePicker1 = new Guna.UI2.WinForms.Guna2DateTimePicker();
             this.label3 = new System.Windows.Forms.Label();
             this.guna2DateTimePicker2 = new Guna.UI2.WinForms.Guna2DateTimePicker();
+            this.btnSaveAsExcel = new Guna.UI2.WinForms.Guna2Button();
+            this.guna2MessageDialog1 = new Guna.UI2.WinForms.Guna2MessageDialog();
+            this.guna2MessageDialog2 = new Guna.UI2.WinForms.Guna2MessageDialog();
             ((System.ComponentModel.ISupportInitialize)(this.guna2DataGridViewSalesbYCashier)).BeginInit();
             this.SuspendLayout();
             // 
@@ -164,6 +166,7 @@
             this.cmbxCashierName.Name = "cmbxCashierName";
             this.cmbxCashierName.Size = new System.Drawing.Size(217, 36);
             this.cmbxCashierName.TabIndex = 47;
+            this.cmbxCashierName.SelectedIndexChanged += new System.EventHandler(this.cmbxCashierName_SelectedIndexChanged);
             // 
             // label4
             // 
@@ -174,25 +177,6 @@
             this.label4.Size = new System.Drawing.Size(148, 62);
             this.label4.TabIndex = 48;
             this.label4.Text = "Name";
-            // 
-            // btnShow
-            // 
-            this.btnShow.AutoRoundedCorners = true;
-            this.btnShow.BorderRadius = 29;
-            this.btnShow.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnShow.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnShow.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnShow.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnShow.FillColor = System.Drawing.Color.Green;
-            this.btnShow.Font = new System.Drawing.Font("Segoe UI Black", 10.125F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnShow.ForeColor = System.Drawing.Color.White;
-            this.btnShow.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.btnShow.Location = new System.Drawing.Point(1044, 12);
-            this.btnShow.Name = "btnShow";
-            this.btnShow.Size = new System.Drawing.Size(229, 61);
-            this.btnShow.TabIndex = 49;
-            this.btnShow.Text = "Show";
-            this.btnShow.Click += new System.EventHandler(this.btnShow_Click_1);
             // 
             // label2
             // 
@@ -216,6 +200,7 @@
             this.guna2DateTimePicker1.Size = new System.Drawing.Size(200, 36);
             this.guna2DateTimePicker1.TabIndex = 50;
             this.guna2DateTimePicker1.Value = new System.DateTime(2024, 3, 31, 21, 43, 52, 987);
+            this.guna2DateTimePicker1.ValueChanged += new System.EventHandler(this.guna2DateTimePicker1_ValueChanged);
             // 
             // label3
             // 
@@ -239,16 +224,54 @@
             this.guna2DateTimePicker2.Size = new System.Drawing.Size(200, 36);
             this.guna2DateTimePicker2.TabIndex = 52;
             this.guna2DateTimePicker2.Value = new System.DateTime(2024, 3, 31, 21, 43, 52, 987);
+            this.guna2DateTimePicker2.ValueChanged += new System.EventHandler(this.guna2DateTimePicker2_ValueChanged);
+            // 
+            // btnSaveAsExcel
+            // 
+            this.btnSaveAsExcel.AutoRoundedCorners = true;
+            this.btnSaveAsExcel.BorderRadius = 29;
+            this.btnSaveAsExcel.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnSaveAsExcel.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnSaveAsExcel.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnSaveAsExcel.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnSaveAsExcel.FillColor = System.Drawing.Color.Green;
+            this.btnSaveAsExcel.Font = new System.Drawing.Font("Segoe UI Black", 10.125F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSaveAsExcel.ForeColor = System.Drawing.Color.White;
+            this.btnSaveAsExcel.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.btnSaveAsExcel.Location = new System.Drawing.Point(820, 805);
+            this.btnSaveAsExcel.Name = "btnSaveAsExcel";
+            this.btnSaveAsExcel.Size = new System.Drawing.Size(229, 61);
+            this.btnSaveAsExcel.TabIndex = 54;
+            this.btnSaveAsExcel.Text = "Save as EXCEL";
+            this.btnSaveAsExcel.Click += new System.EventHandler(this.btnSaveAsExcel_Click);
+            // 
+            // guna2MessageDialog1
+            // 
+            this.guna2MessageDialog1.Buttons = Guna.UI2.WinForms.MessageDialogButtons.OK;
+            this.guna2MessageDialog1.Caption = "INFORMATION";
+            this.guna2MessageDialog1.Icon = Guna.UI2.WinForms.MessageDialogIcon.Information;
+            this.guna2MessageDialog1.Parent = this;
+            this.guna2MessageDialog1.Style = Guna.UI2.WinForms.MessageDialogStyle.Light;
+            this.guna2MessageDialog1.Text = null;
+            // 
+            // guna2MessageDialog2
+            // 
+            this.guna2MessageDialog2.Buttons = Guna.UI2.WinForms.MessageDialogButtons.OK;
+            this.guna2MessageDialog2.Caption = "WARNING";
+            this.guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Warning;
+            this.guna2MessageDialog2.Parent = this;
+            this.guna2MessageDialog2.Style = Guna.UI2.WinForms.MessageDialogStyle.Dark;
+            this.guna2MessageDialog2.Text = null;
             // 
             // SalesByCashier
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(1296, 869);
+            this.Controls.Add(this.btnSaveAsExcel);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.guna2DateTimePicker2);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.guna2DateTimePicker1);
-            this.Controls.Add(this.btnShow);
             this.Controls.Add(this.cmbxCashierName);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.btnExit);
@@ -271,10 +294,12 @@
         private Guna.UI2.WinForms.Guna2DataGridView guna2DataGridViewSalesbYCashier;
         private Guna.UI2.WinForms.Guna2ComboBox cmbxCashierName;
         private System.Windows.Forms.Label label4;
-        private Guna.UI2.WinForms.Guna2Button btnShow;
         private System.Windows.Forms.Label label2;
         private Guna.UI2.WinForms.Guna2DateTimePicker guna2DateTimePicker1;
         private System.Windows.Forms.Label label3;
         private Guna.UI2.WinForms.Guna2DateTimePicker guna2DateTimePicker2;
+        private Guna.UI2.WinForms.Guna2Button btnSaveAsExcel;
+        private Guna.UI2.WinForms.Guna2MessageDialog guna2MessageDialog1;
+        private Guna.UI2.WinForms.Guna2MessageDialog guna2MessageDialog2;
     }
 }

@@ -41,12 +41,19 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
         {
             if (string.IsNullOrEmpty(txtpRecieve.Text) || !double.TryParse(txtpRecieve.Text, out receivedAmount))
             {
-                MessageBox.Show("Please enter a valid received amount.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                guna2MessageDialog2.Show("Please enter a valid received amount.");
                 return;
             }
 
             // Calculate the change
             double change = receivedAmount - totalAmount;
+
+            // Check if the change is negative
+            if (change < 0)
+            {
+                guna2MessageDialog2.Show("Cannot check out with a negative change.");
+                return;
+            }
 
             // Display the change in the txtChange textbox
             txtChange.Text = change.ToString("F2"); // Format the change to display with two decimal places
@@ -55,14 +62,11 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             UpdateMainTable(receivedAmount, change);
 
             // Optionally, perform any additional actions after checkout
-            MessageBox.Show("Checkout successful.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            guna2MessageDialog1.Show("Checkout successful.");
 
-            // Close the frmCheckOut form with OK result
-            this.DialogResult = DialogResult.OK;
+            
 
             // Open the frmPrint form after setting DialogResult
-         
-
             this.Close();
         }
         private void UpdateMainTable(double receivedAmount, double change)
@@ -84,7 +88,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show($"Error updating tblMain: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        guna2MessageDialog2.Show($"Error updating tblMain: {ex.Message}");
                     }
                 }
             }

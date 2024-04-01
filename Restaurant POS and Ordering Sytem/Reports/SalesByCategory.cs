@@ -13,6 +13,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Image = System.Drawing.Image;
 using Font = System.Drawing.Font;
+using ClosedXML.Excel;
+
 namespace Restaurant_POS_and_Ordering_Sytem.Reports
 {
     public partial class SalesByCategory : Form
@@ -24,6 +26,12 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
             InitializeComponent();
             LoadCategories();
             guna2DataGridViewSalesByCategory.RowTemplate.Height = 200; // Set row height
+
+            cmbxCategory.SelectedIndexChanged += (sender, e) => { RetrieveSalesData(); };
+
+            // Subscribe to the value changed events of the date pickers
+            guna2DateTimePicker1.ValueChanged += (sender, e) => { RetrieveSalesData(); };
+            guna2DateTimePicker2.ValueChanged += (sender, e) => { RetrieveSalesData(); };
         }
 
         private void LoadCategories()
@@ -50,24 +58,24 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
                         }
                         else
                         {
-                            MessageBox.Show("No categories found.");
+                            guna2MessageDialog1.Show("No categories found.");
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error: " + ex.Message);
+                    guna2MessageDialog2.Show("Error: " + ex.Message);
                 }
             }
         }
 
-        private void btnShow_Click(object sender, EventArgs e)
+        private void RetrieveSalesData()
         {
             string categoryName = cmbxCategory.SelectedItem?.ToString();
 
             if (string.IsNullOrEmpty(categoryName))
             {
-                MessageBox.Show("Please select a category.");
+                guna2MessageDialog1.Show("Please select a category.");
                 return;
             }
 
@@ -130,7 +138,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
                             }
                             else
                             {
-                                MessageBox.Show("No sales data found for the selected category within the specified date range.");
+                                guna2MessageDialog1.Show("No sales data found for the selected category within the specified date range.");
                                 guna2DataGridViewSalesByCategory.DataSource = null;
                             }
                         }
@@ -138,7 +146,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error: " + ex.Message);
+                    guna2MessageDialog2.Show("Error: " + ex.Message);
                 }
             }
         }
@@ -147,7 +155,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
         {
             if (guna2DataGridViewSalesByCategory.Rows.Count == 0)
             {
-                MessageBox.Show("No data to save.");
+                guna2MessageDialog1.Show("No data to save.");
                 return;
             }
 
@@ -223,19 +231,77 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
                             document.Close();
                         }
 
-                        MessageBox.Show("PDF file saved successfully.");
+                        guna2MessageDialog1.Show("PDF file saved successfully.");
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: " + ex.Message);
+                guna2MessageDialog2.Show("Error: " + ex.Message);
             }
         }
 
         private void btnExit_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void btnSaveAsExcel_Click(object sender, EventArgs e)
+        {
+            if (guna2DataGridViewSalesByCategory.Rows.Count == 0)
+            {
+                guna2MessageDialog1.Show("No data to save.");
+                return;
+            }
+
+            try
+            {
+                using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+                {
+                    saveFileDialog.Filter = "Excel files (*.xlsx)|*.xlsx";
+                    saveFileDialog.FilterIndex = 1;
+                    saveFileDialog.RestoreDirectory = true;
+
+                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        string fileName = saveFileDialog.FileName;
+
+                        using (var workbook = new XLWorkbook())
+                        {
+                            var worksheet = workbook.Worksheets.Add("Sales Data");
+
+                            // Add headers
+                            for (int i = 0; i < guna2DataGridViewSalesByCategory.Columns.Count; i++)
+                            {
+                                if (guna2DataGridViewSalesByCategory.Columns[i].Name != "prodImage") // Skip image column
+                                {
+                                    worksheet.Cell(1, i + 1).Value = guna2DataGridViewSalesByCategory.Columns[i].HeaderText;
+                                }
+                            }
+
+                            // Add data
+                            for (int i = 0; i < guna2DataGridViewSalesByCategory.Rows.Count; i++)
+                            {
+                                for (int j = 0; j < guna2DataGridViewSalesByCategory.Columns.Count; j++)
+                                {
+                                    if (guna2DataGridViewSalesByCategory.Columns[j].Name != "prodImage") // Skip image column
+                                    {
+                                        worksheet.Cell(i + 2, j + 1).Value = guna2DataGridViewSalesByCategory.Rows[i].Cells[j].Value?.ToString() ?? "";
+                                    }
+                                }
+                            }
+
+                            workbook.SaveAs(fileName);
+                        }
+
+                        guna2MessageDialog1.Show("Excel file saved successfully.");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                guna2MessageDialog2.Show("Error: " + ex.Message);
+            }
         }
     }
 }

@@ -30,6 +30,7 @@
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
+            this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnClose = new Guna.UI2.WinForms.Guna2Button();
             this.btnSave = new Guna.UI2.WinForms.Guna2Button();
@@ -48,11 +49,12 @@
             this.btnBrowse = new Guna.UI2.WinForms.Guna2Button();
             this.label8 = new System.Windows.Forms.Label();
             this.StaffImage = new Guna.UI2.WinForms.Guna2PictureBox();
-            this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.guna2MessageDialog2 = new Guna.UI2.WinForms.Guna2MessageDialog();
+            this.guna2MessageDialog1 = new Guna.UI2.WinForms.Guna2MessageDialog();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.StaffImage)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -75,9 +77,22 @@
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(129, 36);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(173, 37);
+            this.label1.Size = new System.Drawing.Size(339, 72);
             this.label1.TabIndex = 2;
             this.label1.Text = "Staff Details";
+            // 
+            // guna2PictureBox1
+            // 
+            this.guna2PictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.guna2PictureBox1.Image = global::Restaurant_POS_and_Ordering_Sytem.Properties.Resources.icons8_staff_502;
+            this.guna2PictureBox1.ImageRotate = 0F;
+            this.guna2PictureBox1.Location = new System.Drawing.Point(30, 12);
+            this.guna2PictureBox1.Name = "guna2PictureBox1";
+            this.guna2PictureBox1.Size = new System.Drawing.Size(84, 80);
+            this.guna2PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.guna2PictureBox1.TabIndex = 1;
+            this.guna2PictureBox1.TabStop = false;
+            this.guna2PictureBox1.UseTransparentBackground = true;
             // 
             // panel2
             // 
@@ -132,7 +147,7 @@
             this.label2.Font = new System.Drawing.Font("Segoe UI", 17F);
             this.label2.Location = new System.Drawing.Point(19, 123);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(124, 31);
+            this.label2.Size = new System.Drawing.Size(246, 62);
             this.label2.TabIndex = 10;
             this.label2.Text = "First Name";
             // 
@@ -157,6 +172,7 @@
             this.lblfname.SelectedText = "";
             this.lblfname.Size = new System.Drawing.Size(217, 43);
             this.lblfname.TabIndex = 9;
+            this.lblfname.TextChanged += new System.EventHandler(this.lblfname_TextChanged);
             // 
             // label3
             // 
@@ -164,7 +180,7 @@
             this.label3.Font = new System.Drawing.Font("Segoe UI", 17F);
             this.label3.Location = new System.Drawing.Point(19, 213);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(122, 31);
+            this.label3.Size = new System.Drawing.Size(242, 62);
             this.label3.TabIndex = 12;
             this.label3.Text = "Last Name";
             // 
@@ -196,7 +212,7 @@
             this.label4.Font = new System.Drawing.Font("Segoe UI", 17F);
             this.label4.Location = new System.Drawing.Point(19, 304);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(97, 31);
+            this.label4.Size = new System.Drawing.Size(191, 62);
             this.label4.TabIndex = 14;
             this.label4.Text = "Address";
             // 
@@ -272,7 +288,7 @@
             this.label5.Font = new System.Drawing.Font("Segoe UI", 17F);
             this.label5.Location = new System.Drawing.Point(267, 213);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(70, 31);
+            this.label5.Size = new System.Drawing.Size(135, 62);
             this.label5.TabIndex = 18;
             this.label5.Text = "Email";
             // 
@@ -282,7 +298,7 @@
             this.label6.Font = new System.Drawing.Font("Segoe UI", 17F);
             this.label6.Location = new System.Drawing.Point(267, 123);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(78, 31);
+            this.label6.Size = new System.Drawing.Size(156, 62);
             this.label6.TabIndex = 17;
             this.label6.Text = "Phone";
             // 
@@ -307,7 +323,7 @@
             this.label7.Font = new System.Drawing.Font("Segoe UI", 17F);
             this.label7.Location = new System.Drawing.Point(267, 304);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(106, 31);
+            this.label7.Size = new System.Drawing.Size(210, 62);
             this.label7.TabIndex = 20;
             this.label7.Text = "Category";
             // 
@@ -335,7 +351,7 @@
             this.label8.Font = new System.Drawing.Font("Segoe UI", 17F);
             this.label8.Location = new System.Drawing.Point(532, 123);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(79, 31);
+            this.label8.Size = new System.Drawing.Size(156, 62);
             this.label8.TabIndex = 23;
             this.label8.Text = "Profile";
             // 
@@ -351,18 +367,23 @@
             this.StaffImage.TabIndex = 24;
             this.StaffImage.TabStop = false;
             // 
-            // guna2PictureBox1
+            // guna2MessageDialog2
             // 
-            this.guna2PictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.guna2PictureBox1.Image = global::Restaurant_POS_and_Ordering_Sytem.Properties.Resources.icons8_staff_502;
-            this.guna2PictureBox1.ImageRotate = 0F;
-            this.guna2PictureBox1.Location = new System.Drawing.Point(30, 12);
-            this.guna2PictureBox1.Name = "guna2PictureBox1";
-            this.guna2PictureBox1.Size = new System.Drawing.Size(84, 80);
-            this.guna2PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.guna2PictureBox1.TabIndex = 1;
-            this.guna2PictureBox1.TabStop = false;
-            this.guna2PictureBox1.UseTransparentBackground = true;
+            this.guna2MessageDialog2.Buttons = Guna.UI2.WinForms.MessageDialogButtons.OK;
+            this.guna2MessageDialog2.Caption = "WARNING";
+            this.guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Warning;
+            this.guna2MessageDialog2.Parent = this;
+            this.guna2MessageDialog2.Style = Guna.UI2.WinForms.MessageDialogStyle.Dark;
+            this.guna2MessageDialog2.Text = null;
+            // 
+            // guna2MessageDialog1
+            // 
+            this.guna2MessageDialog1.Buttons = Guna.UI2.WinForms.MessageDialogButtons.OK;
+            this.guna2MessageDialog1.Caption = "INFORMATION";
+            this.guna2MessageDialog1.Icon = Guna.UI2.WinForms.MessageDialogIcon.Information;
+            this.guna2MessageDialog1.Parent = this;
+            this.guna2MessageDialog1.Style = Guna.UI2.WinForms.MessageDialogStyle.Light;
+            this.guna2MessageDialog1.Text = null;
             // 
             // frmStaffAdd
             // 
@@ -393,9 +414,9 @@
             this.Text = "frmWaiterAdd";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).EndInit();
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.StaffImage)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -424,5 +445,7 @@
         private Guna.UI2.WinForms.Guna2Button btnBrowse;
         private System.Windows.Forms.Label label8;
         private Guna.UI2.WinForms.Guna2PictureBox StaffImage;
+        private Guna.UI2.WinForms.Guna2MessageDialog guna2MessageDialog2;
+        private Guna.UI2.WinForms.Guna2MessageDialog guna2MessageDialog1;
     }
 }

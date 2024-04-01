@@ -117,14 +117,14 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                     // Validate product name
                     if (string.IsNullOrEmpty(productName))
                     {
-                        MessageBox.Show("Please input a product name.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        guna2MessageDialog2.Show("Please input a product name.");
                         return;
                     }
 
                     // Validate price
                     if (!decimal.TryParse(txtlblprice.Text, out price))
                     {
-                        MessageBox.Show("Invalid price. Please enter a valid numeric value.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        guna2MessageDialog2.Show("Invalid price. Please enter a valid numeric value.");
                         return;
                     }
 
@@ -133,7 +133,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                     // Validate category selection
                     if (string.IsNullOrEmpty(category))
                     {
-                        MessageBox.Show("Please select a category.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        guna2MessageDialog2.Show("Please select a category.");
                         return;
                     }
 
@@ -142,7 +142,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                     // Validate category ID
                     if (categoryId == -1)
                     {
-                        MessageBox.Show("The selected category does not exist. Please choose a valid category.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        guna2MessageDialog2.Show("The selected category does not exist. Please choose a valid category.");
                         return;
                     }
 
@@ -217,7 +217,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                         int rowsAffected = command.ExecuteNonQuery();
 
                         // Show success message
-                        MessageBox.Show(productId == 0 ? "Product added successfully!" : "Product updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        guna2MessageDialog1.Show(productId == 0 ? "Product added successfully!" : "Product updated successfully!");
 
                         // Invoke the ProductUpdated event
                         ProductUpdated?.Invoke(this, EventArgs.Empty);
@@ -245,7 +245,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             catch (Exception ex)
             {
                 // Handle any unexpected errors
-                MessageBox.Show($"An unexpected error occurred: {ex.Message}\n\nStack Trace:\n{ex.StackTrace}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                guna2MessageDialog2.Show($"An unexpected error occurred: {ex.Message}\n\nStack Trace:\n{ex.StackTrace}");
             }
         }
 

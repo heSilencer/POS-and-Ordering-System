@@ -132,7 +132,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error: " + ex.Message);
+                    guna2MessageDialog2.Show("Error: " + ex.Message);
                 }
             }
         }
@@ -145,11 +145,20 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
 
                 if (result == DialogResult.Yes)
                 {
-                    // Get the user ID from the selected row
-                    int userId = Convert.ToInt32(Add_UserView.Rows[e.RowIndex].Cells["userId"].Value);
+                    DialogResult result1 = MessageBox.Show("This User will be Permanently Deleted. Are you sure you want to delete this?", "WARNING", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
-                    // Perform the deletion operation
-                    DeleteUser(userId);
+                    if (result1 == DialogResult.Yes)
+                    {
+                        int userId = Convert.ToInt32(Add_UserView.Rows[e.RowIndex].Cells["userId"].Value);
+
+                        // Perform the deletion operation
+                        DeleteUser(userId);
+                    }
+                    else
+                    {
+                        // User clicked "No" in the second confirmation dialog
+                        // Do nothing, deletion operation canceled
+                    }
                 }
             }
         }

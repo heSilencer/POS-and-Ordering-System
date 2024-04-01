@@ -48,7 +48,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
 
                     if (string.IsNullOrEmpty(tableName))
                     {
-                        MessageBox.Show("Please Input a Table name.");
+                        guna2MessageDialog2.Show("Please Input a Table name.");
                         return;
                     }
 
@@ -65,7 +65,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                             lbltable.Text = "";
 
                             // Close the current form
-                            DialogResult result = MessageBox.Show("Successfully added");
+                            DialogResult result = guna2MessageDialog1.Show("Successfully added");
                             OnTableUpdated();
                         }
                     }
@@ -82,14 +82,14 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                             // Clear the textbox after updating an existing table
                             lbltable.Text = "";
 
-                            DialogResult result = MessageBox.Show("Successfully updated");
+                            DialogResult result = guna2MessageDialog1.Show("Successfully updated");
                             OnTableUpdated();
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error: " + ex.Message);
+                    guna2MessageDialog2.Show("Error: " + ex.Message);
                 }
             }
         }

@@ -169,7 +169,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
                     document.Close();
                 }
 
-                MessageBox.Show("PDF file saved successfully.");
+                guna2MessageDialog1.Show("PDF file saved successfully.");
                 this.Close();
             }
         }

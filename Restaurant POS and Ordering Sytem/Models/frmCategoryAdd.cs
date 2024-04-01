@@ -64,7 +64,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
 
                     if (string.IsNullOrEmpty(categoryName))
                     {
-                        MessageBox.Show("Please Input a Category name.");
+                        guna2MessageDialog1.Show("Please Input a Category name.");
                         return;
                     }
 
@@ -83,7 +83,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                             // Directly refresh the DataGridView
                             ProductUpdated?.Invoke(this, EventArgs.Empty);
                             // Close the current form
-                            DialogResult result = MessageBox.Show("Successfully added");
+                            DialogResult result = guna2MessageDialog1.Show("Successfully added");
                             OnCategoryUpdated();
 
                            
@@ -102,7 +102,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                             // Clear the textbox after updating an existing category
                             lblcat.Text = "";
 
-                            DialogResult result = MessageBox.Show("Successfully updated");
+                            DialogResult result = guna2MessageDialog1.Show("Successfully updated");
                             OnCategoryUpdated();
                             this.Close();
 
@@ -112,7 +112,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error: " + ex.Message);
+                    guna2MessageDialog2.Show("Error: " + ex.Message);
                 }
             }
         }

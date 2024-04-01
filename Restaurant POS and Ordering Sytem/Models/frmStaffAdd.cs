@@ -110,23 +110,23 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                     // Validate input fields
                     if (string.IsNullOrEmpty(fname) || string.IsNullOrEmpty(lname) || string.IsNullOrEmpty(address) || string.IsNullOrEmpty(phone) || string.IsNullOrEmpty(email))
                     {
-                        MessageBox.Show("Please fill in all required fields.");
+                        guna2MessageDialog1.Show("Please fill in all required fields.");
                         return;
                     }
                     if (!IsValidEmail(email))
                     {
-                        MessageBox.Show("Please enter a valid email address.");
+                        guna2MessageDialog2.Show("Please enter a valid email address.");
                         return;
                     }
                     if (staffId == 0 && EmailExists(email, connection))
                     {
-                        MessageBox.Show("Email already exists. Please use a different email address.");
+                        guna2MessageDialog2.Show("Email already exists. Please use a different email address.");
                         return;
                     }
                     // Validate phone number format
                     if (!IsValidPhoneNumber(phone))
                     {
-                        MessageBox.Show("Please enter a valid phone number with 11 digits.");
+                        guna2MessageDialog2.Show("Please enter a valid phone number with 11 digits.");
                         return;
                     }
 
@@ -134,7 +134,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
 
                     if (categoryId == -1)
                     {
-                        MessageBox.Show("The selected category does not exist. Please choose a valid category.");
+                        guna2MessageDialog2.Show("The selected category does not exist. Please choose a valid category.");
                         return;
                     }
 
@@ -189,7 +189,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
 
                         command.ExecuteNonQuery();
 
-                        MessageBox.Show(staffId == 0 ? "Staff added successfully!" : "Staff updated successfully!");
+                        guna2MessageDialog1.Show(staffId == 0 ? "Staff added successfully!" : "Staff updated successfully!");
 
                         // Your additional logic as needed
 
@@ -212,7 +212,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             catch (Exception ex)
             {
                 Console.WriteLine($"An error occurred: {ex.Message}");
-                MessageBox.Show($"An unexpected error occurred: {ex.Message}\n\nStack Trace:\n{ex.StackTrace}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                guna2MessageDialog2.Show($"An unexpected error occurred: {ex.Message}\n\nStack Trace:\n{ex.StackTrace}");
             }
         }
         private byte[] ImageToByteArray(Image image)
@@ -388,6 +388,24 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 StaffImage.Image = Image.FromFile(openFileDialog.FileName);
+            }
+        }
+
+        private void lblfname_TextChanged(object sender, EventArgs e)
+        {
+            string text = lblfname.Text;
+
+            // Check if the textbox is not empty
+            if (!string.IsNullOrEmpty(text))
+            {
+                // Convert the first character to uppercase
+                string capitalizedText = char.ToUpper(text[0]) + text.Substring(1);
+
+                // Update the textbox text with the capitalized version
+                lblfname.Text = capitalizedText;
+
+                // Set the cursor position to the end of the text
+                lblfname.SelectionStart = lblfname.Text.Length;
             }
         }
     }

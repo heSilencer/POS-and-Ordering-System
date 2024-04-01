@@ -40,6 +40,8 @@
             this.txtBillAmount = new Guna.UI2.WinForms.Guna2TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.txtChange = new Guna.UI2.WinForms.Guna2TextBox();
+            this.guna2MessageDialog1 = new Guna.UI2.WinForms.Guna2MessageDialog();
+            this.guna2MessageDialog2 = new Guna.UI2.WinForms.Guna2MessageDialog();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
@@ -104,7 +106,7 @@
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(129, 36);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(147, 37);
+            this.label1.Size = new System.Drawing.Size(292, 72);
             this.label1.TabIndex = 2;
             this.label1.Text = "Check Out";
             // 
@@ -127,7 +129,7 @@
             this.lvlpRecieve.Font = new System.Drawing.Font("Segoe UI", 17F);
             this.lvlpRecieve.Location = new System.Drawing.Point(260, 123);
             this.lvlpRecieve.Name = "lvlpRecieve";
-            this.lvlpRecieve.Size = new System.Drawing.Size(185, 31);
+            this.lvlpRecieve.Size = new System.Drawing.Size(368, 62);
             this.lvlpRecieve.TabIndex = 28;
             this.lvlpRecieve.Text = "Payment Recieve";
             // 
@@ -160,7 +162,7 @@
             this.label3.Font = new System.Drawing.Font("Segoe UI", 17F);
             this.label3.Location = new System.Drawing.Point(24, 123);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(133, 31);
+            this.label3.Size = new System.Drawing.Size(264, 62);
             this.label3.TabIndex = 30;
             this.label3.Text = "Bill Amount";
             // 
@@ -193,7 +195,7 @@
             this.label4.Font = new System.Drawing.Font("Segoe UI", 17F);
             this.label4.Location = new System.Drawing.Point(24, 213);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(92, 31);
+            this.label4.Size = new System.Drawing.Size(181, 62);
             this.label4.TabIndex = 32;
             this.label4.Text = "Change";
             // 
@@ -219,6 +221,24 @@
             this.txtChange.Size = new System.Drawing.Size(217, 43);
             this.txtChange.TabIndex = 31;
             this.txtChange.TextChanged += new System.EventHandler(this.txtChange_TextChanged);
+            // 
+            // guna2MessageDialog1
+            // 
+            this.guna2MessageDialog1.Buttons = Guna.UI2.WinForms.MessageDialogButtons.OK;
+            this.guna2MessageDialog1.Caption = "INFORMATION";
+            this.guna2MessageDialog1.Icon = Guna.UI2.WinForms.MessageDialogIcon.Information;
+            this.guna2MessageDialog1.Parent = this;
+            this.guna2MessageDialog1.Style = Guna.UI2.WinForms.MessageDialogStyle.Light;
+            this.guna2MessageDialog1.Text = null;
+            // 
+            // guna2MessageDialog2
+            // 
+            this.guna2MessageDialog2.Buttons = Guna.UI2.WinForms.MessageDialogButtons.OK;
+            this.guna2MessageDialog2.Caption = "WARNING";
+            this.guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Warning;
+            this.guna2MessageDialog2.Parent = this;
+            this.guna2MessageDialog2.Style = Guna.UI2.WinForms.MessageDialogStyle.Dark;
+            this.guna2MessageDialog2.Text = null;
             // 
             // frmCheckOut
             // 
@@ -261,5 +281,7 @@
         private System.Windows.Forms.Label label4;
         private Guna.UI2.WinForms.Guna2TextBox txtChange;
         private Guna.UI2.WinForms.Guna2ControlBox btnExit;
+        private Guna.UI2.WinForms.Guna2MessageDialog guna2MessageDialog1;
+        private Guna.UI2.WinForms.Guna2MessageDialog guna2MessageDialog2;
     }
 }
