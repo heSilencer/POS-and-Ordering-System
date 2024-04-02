@@ -64,7 +64,7 @@ namespace Restaurant_POS_and_Ordering_Sytem
                                 {
                                     string username = reader["uname"].ToString();
                                     string userRole = reader["role"].ToString();
-                                    OpenFormBasedOnRole(enteredUsername, userRole, username, userID,mainID); // Pass the UserID
+                                    OpenFormBasedOnRole(enteredUsername, userRole, username, userID, mainID); // Pass the UserID
                                 }
                                 else
                                 {
@@ -84,8 +84,7 @@ namespace Restaurant_POS_and_Ordering_Sytem
                 }
             }
         }
-
-
+     
         private void OpenFormBasedOnRole(string enteredUsername, string userRole, string username, int userID, int mainID)
         {
             if (userRole == "Admin")

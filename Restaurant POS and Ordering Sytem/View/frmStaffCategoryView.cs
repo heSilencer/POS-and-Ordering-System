@@ -99,52 +99,85 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
             if (e.RowIndex >= 0 && (guna2DataGridView1.Columns[e.ColumnIndex].Name == "Delete" || guna2DataGridView1.Columns[e.ColumnIndex].Name == "Update"))
             {
                 int catId = Convert.ToInt32(guna2DataGridView1.Rows[e.RowIndex].Cells["staffcatID"].Value);
+                string catName = guna2DataGridView1.Rows[e.RowIndex].Cells["catName"].Value.ToString().ToLower();
 
                 if (guna2DataGridView1.Columns[e.ColumnIndex].Name == "Delete")
                 {
+                    // Check if the category name is "Admin"
+                    if (catName == "admin")
+                    {
+                        MessageBox.Show("Category with name 'Admin' cannot be deleted.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return; // Exit the method without further processing
+                    }
+
                     // Confirm deletion with the user
                     DialogResult result = MessageBox.Show("Are you sure you want to delete this category?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                     if (result == DialogResult.Yes)
                     {
-                         DeleteCategory(catId);
+                        // Show warning if staff will be deleted
+                        DialogResult warningResult = MessageBox.Show("Deleting this category will also delete the staff Category  associated with it. Are you sure you want to proceed?", "WARNING", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                        if (warningResult == DialogResult.Yes)
+                        {
+                            await DeleteCategory(catId);
+
+                            // Reload the data from the database after the action
+                            guna2DataGridView1.Rows.Clear();
+                            LoadDataFromDatabase();
+                        }
+                    }
+                }
+                else if (guna2DataGridView1.Columns[e.ColumnIndex].Name == "Update")
+                {
+                    // Handle the update action asynchronously
+                    UpdateCategory(catId);
+                }
+            }
+        }
+        private async Task DeleteCategory(int catId)
+        {
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                await connection.OpenAsync();
+                using (MySqlTransaction transaction = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        // Update the staff category in tbl_staff to 'N/A' where staffcatID matches
+                        string updateStaffQuery = "UPDATE tbl_staff SET `Staff Category` = 'N/A' WHERE `staffcatID` = @staffcatID";
+
+                        // Delete the category with the specified catId from tbl_staffcategory
+                        string deleteCategoryQuery = "DELETE FROM tbl_staffcategory WHERE `staffcatID` = @staffcatID";
+
+                        using (MySqlCommand updateStaffCommand = new MySqlCommand(updateStaffQuery, connection, transaction))
+                        using (MySqlCommand deleteCategoryCommand = new MySqlCommand(deleteCategoryQuery, connection, transaction))
+                        {
+                            updateStaffCommand.Parameters.AddWithValue("@staffcatID", catId);
+                            deleteCategoryCommand.Parameters.AddWithValue("@staffcatID", catId);
+
+                            await updateStaffCommand.ExecuteNonQueryAsync();
+                            await deleteCategoryCommand.ExecuteNonQueryAsync();
+                        }
+
+                        // Commit the transaction if all commands succeeded
+                        transaction.Commit();
+
                         MessageBox.Show("Category deleted successfully");
 
                         // Reload the data from the database after the action
                         guna2DataGridView1.Rows.Clear();
                         LoadDataFromDatabase();
                     }
-                }
-                else if (guna2DataGridView1.Columns[e.ColumnIndex].Name == "Update")
-                {
-                    // Handle the update action asynchronously
-                     UpdateCategory(catId);
-                }
-            }
-        }
-
-        private async Task DeleteCategory(int catId)
-        {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                try
-                {
-                    await connection.OpenAsync();
-
-                    // Delete the category with the specified catId
-                    string deleteQuery = "DELETE FROM tbl_staffcategory WHERE staffcatID = @staffcatID";
-
-                    using (MySqlCommand deleteCommand = new MySqlCommand(deleteQuery, connection))
+                    catch (Exception ex)
                     {
-                        deleteCommand.Parameters.AddWithValue("@staffcatID", catId);
-                        await deleteCommand.ExecuteNonQueryAsync();
+                        // Rollback the transaction if an error occurred
+                        transaction.Rollback();
+                        MessageBox.Show("Error: " + ex.Message);
                     }
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error: " + ex.Message);
-                }
             }
+
         }
 
         private void UpdateCategory(int catId)

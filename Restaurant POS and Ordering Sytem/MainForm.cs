@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using Restaurant_POS_and_Ordering_Sytem.View;
 using Restaurant_POS_and_Ordering_Sytem.Reports;
+using Restaurant_POS_and_Ordering_Sytem.Models;
 
 namespace Restaurant_POS_and_Ordering_Sytem
 {
@@ -38,6 +39,15 @@ namespace Restaurant_POS_and_Ordering_Sytem
             InitializeComponent();
             this.username = username;
             this.userID = userID;
+        }
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000;
+                return cp;
+            }
         }
 
         public MainForm(string username, int userID) : this(username)
@@ -190,6 +200,11 @@ namespace Restaurant_POS_and_Ordering_Sytem
         {
             lbluser.Text = $" {username}!";
             _obj = this;
+        }
+
+        private void btnSettings_Click(object sender, EventArgs e)
+        {
+            AddControls(new frmSettings(userID));
         }
     }
 }

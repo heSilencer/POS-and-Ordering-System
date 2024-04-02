@@ -150,19 +150,24 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
 
                     if (result == DialogResult.Yes)
                     {
-                        // Handle the delete action
-                        DeleteProduct(productId);
+                        // Show warning message
+                        DialogResult warningResult = MessageBox.Show("Deleting this product will remove it from the POS and will be deleted permanently. Are you sure you want to proceed?", "WARNING", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
-                        // Reload the data from the database after the deletion
-                        guna2DataGridViewProducts.Rows.Clear();
-                        LoadProductDataFromDatabase();
+                        if (warningResult == DialogResult.Yes)
+                        {
+                            // Handle the delete action
+                            DeleteProduct(productId);
+
+                            // Reload the data from the database after the deletion
+                            guna2DataGridViewProducts.Rows.Clear();
+                            LoadProductDataFromDatabase();
+                        }
+                        // If the user clicks No, nothing happens, and the data is not reloaded
                     }
-                    // If the user clicks No, nothing happens, and the data is not reloaded
                 }
                 else if (guna2DataGridViewProducts.Columns[e.ColumnIndex].Name == "Update")
                 {
                     // Handle the update action
-               
                     UpdateProduct(productId);
                 }
             }

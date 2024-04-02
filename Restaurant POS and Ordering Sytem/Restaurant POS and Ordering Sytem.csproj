@@ -88,6 +88,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ForgotPassword\frmChangePassword.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ForgotPassword\frmChangePassword.Designer.cs">
+      <DependentUpon>frmChangePassword.cs</DependentUpon>
+    </Compile>
     <Compile Include="ForgotPassword\frmCheckUser.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -125,11 +131,23 @@
     <Compile Include="Models\frmAddUser.Designer.cs">
       <DependentUpon>frmAddUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\frmChangeInformation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Models\frmChangeInformation.Designer.cs">
+      <DependentUpon>frmChangeInformation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\frmCheckOut.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Models\frmCheckOut.Designer.cs">
       <DependentUpon>frmCheckOut.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\frmSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Models\frmSettings.Designer.cs">
+      <DependentUpon>frmSettings.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\frmStaffcategoryAdd.cs">
       <SubType>Form</SubType>
@@ -259,6 +277,12 @@
     <Compile Include="View\frmdashboardView.Designer.cs">
       <DependentUpon>frmdashboardView.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\frmImageViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\frmImageViewer.Designer.cs">
+      <DependentUpon>frmImageViewer.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\frmKitchenView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -295,6 +319,9 @@
     <Compile Include="View\frmStaffView.Designer.cs">
       <DependentUpon>frmStaffView.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ForgotPassword\frmChangePassword.resx">
+      <DependentUpon>frmChangePassword.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ForgotPassword\frmCheckUser.resx">
       <DependentUpon>frmCheckUser.cs</DependentUpon>
     </EmbeddedResource>
@@ -313,8 +340,14 @@
     <EmbeddedResource Include="Models\frmAddUser.resx">
       <DependentUpon>frmAddUser.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Models\frmChangeInformation.resx">
+      <DependentUpon>frmChangeInformation.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Models\frmCheckOut.resx">
       <DependentUpon>frmCheckOut.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\frmSettings.resx">
+      <DependentUpon>frmSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Models\frmStaffcategoryAdd.resx">
       <DependentUpon>frmStaffcategoryAdd.cs</DependentUpon>
@@ -380,6 +413,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\frmdashboardView.resx">
       <DependentUpon>frmdashboardView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\frmImageViewer.resx">
+      <DependentUpon>frmImageViewer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\frmKitchenView.resx">
       <DependentUpon>frmKitchenView.cs</DependentUpon>
@@ -596,6 +632,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\icons8-pdf-50.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\profile_icon_176363.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -179,7 +179,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
 
             if (category == "All Categories")
             {
-                qry = "SELECT * FROM tbl_products";
+                qry = "SELECT * FROM tbl_products WHERE Prodcategory != 'N/A'";
             }
             else
             {

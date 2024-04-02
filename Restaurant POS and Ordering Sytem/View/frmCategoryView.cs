@@ -119,31 +119,44 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
 
         private async void GunaDataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0 && (cat_datagridview.Columns[e.ColumnIndex].Name == "Delete" || cat_datagridview.Columns[e.ColumnIndex].Name == "Update"))
             {
-                int catId = Convert.ToInt32(cat_datagridview.Rows[e.RowIndex].Cells["catID"].Value);
-
-                if (cat_datagridview.Columns[e.ColumnIndex].Name == "Delete")
+                if (e.RowIndex >= 0 && (cat_datagridview.Columns[e.ColumnIndex].Name == "Delete" || cat_datagridview.Columns[e.ColumnIndex].Name == "Update"))
                 {
-                    // Confirm deletion with the user
-                    DialogResult result = MessageBox.Show("Are you sure you want to delete this category?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    int catId = Convert.ToInt32(cat_datagridview.Rows[e.RowIndex].Cells["catID"].Value);
 
-                    if (result == DialogResult.Yes)
+                    if (cat_datagridview.Columns[e.ColumnIndex].Name == "Delete")
                     {
-                         await DeleteCategory(catId);
-                       // MessageBox.Show("Category deleted successfully");
+                        // Confirm deletion with the user
+                        DialogResult result = MessageBox.Show("Are you sure you want to delete this category?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-                        // Reload the data from the database after the action
-                        cat_datagridview.Rows.Clear();
-                        LoadDataFromDatabase();
+                        if (result == DialogResult.Yes)
+                        {
+                            string categoryName = cat_datagridview.Rows[e.RowIndex].Cells["catName"].Value.ToString();
+                            DialogResult result1 = MessageBox.Show($"The Products that have a Category \"{categoryName}\" will be deleted permanently. Are you sure you want to proceed?", "WARNING", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                            if (result1 == DialogResult.Yes)
+                            {
+                                await DeleteCategory(catId);
+                                // MessageBox.Show("Category deleted successfully");
+
+                                // Reload the data from the database after the action
+                                cat_datagridview.Rows.Clear();
+                                LoadDataFromDatabase();
+                            }
+                            else
+                            {
+                                // User clicked "No" in the second confirmation dialog
+                                // Do nothing, deletion operation canceled
+                            }
+                        }
+                    }
+                    else if (cat_datagridview.Columns[e.ColumnIndex].Name == "Update")
+                    {
+                        // Handle the update action asynchronously
+                        UpdateCategory(catId);
                     }
                 }
-                else if (cat_datagridview.Columns[e.ColumnIndex].Name == "Update")
-                {
-                    // Handle the update action asynchronously
-                     UpdateCategory(catId);
-                }
             }
+
         }
 
         private async Task DeleteCategory(int catId)
@@ -154,12 +167,19 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
                 {
                     await connection.OpenAsync();
 
+                    // Update the prodCategory column in tbl_products where catId matches the deleted category
+                    string updateProductsQuery = "UPDATE tbl_products SET prodCategory = 'N/A' WHERE catID = @catId";
+
                     // Delete the category with the specified catId
                     string deleteQuery = "DELETE FROM tbl_category WHERE catId = @catId";
 
+                    using (MySqlCommand updateProductsCommand = new MySqlCommand(updateProductsQuery, connection))
                     using (MySqlCommand deleteCommand = new MySqlCommand(deleteQuery, connection))
                     {
+                        updateProductsCommand.Parameters.AddWithValue("@catId", catId);
                         deleteCommand.Parameters.AddWithValue("@catId", catId);
+
+                        await updateProductsCommand.ExecuteNonQueryAsync();
                         await deleteCommand.ExecuteNonQueryAsync();
                     }
                 }

@@ -33,6 +33,8 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cat_datagridview = new Guna.UI2.WinForms.Guna2DataGridView();
+            this.guna2MessageDialog2 = new Guna.UI2.WinForms.Guna2MessageDialog();
+            this.guna2MessageDialog1 = new Guna.UI2.WinForms.Guna2MessageDialog();
             ((System.ComponentModel.ISupportInitialize)(this.cat_datagridview)).BeginInit();
             this.SuspendLayout();
             // 
@@ -47,8 +49,8 @@
             // 
             // label2
             // 
-            this.label2.Size = new System.Drawing.Size(339, 72);
-            this.label2.Text = "Category List";
+            this.label2.Size = new System.Drawing.Size(541, 72);
+            this.label2.Text = "Product Category List";
             // 
             // cat_datagridview
             // 
@@ -116,6 +118,24 @@
             this.cat_datagridview.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.guna2DataGridView1_CellContentClick);
             this.cat_datagridview.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.guna2DataGridView1_CellContentClick);
             // 
+            // guna2MessageDialog2
+            // 
+            this.guna2MessageDialog2.Buttons = Guna.UI2.WinForms.MessageDialogButtons.OK;
+            this.guna2MessageDialog2.Caption = "WARNING";
+            this.guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Warning;
+            this.guna2MessageDialog2.Parent = this;
+            this.guna2MessageDialog2.Style = Guna.UI2.WinForms.MessageDialogStyle.Dark;
+            this.guna2MessageDialog2.Text = null;
+            // 
+            // guna2MessageDialog1
+            // 
+            this.guna2MessageDialog1.Buttons = Guna.UI2.WinForms.MessageDialogButtons.OK;
+            this.guna2MessageDialog1.Caption = "INFORMATION";
+            this.guna2MessageDialog1.Icon = Guna.UI2.WinForms.MessageDialogIcon.Information;
+            this.guna2MessageDialog1.Parent = this;
+            this.guna2MessageDialog1.Style = Guna.UI2.WinForms.MessageDialogStyle.Light;
+            this.guna2MessageDialog1.Text = null;
+            // 
             // frmCategoryView
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -136,5 +156,7 @@
         #endregion
 
         private Guna.UI2.WinForms.Guna2DataGridView cat_datagridview;
+        private Guna.UI2.WinForms.Guna2MessageDialog guna2MessageDialog2;
+        private Guna.UI2.WinForms.Guna2MessageDialog guna2MessageDialog1;
     }
 }

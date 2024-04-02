@@ -337,8 +337,9 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             {
                 connection.Open();
 
-                // Replace "tbl_category" with the actual table name in your database
-                string query = "SELECT catName FROM tbl_staffcategory";
+                // Replace "tbl_staffcategory" with the actual table name in your database
+                // Query to select categories not assigned to any staff members
+                string query = "SELECT catName FROM tbl_staffcategory WHERE catName NOT IN (SELECT DISTINCT `Staff Category` FROM tbl_staff WHERE `Staff Category` IN ('Admin', 'Manager'))";
 
                 using (MySqlCommand command = new MySqlCommand(query, connection))
                 {

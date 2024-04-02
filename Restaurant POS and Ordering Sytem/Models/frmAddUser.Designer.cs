@@ -55,7 +55,7 @@
             this.label7.Font = new System.Drawing.Font("Segoe UI", 17F);
             this.label7.Location = new System.Drawing.Point(260, 213);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(116, 62);
+            this.label7.Size = new System.Drawing.Size(58, 31);
             this.label7.TabIndex = 34;
             this.label7.Text = "Role";
             this.label7.Click += new System.EventHandler(this.label7_Click);
@@ -81,7 +81,7 @@
             this.label3.Font = new System.Drawing.Font("Segoe UI", 17F);
             this.label3.Location = new System.Drawing.Point(19, 213);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(232, 62);
+            this.label3.Size = new System.Drawing.Size(117, 31);
             this.label3.TabIndex = 26;
             this.label3.Text = "Username";
             // 
@@ -113,7 +113,7 @@
             this.label2.Font = new System.Drawing.Font("Segoe UI", 17F);
             this.label2.Location = new System.Drawing.Point(260, 123);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(217, 62);
+            this.label2.Size = new System.Drawing.Size(110, 31);
             this.label2.TabIndex = 24;
             this.label2.Text = "Password";
             // 
@@ -172,7 +172,7 @@
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(129, 36);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(331, 72);
+            this.label1.Size = new System.Drawing.Size(171, 37);
             this.label1.TabIndex = 2;
             this.label1.Text = "User Details";
             // 
@@ -244,7 +244,7 @@
             this.label4.Font = new System.Drawing.Font("Segoe UI", 17F);
             this.label4.Location = new System.Drawing.Point(19, 123);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(148, 62);
+            this.label4.Size = new System.Drawing.Size(75, 31);
             this.label4.TabIndex = 36;
             this.label4.Text = "Name";
             // 
@@ -263,7 +263,7 @@
             this.guna2MessageDialog2.Caption = "WARNING";
             this.guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Warning;
             this.guna2MessageDialog2.Parent = this;
-            this.guna2MessageDialog2.Style = Guna.UI2.WinForms.MessageDialogStyle.Dark;
+            this.guna2MessageDialog2.Style = Guna.UI2.WinForms.MessageDialogStyle.Light;
             this.guna2MessageDialog2.Text = null;
             // 
             // frmAddUser

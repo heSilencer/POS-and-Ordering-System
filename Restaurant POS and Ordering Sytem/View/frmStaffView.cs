@@ -139,23 +139,51 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
             if (e.RowIndex >= 0 && (guna2DataGridView1.Columns[e.ColumnIndex].Name == "Delete" || guna2DataGridView1.Columns[e.ColumnIndex].Name == "Update"))
             {
                 int staffId = Convert.ToInt32(guna2DataGridView1.Rows[e.RowIndex].Cells["staffID"].Value);
+                string staffCategory = guna2DataGridView1.Rows[e.RowIndex].Cells["Staff Category"].Value.ToString().ToLower();
 
                 if (guna2DataGridView1.Columns[e.ColumnIndex].Name == "Delete")
                 {
+                    // Check if the staff category is "Admin"
+                    if (staffCategory == "admin")
+                    {
+                        MessageBox.Show("Staff with category 'Admin' cannot be deleted.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return; // Exit the method without further processing
+                    }
+
+                    string warningMessage = "";
+
+                    // Determine the appropriate warning message based on the staff category
+                    switch (staffCategory)
+                    {
+                        case "cashier":
+                        case "manager":
+                            warningMessage = "Deleting this staff will remove the associated account. Are you sure you want to proceed?";
+                            break;
+                        default:
+                            warningMessage = "Deleting this staff will be deleted permanently. Are you sure you want to delete?";
+                            break;
+                    }
+
                     DialogResult result = MessageBox.Show("Are you sure you want to delete this staff?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                     if (result == DialogResult.Yes)
                     {
-                        await DeleteStaff(staffId);
-                        MessageBox.Show("Staff deleted successfully");
+                        DialogResult warningResult = MessageBox.Show(warningMessage, "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
-                        guna2DataGridView1.Rows.Clear();
-                        LoadStaffDataFromDatabase();
+                        if (warningResult == DialogResult.Yes)
+                        {
+                            await DeleteStaff(staffId);
+                        
+
+                            guna2DataGridView1.Rows.Clear();
+                            LoadStaffDataFromDatabase();
+                        }
+                        // If the user clicks No in the warning message box, nothing happens
                     }
                 }
                 else if (guna2DataGridView1.Columns[e.ColumnIndex].Name == "Update")
                 {
-                     await UpdateStaff(staffId);
+                    await UpdateStaff(staffId);
                 }
             }
         }
@@ -174,6 +202,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
                     {
                         deleteCommand.Parameters.AddWithValue("@staffId", staffId);
                         await deleteCommand.ExecuteNonQueryAsync();
+
                     }
                 }
                 catch (Exception ex)

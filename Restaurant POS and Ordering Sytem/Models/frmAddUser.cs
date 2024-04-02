@@ -87,20 +87,32 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             string staffFname = cmbxName.SelectedItem?.ToString();
             if (string.IsNullOrEmpty(staffFname))
             {
-                guna2MessageDialog1.Show("Please select a cashier.");
+                guna2MessageDialog1.Show("Please select a staff member.");
                 return;
             }
 
-            // Retrieve staffID from the ComboBox's Tag
             string staffID = cmbxName.Tag.ToString();
-
             string username = txtuser.Text;
             string password = txtpass.Text;
             string staffrole = cmbxrole.SelectedItem?.ToString();
 
-            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(staffrole))
             {
                 guna2MessageDialog1.Show("Please fill in all required fields.");
+                return;
+            }
+
+            int maxAllowedCount = GetMaxAllowedCountForRole(staffrole);
+            if (maxAllowedCount == -1)
+            {
+                guna2MessageDialog1.Show("Invalid role selected.");
+                return;
+            }
+
+            int existingCount = GetExistingUserCountByRole(staffrole);
+            if (existingCount >= maxAllowedCount)
+            {
+                guna2MessageDialog2.Show($"Maximum {maxAllowedCount} users with role '{staffrole}' are allowed.");
                 return;
             }
 
@@ -129,7 +141,6 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                         // Raise the UserAddedOrUpdated event
                         UserAddedOrUpdated?.Invoke(this, e);
 
-
                         this.Close();
                     }
                 }
@@ -140,6 +151,45 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             }
         }
 
+        private int GetMaxAllowedCountForRole(string role)
+        {
+            switch (role)
+            {
+                case "Admin":
+                case "Manager":
+                    return 1;
+                case "Cashier":
+                    return int.MaxValue; // Unlimited
+                default:
+                    return -1; // Invalid role
+            }
+        }
+
+        private int GetExistingUserCountByRole(string role)
+        {
+            int count = 0;
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    string query = "SELECT COUNT(*) FROM users WHERE role = @role";
+
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@role", role);
+                        count = Convert.ToInt32(command.ExecuteScalar());
+                    }
+                }
+                catch (Exception ex)
+                {
+                    guna2MessageDialog1.Show("Error: " + ex.Message);
+                }
+            }
+
+            return count;
+        }
         private string HashString(string passwordString)
         {
             // Hash the password using BCrypt

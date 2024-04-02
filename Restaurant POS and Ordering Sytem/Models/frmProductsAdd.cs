@@ -175,69 +175,101 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                         }
                     }
 
-                    string query;
-
-                    // Determine whether to insert or update the product
+                    // Check if it's an update or add operation
                     if (productId == 0)
                     {
+                        // Check if the product name already exists
+                        if (CheckIfProductExists(productName, connection))
+                        {
+                            guna2MessageDialog2.Show("The Product is Already exists");
+                            return;
+                        }
+
                         // Insert a new product
-                        query = "INSERT INTO tbl_products (prodName, prodPrice, catID, prodcategory, prodImage) " +
-                                "VALUES (@prodName, @prodPrice, @catID, @prodcategory, @prodImage)";
+                        string insertQuery = "INSERT INTO tbl_products (prodName, prodPrice, catID, prodcategory, prodImage) " +
+                                            "VALUES (@prodName, @prodPrice, @catID, @prodcategory, @prodImage)";
+                        using (MySqlCommand insertCommand = new MySqlCommand(insertQuery, connection))
+                        {
+                            insertCommand.Parameters.AddWithValue("@prodName", productName);
+                            insertCommand.Parameters.AddWithValue("@prodPrice", price);
+                            insertCommand.Parameters.AddWithValue("@catID", categoryId);
+                            insertCommand.Parameters.AddWithValue("@prodcategory", category);
+                            insertCommand.Parameters.AddWithValue("@prodImage", img ?? (object)DBNull.Value); // If img is null, insert DBNull.Value
+                            insertCommand.ExecuteNonQuery();
+
+                            // Show success message
+                            guna2MessageDialog1.Show("Product added successfully!");
+
+                            // Invoke the ProductUpdated event
+                            ProductUpdated?.Invoke(this, EventArgs.Empty);
+
+                            // Clear input fields
+                            txttablename.Text = "";
+                            txtlblprice.Text = "";
+                            categorycmbx.SelectedItem = null;
+
+                            // Dispose of the image properly
+                            if (productImage != null && productImage.Image != null)
+                            {
+                                productImage.Image.Dispose();
+                                productImage.Image = null;
+                            }
+                        }
                     }
                     else
                     {
                         // Update an existing product
-                        query = "UPDATE tbl_products SET prodName = @prodName, prodPrice = @prodPrice, " +
-                                "catID = @catID, prodcategory = @prodcategory";
+                        string updateQuery = "UPDATE tbl_products SET prodName = @prodName, prodPrice = @prodPrice, " +
+                                             "catID = @catID, prodcategory = @prodcategory";
 
                         // Add image update part conditionally
                         if (img != null)
                         {
-                            query += ", prodImage = @prodImage";
+                            updateQuery += ", prodImage = @prodImage";
                         }
 
-                        query += " WHERE prodID = @prodID";
-                    }
+                        updateQuery += " WHERE prodID = @prodID";
 
-                    // Execute the SQL command
-                    using (MySqlCommand command = new MySqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@prodID", productId);
-                        command.Parameters.AddWithValue("@prodName", productName);
-                        command.Parameters.AddWithValue("@prodPrice", price);
-                        command.Parameters.AddWithValue("@catID", categoryId);
-                        command.Parameters.AddWithValue("@prodcategory", category);
-
-                        // Add image parameter only if an image is selected or for update operation
-                        if (img != null)
+                        // Execute the SQL command
+                        using (MySqlCommand command = new MySqlCommand(updateQuery, connection))
                         {
-                            command.Parameters.AddWithValue("@prodImage", img);
-                        }
+                            command.Parameters.AddWithValue("@prodID", productId);
+                            command.Parameters.AddWithValue("@prodName", productName);
+                            command.Parameters.AddWithValue("@prodPrice", price);
+                            command.Parameters.AddWithValue("@catID", categoryId);
+                            command.Parameters.AddWithValue("@prodcategory", category);
 
-                        int rowsAffected = command.ExecuteNonQuery();
+                            // Add image parameter only if an image is selected or for update operation
+                            if (img != null)
+                            {
+                                command.Parameters.AddWithValue("@prodImage", img);
+                            }
 
-                        // Show success message
-                        guna2MessageDialog1.Show(productId == 0 ? "Product added successfully!" : "Product updated successfully!");
+                            int rowsAffected = command.ExecuteNonQuery();
 
-                        // Invoke the ProductUpdated event
-                        ProductUpdated?.Invoke(this, EventArgs.Empty);
+                            // Show success message
+                            guna2MessageDialog1.Show("Product updated successfully!");
 
-                        // Clear input fields
-                        txttablename.Text = "";
-                        txtlblprice.Text = "";
-                        categorycmbx.SelectedItem = null;
+                            // Invoke the ProductUpdated event
+                            ProductUpdated?.Invoke(this, EventArgs.Empty);
 
-                        // Dispose of the image properly
-                        if (productImage != null && productImage.Image != null)
-                        {
-                            productImage.Image.Dispose();
-                            productImage.Image = null;
-                        }
+                            // Clear input fields
+                            txttablename.Text = "";
+                            txtlblprice.Text = "";
+                            categorycmbx.SelectedItem = null;
 
-                        // Close the form if an update was successful
-                        if (rowsAffected > 0 && productId != 0)
-                        {
-                            this.Close();
+                            // Dispose of the image properly
+                            if (productImage != null && productImage.Image != null)
+                            {
+                                productImage.Image.Dispose();
+                                productImage.Image = null;
+                            }
+
+                            // Close the form if an update was successful
+                            if (rowsAffected > 0)
+                            {
+                                this.Close();
+                            }
                         }
                     }
                 }
@@ -249,10 +281,16 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             }
         }
 
-
-
-
-
+        private bool CheckIfProductExists(string productName, MySqlConnection connection)
+        {
+            string query = "SELECT COUNT(*) FROM tbl_products WHERE prodName = @prodName";
+            using (MySqlCommand command = new MySqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@prodName", productName);
+                int count = Convert.ToInt32(command.ExecuteScalar());
+                return count > 0;
+            }
+        }
 
 
         private int GetCategoryId(string categoryName)

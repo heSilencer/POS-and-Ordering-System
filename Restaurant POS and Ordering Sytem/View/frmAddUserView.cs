@@ -139,7 +139,17 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
         private void Add_UserView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0 && Add_UserView.Columns[e.ColumnIndex].Name == "Delete")
-            {
+    {
+                // Get the role of the user to be deleted
+                string role = Add_UserView.Rows[e.RowIndex].Cells["role"].Value.ToString();
+
+                if (role.ToLower() == "admin")
+                {
+                    // Display a message that admin users cannot be deleted
+                    MessageBox.Show("Admin users cannot be deleted.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return; // Exit the method without further processing
+                }
+
                 // Confirm deletion with the user
                 DialogResult result = MessageBox.Show("Are you sure you want to delete this user?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
@@ -192,7 +202,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
                             }
                             LoadDataFromDatabase();
 
-                            MessageBox.Show("User deleted successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            guna2MessageDialog1.Show("User deleted successfully");
                         }
                         else
                         {
@@ -202,7 +212,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    guna2MessageDialog2.Show("Error: " + ex.Message, "Error");
                 }
             }
         }

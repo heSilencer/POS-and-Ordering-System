@@ -63,7 +63,7 @@
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(121, 36);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(449, 72);
+            this.label1.Size = new System.Drawing.Size(232, 37);
             this.label1.TabIndex = 2;
             this.label1.Text = "Category Details";
             // 
@@ -155,7 +155,7 @@
             this.label2.Font = new System.Drawing.Font("Segoe UI", 17F);
             this.label2.Location = new System.Drawing.Point(105, 190);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(344, 62);
+            this.label2.Size = new System.Drawing.Size(173, 31);
             this.label2.TabIndex = 2;
             this.label2.Text = "Category Name";
             // 
@@ -174,7 +174,7 @@
             this.guna2MessageDialog2.Caption = "WARNING";
             this.guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Warning;
             this.guna2MessageDialog2.Parent = this;
-            this.guna2MessageDialog2.Style = Guna.UI2.WinForms.MessageDialogStyle.Dark;
+            this.guna2MessageDialog2.Style = Guna.UI2.WinForms.MessageDialogStyle.Light;
             this.guna2MessageDialog2.Text = null;
             // 
             // frmCategoryAdd

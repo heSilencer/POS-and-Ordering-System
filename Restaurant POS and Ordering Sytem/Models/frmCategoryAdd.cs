@@ -68,6 +68,14 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                         return;
                     }
 
+                    // Check if category already exists
+                    bool categoryExists = CheckIfCategoryExists(categoryName, connection);
+                    if (categoryExists)
+                    {
+                        guna2MessageDialog1.Show("This Category already exists.");
+                        return;
+                    }
+
                     if (categoryId == 0)
                     {
                         // Insert a new category
@@ -82,11 +90,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
 
                             // Directly refresh the DataGridView
                             ProductUpdated?.Invoke(this, EventArgs.Empty);
-                            // Close the current form
                             DialogResult result = guna2MessageDialog1.Show("Successfully added");
-                            OnCategoryUpdated();
-
-                           
                         }
                     }
                     else
@@ -103,10 +107,8 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                             lblcat.Text = "";
 
                             DialogResult result = guna2MessageDialog1.Show("Successfully updated");
-                            OnCategoryUpdated();
+                            ProductUpdated?.Invoke(this, EventArgs.Empty);
                             this.Close();
-
-
                         }
                     }
                 }
@@ -114,6 +116,17 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                 {
                     guna2MessageDialog2.Show("Error: " + ex.Message);
                 }
+            }
+        }
+
+        private bool CheckIfCategoryExists(string categoryName, MySqlConnection connection)
+        {
+            string query = "SELECT COUNT(*) FROM tbl_category WHERE catName = @catName";
+            using (MySqlCommand command = new MySqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@catName", categoryName);
+                int count = Convert.ToInt32(command.ExecuteScalar());
+                return count > 0;
             }
         }
         protected virtual void OnCategoryUpdated()

@@ -19,7 +19,71 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
         public frmdashboardView()
         {
             InitializeComponent();
+            cmbxdate.SelectedIndexChanged += cmbxdate_SelectedIndexChanged;
+
         }
+        private void cmbxdate_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Check if an order type is selected
+            if (cmbxdate.SelectedIndex > 0) // Assuming the first item is "Choose an Order Type"
+            {
+                string selectedOrderType = cmbxdate.SelectedItem.ToString();
+
+                // Define the query to calculate total revenue for the selected order type
+                string query = "SELECT SUM(Total) AS TotalRevenue FROM tblMain WHERE OrderType = @selectedOrderType AND Status = 'Check Out'";
+
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    MySqlCommand command = new MySqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@selectedOrderType", selectedOrderType);
+
+                    try
+                    {
+                        connection.Open();
+                        object result = command.ExecuteScalar();
+
+                        if (result != null && result != DBNull.Value)
+                        {
+                            decimal totalRevenue = Convert.ToDecimal(result);
+
+                            // Clear existing series in the chart
+                            chart4.Series.Clear();
+
+                            // Add new series with custom settings
+                            Series series = new Series();
+                            series.ChartType = SeriesChartType.Column; // Set chart type to column (bar graph)
+                            series["PixelPointWidth"] = "200"; // Set width of the bars
+
+                            // Concatenate order type with legend text
+                            series.Name = $"{selectedOrderType}:  {totalRevenue}";
+
+                            // Add data point to the new series
+                            series.Points.AddXY(selectedOrderType, totalRevenue);
+
+                            // Add the new series to the chart
+                            chart4.Series.Add(series);
+
+                            // Clear existing legends and add a new legend at the bottom
+                            chart4.Legends.Clear();
+                            Legend legend = new Legend("Legend1");
+                            legend.Docking = Docking.Bottom;
+                            legend.Font = new Font("Arial", 12);
+                            chart4.Legends.Add(legend);
+                        }
+                        else
+                        {
+                            guna2MessageDialog1.Show("No revenue data found for selected order type.");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error retrieving revenue data: " + ex.Message);
+                    }
+                }
+            }
+         
+        }
+
         private void DisplayTotalHoldOrders()
         {
             // SQL query to calculate the sum of hold orders from tblMain
@@ -48,7 +112,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
                 catch (Exception ex)
                 {
                     // Handle any errors
-                    MessageBox.Show("Error retrieving total hold orders: " + ex.Message);
+                    guna2MessageDialog2.Show("Error retrieving total hold orders: " + ex.Message);
                 }
             }
 
@@ -80,7 +144,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
                 catch (Exception ex)
                 {
                     // Handle any errors
-                    MessageBox.Show("Error retrieving total number of products: " + ex.Message);
+                    guna2MessageDialog2.Show("Error retrieving total number of products: " + ex.Message);
                 }
             }
         }
@@ -111,7 +175,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
                 catch (Exception ex)
                 {
                     // Handle any errors
-                    MessageBox.Show("Error retrieving total number of categories: " + ex.Message);
+                    guna2MessageDialog2.Show("Error retrieving total number of categories: " + ex.Message);
                 }
             }
         }
@@ -142,7 +206,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
                 catch (Exception ex)
                 {
                     // Handle any errors
-                    MessageBox.Show("Error retrieving total revenue: " + ex.Message);
+                    guna2MessageDialog2.Show("Error retrieving total revenue: " + ex.Message);
                 }
             }
         }
@@ -230,7 +294,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Error: {ex.Message}");
+                    guna2MessageDialog2.Show($"Error: {ex.Message}");
                 }
             }
         }
@@ -250,7 +314,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Error: {ex.Message}");
+                    guna2MessageDialog2.Show($"Error: {ex.Message}");
                 }
             }
 
@@ -300,7 +364,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
                 catch (Exception ex)
                 {
                     // Display error message in case of any exception
-                    MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    guna2MessageDialog2.Show($"Error: {ex.Message}");
                 }
             }
         }
@@ -370,7 +434,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
                 catch (Exception ex)
                 {
                     // Display error message in case of any exception
-                    MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    guna2MessageDialog2.Show($"Error: {ex.Message}");
                 }
             }
         }
@@ -396,75 +460,12 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error loading order types: " + ex.Message);
+                    guna2MessageDialog2.Show("Error loading order types: " + ex.Message);
                 }
             }
         }
 
-        private void guna2Button1_Click(object sender, EventArgs e)
-        {
-            if (cmbxdate.SelectedItem != null)
-            {
-                string selectedOrderType = cmbxdate.SelectedItem.ToString();
-
-                // Define the query to calculate total revenue for the selected order type
-                string query = "SELECT SUM(Total) AS TotalRevenue FROM tblMain WHERE OrderType = @selectedOrderType AND Status = 'Check Out'";
-
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
-                {
-                    MySqlCommand command = new MySqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@selectedOrderType", selectedOrderType);
-
-                    try
-                    {
-                        connection.Open();
-                        object result = command.ExecuteScalar();
-
-                        if (result != null && result != DBNull.Value)
-                        {
-                            decimal totalRevenue = Convert.ToDecimal(result);
-
-                            // Clear existing series in the chart
-                            chart4.Series.Clear();
-
-                            // Add new series with custom settings
-                            Series series = new Series();
-                            series.ChartType = SeriesChartType.Column; // Set chart type to column (bar graph)
-                            series["PixelPointWidth"] = "200"; // Set width of the bars
-
-                            // Concatenate order type with legend text
-                            series.Name = $"{selectedOrderType}:  {totalRevenue}";
-
-                            // Add data point to the new series
-                            series.Points.AddXY(selectedOrderType, totalRevenue);
-
-                            // Add the new series to the chart
-                            chart4.Series.Add(series);
-
-                            // Clear existing legends and add a new legend at the bottom
-                            chart4.Legends.Clear();
-                            Legend legend = new Legend("Legend1");
-                            legend.Docking = Docking.Bottom; 
-                             legend.Font = new Font("Arial", 12);
-                            chart4.Legends.Add(legend);
-                        }
-                        else
-                        {
-                            MessageBox.Show("No revenue data found for selected order type.");
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Error retrieving revenue data: " + ex.Message);
-                    }
-                }
-            }
-            else
-            {
-                MessageBox.Show("Please select an order type.");
-            }
-        }
-
+        
         private void label3_Click(object sender, EventArgs e)
         {
 

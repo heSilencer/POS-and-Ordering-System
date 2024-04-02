@@ -163,7 +163,7 @@
             this.guna2MessageDialog1.Buttons = Guna.UI2.WinForms.MessageDialogButtons.OK;
             this.guna2MessageDialog1.Caption = "INFORMATION";
             this.guna2MessageDialog1.Icon = Guna.UI2.WinForms.MessageDialogIcon.Information;
-            this.guna2MessageDialog1.Parent = null;
+            this.guna2MessageDialog1.Parent = this;
             this.guna2MessageDialog1.Style = Guna.UI2.WinForms.MessageDialogStyle.Light;
             this.guna2MessageDialog1.Text = null;
             // 
@@ -172,7 +172,7 @@
             this.guna2MessageDialog2.Buttons = Guna.UI2.WinForms.MessageDialogButtons.OK;
             this.guna2MessageDialog2.Caption = "WARNING";
             this.guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Warning;
-            this.guna2MessageDialog2.Parent = null;
+            this.guna2MessageDialog2.Parent = this;
             this.guna2MessageDialog2.Style = Guna.UI2.WinForms.MessageDialogStyle.Dark;
             this.guna2MessageDialog2.Text = null;
             // 

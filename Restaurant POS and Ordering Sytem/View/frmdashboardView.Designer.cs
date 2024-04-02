@@ -60,8 +60,9 @@
             this.chart2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.chart3 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.cmbxdate = new Guna.UI2.WinForms.Guna2ComboBox();
-            this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
             this.chart4 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.guna2MessageDialog2 = new Guna.UI2.WinForms.Guna2MessageDialog();
+            this.guna2MessageDialog1 = new Guna.UI2.WinForms.Guna2MessageDialog();
             this.guna2Panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox6)).BeginInit();
             this.guna2Panel5.SuspendLayout();
@@ -324,24 +325,6 @@
             this.cmbxdate.Size = new System.Drawing.Size(188, 36);
             this.cmbxdate.TabIndex = 12;
             // 
-            // guna2Button1
-            // 
-            this.guna2Button1.AutoRoundedCorners = true;
-            this.guna2Button1.BorderRadius = 17;
-            this.guna2Button1.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button1.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2Button1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button1.FillColor = System.Drawing.Color.ForestGreen;
-            this.guna2Button1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2Button1.ForeColor = System.Drawing.Color.White;
-            this.guna2Button1.Location = new System.Drawing.Point(891, 506);
-            this.guna2Button1.Name = "guna2Button1";
-            this.guna2Button1.Size = new System.Drawing.Size(101, 36);
-            this.guna2Button1.TabIndex = 13;
-            this.guna2Button1.Text = "Show";
-            this.guna2Button1.Click += new System.EventHandler(this.guna2Button1_Click);
-            // 
             // chart4
             // 
             this.chart4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -361,6 +344,24 @@
             this.chart4.TabIndex = 14;
             this.chart4.Text = "chart4";
             // 
+            // guna2MessageDialog2
+            // 
+            this.guna2MessageDialog2.Buttons = Guna.UI2.WinForms.MessageDialogButtons.OK;
+            this.guna2MessageDialog2.Caption = "ERROR";
+            this.guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Error;
+            this.guna2MessageDialog2.Parent = this;
+            this.guna2MessageDialog2.Style = Guna.UI2.WinForms.MessageDialogStyle.Dark;
+            this.guna2MessageDialog2.Text = null;
+            // 
+            // guna2MessageDialog1
+            // 
+            this.guna2MessageDialog1.Buttons = Guna.UI2.WinForms.MessageDialogButtons.OK;
+            this.guna2MessageDialog1.Caption = "INFORMATION";
+            this.guna2MessageDialog1.Icon = Guna.UI2.WinForms.MessageDialogIcon.Information;
+            this.guna2MessageDialog1.Parent = this;
+            this.guna2MessageDialog1.Style = Guna.UI2.WinForms.MessageDialogStyle.Light;
+            this.guna2MessageDialog1.Text = null;
+            // 
             // frmdashboardView
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -368,7 +369,6 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(1190, 861);
             this.Controls.Add(this.chart4);
-            this.Controls.Add(this.guna2Button1);
             this.Controls.Add(this.cmbxdate);
             this.Controls.Add(this.chart3);
             this.Controls.Add(this.chart2);
@@ -420,7 +420,8 @@
         private System.Windows.Forms.Label lblHold;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart3;
         private Guna.UI2.WinForms.Guna2ComboBox cmbxdate;
-        private Guna.UI2.WinForms.Guna2Button guna2Button1;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart4;
+        private Guna.UI2.WinForms.Guna2MessageDialog guna2MessageDialog2;
+        private Guna.UI2.WinForms.Guna2MessageDialog guna2MessageDialog1;
     }
 }

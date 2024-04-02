@@ -70,7 +70,7 @@
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(120, 20);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(418, 72);
+            this.label1.Size = new System.Drawing.Size(215, 37);
             this.label1.TabIndex = 2;
             this.label1.Text = "Product Details";
             // 
@@ -171,7 +171,7 @@
             this.label3.Font = new System.Drawing.Font("Segoe UI", 17F);
             this.label3.Location = new System.Drawing.Point(25, 207);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(125, 62);
+            this.label3.Size = new System.Drawing.Size(64, 31);
             this.label3.TabIndex = 12;
             this.label3.Text = "Price";
             // 
@@ -203,7 +203,7 @@
             this.label4.Font = new System.Drawing.Font("Segoe UI", 17F);
             this.label4.Location = new System.Drawing.Point(25, 296);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(210, 62);
+            this.label4.Size = new System.Drawing.Size(106, 31);
             this.label4.TabIndex = 14;
             this.label4.Text = "Category";
             // 
@@ -259,7 +259,7 @@
             this.guna2MessageDialog2.Caption = "WARNING";
             this.guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Warning;
             this.guna2MessageDialog2.Parent = this;
-            this.guna2MessageDialog2.Style = Guna.UI2.WinForms.MessageDialogStyle.Dark;
+            this.guna2MessageDialog2.Style = Guna.UI2.WinForms.MessageDialogStyle.Light;
             this.guna2MessageDialog2.Text = null;
             // 
             // guna2MessageDialog1
