@@ -119,6 +119,9 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             ShowProducts("All Categories");
             UpdateTotalAmount();
 
+            //MessageBox.Show("No products found. Please try again.", "Product Not Found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+
         }
         private void AddCategory()
         {

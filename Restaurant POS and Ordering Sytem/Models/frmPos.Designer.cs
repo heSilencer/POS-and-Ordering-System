@@ -646,8 +646,8 @@
             this.txtSearch.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtSearch.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtSearch.IconRight = global::Restaurant_POS_and_Ordering_Sytem.Properties.Resources.icons8_search_48;
-            this.txtSearch.Location = new System.Drawing.Point(327, 95);
-            this.txtSearch.Margin = new System.Windows.Forms.Padding(6);
+            this.txtSearch.Location = new System.Drawing.Point(305, 95);
+            this.txtSearch.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.PasswordChar = '\0';
             this.txtSearch.PlaceholderText = "Search Here";
