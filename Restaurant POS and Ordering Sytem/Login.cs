@@ -24,6 +24,8 @@ namespace Restaurant_POS_and_Ordering_Sytem
         public frmlogin()
         {
             InitializeComponent();
+            txtUsername.KeyPress += new KeyPressEventHandler(txtUsername_KeyPress);
+            txtPassword.KeyPress += new KeyPressEventHandler(txtPassword_KeyPress);
 
         }
 
@@ -34,55 +36,7 @@ namespace Restaurant_POS_and_Ordering_Sytem
         }
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            string enteredUsername = txtUsername.Text;
-            string enteredPassword = txtPassword.Text;
-
-            if (string.IsNullOrEmpty(enteredUsername) || string.IsNullOrEmpty(enteredPassword))
-            {
-                MessageBox.Show("Please enter both username and password.");
-                return;
-            }
-
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                try
-                {
-                    connection.Open();
-                    string loginQuery = "SELECT userID, uname, userpass, role FROM users WHERE username = @username";
-
-                    using (MySqlCommand cmd = new MySqlCommand(loginQuery, connection))
-                    {
-                        cmd.Parameters.AddWithValue("@username", enteredUsername);
-
-                        using (MySqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            if (reader.Read())
-                            {
-                                int userID = Convert.ToInt32(reader["userID"]); // Retrieve the UserID
-                                string storedPasswordHash = reader["userpass"].ToString();
-                                if (VerifyPassword(enteredPassword, storedPasswordHash))
-                                {
-                                    string username = reader["uname"].ToString();
-                                    string userRole = reader["role"].ToString();
-                                    OpenFormBasedOnRole(enteredUsername, userRole, username, userID, mainID); // Pass the UserID
-                                }
-                                else
-                                {
-                                    MessageBox.Show("Invalid credentials.");
-                                }
-                            }
-                            else
-                            {
-                                MessageBox.Show("User not found.");
-                            }
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error: " + ex.Message);
-                }
-            }
+            login();
         }
      
         private void OpenFormBasedOnRole(string enteredUsername, string userRole, string username, int userID, int mainID)
@@ -121,7 +75,68 @@ namespace Restaurant_POS_and_Ordering_Sytem
 
 
        
+        private void login()
+        {
+            string enteredUsername = txtUsername.Text;
+            string enteredPassword = txtPassword.Text;
 
+            if (string.IsNullOrEmpty(enteredUsername) || string.IsNullOrEmpty(enteredPassword))
+            {
+                MessageBox.Show("Please enter both username and password.");
+                return;
+            }
+
+            // Clear any previous error messages
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    string loginQuery = "SELECT userID, uname, userpass, role FROM users WHERE BINARY username = @username";
+
+                    using (MySqlCommand cmd = new MySqlCommand(loginQuery, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@username", enteredUsername);
+
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                int userID = Convert.ToInt32(reader["userID"]); // Retrieve the UserID
+                                string storedPasswordHash = reader["userpass"].ToString();
+                                if (VerifyPassword(enteredPassword, storedPasswordHash))
+                                {
+                                    string username = reader["uname"].ToString();
+                                    string userRole = reader["role"].ToString();
+                                    OpenFormBasedOnRole(enteredUsername, userRole, username, userID, mainID); // Pass the UserID
+                                }
+                                else
+                                {
+                                    guna2MessageDialog1.Show("Invalid Password.");
+                                    // Clear password field
+                                    txtPassword.Clear();
+                                    txtUsername.Clear();
+
+
+                                }
+                            }
+                            else
+                            {
+                                guna2MessageDialog1.Show("User not found.");
+                                // Clear both fields
+                                txtUsername.Clear();
+                                txtPassword.Clear();
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
+                }
+            }
+        }
 
 
 
@@ -157,6 +172,31 @@ namespace Restaurant_POS_and_Ordering_Sytem
                 btnShow.Visible = true;
                 txtPassword.PasswordChar = '*';
                 txtPassword.Font = new Font(txtPassword.Font.FontFamily, 25);
+            }
+        }
+
+        private void txtUsername_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                // Move focus to the password textbox
+                txtPassword.Focus();
+                // Consume the Enter key press event to prevent it from being entered into the password textbox
+                e.Handled = true;
+            }
+            // Preventing user from entering non-alphanumeric characters for username
+            else if (!char.IsLetterOrDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+       
+
+        private void txtPassword_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                login();
             }
         }
     }

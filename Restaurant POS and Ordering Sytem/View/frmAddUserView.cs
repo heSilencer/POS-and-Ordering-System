@@ -212,7 +212,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
                 }
                 catch (Exception ex)
                 {
-                    guna2MessageDialog2.Show("Error: " + ex.Message, "Error");
+                    MessageBox.Show("Error: " + ex.Message, "Error");
                 }
             }
         }

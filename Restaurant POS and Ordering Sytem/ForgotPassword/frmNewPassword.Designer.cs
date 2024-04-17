@@ -28,10 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmNewPassword));
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
-            this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnClose = new Guna.UI2.WinForms.Guna2Button();
             this.btnSave = new Guna.UI2.WinForms.Guna2Button();
@@ -39,17 +37,18 @@
             this.txtNewpass = new Guna.UI2.WinForms.Guna2TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtConfirmPass = new Guna.UI2.WinForms.Guna2TextBox();
-            this.btnhide1 = new System.Windows.Forms.PictureBox();
-            this.btnShow1 = new System.Windows.Forms.PictureBox();
-            this.btnhide2 = new System.Windows.Forms.PictureBox();
             this.btnShow2 = new System.Windows.Forms.PictureBox();
+            this.btnhide2 = new System.Windows.Forms.PictureBox();
+            this.btnShow1 = new System.Windows.Forms.PictureBox();
+            this.btnhide1 = new System.Windows.Forms.PictureBox();
+            this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.btnhide1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnShow1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnhide2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnShow2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnhide2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnShow1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnhide1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -74,19 +73,6 @@
             this.label1.Size = new System.Drawing.Size(587, 72);
             this.label1.TabIndex = 2;
             this.label1.Text = "New Password Details";
-            // 
-            // guna2PictureBox1
-            // 
-            this.guna2PictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.guna2PictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("guna2PictureBox1.Image")));
-            this.guna2PictureBox1.ImageRotate = 0F;
-            this.guna2PictureBox1.Location = new System.Drawing.Point(30, 12);
-            this.guna2PictureBox1.Name = "guna2PictureBox1";
-            this.guna2PictureBox1.Size = new System.Drawing.Size(84, 80);
-            this.guna2PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.guna2PictureBox1.TabIndex = 1;
-            this.guna2PictureBox1.TabStop = false;
-            this.guna2PictureBox1.UseTransparentBackground = true;
             // 
             // panel2
             // 
@@ -199,29 +185,17 @@
             this.txtConfirmPass.Size = new System.Drawing.Size(316, 43);
             this.txtConfirmPass.TabIndex = 7;
             // 
-            // btnhide1
+            // btnShow2
             // 
-            this.btnhide1.BackColor = System.Drawing.Color.White;
-            this.btnhide1.Image = global::Restaurant_POS_and_Ordering_Sytem.Properties.Resources.icons8_hide_password_50;
-            this.btnhide1.Location = new System.Drawing.Point(383, 180);
-            this.btnhide1.Name = "btnhide1";
-            this.btnhide1.Size = new System.Drawing.Size(41, 34);
-            this.btnhide1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.btnhide1.TabIndex = 11;
-            this.btnhide1.TabStop = false;
-            this.btnhide1.Click += new System.EventHandler(this.btnhide1_Click);
-            // 
-            // btnShow1
-            // 
-            this.btnShow1.BackColor = System.Drawing.Color.White;
-            this.btnShow1.Image = global::Restaurant_POS_and_Ordering_Sytem.Properties.Resources.icons8_show_password_50;
-            this.btnShow1.Location = new System.Drawing.Point(383, 180);
-            this.btnShow1.Name = "btnShow1";
-            this.btnShow1.Size = new System.Drawing.Size(41, 34);
-            this.btnShow1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.btnShow1.TabIndex = 12;
-            this.btnShow1.TabStop = false;
-            this.btnShow1.Click += new System.EventHandler(this.btnShow1_Click);
+            this.btnShow2.BackColor = System.Drawing.Color.White;
+            this.btnShow2.Image = global::Restaurant_POS_and_Ordering_Sytem.Properties.Resources.icons8_show_password_50;
+            this.btnShow2.Location = new System.Drawing.Point(383, 269);
+            this.btnShow2.Name = "btnShow2";
+            this.btnShow2.Size = new System.Drawing.Size(41, 34);
+            this.btnShow2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnShow2.TabIndex = 14;
+            this.btnShow2.TabStop = false;
+            this.btnShow2.Click += new System.EventHandler(this.btnShow2_Click);
             // 
             // btnhide2
             // 
@@ -235,17 +209,42 @@
             this.btnhide2.TabStop = false;
             this.btnhide2.Click += new System.EventHandler(this.btnhide2_Click);
             // 
-            // btnShow2
+            // btnShow1
             // 
-            this.btnShow2.BackColor = System.Drawing.Color.White;
-            this.btnShow2.Image = global::Restaurant_POS_and_Ordering_Sytem.Properties.Resources.icons8_show_password_50;
-            this.btnShow2.Location = new System.Drawing.Point(383, 269);
-            this.btnShow2.Name = "btnShow2";
-            this.btnShow2.Size = new System.Drawing.Size(41, 34);
-            this.btnShow2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.btnShow2.TabIndex = 14;
-            this.btnShow2.TabStop = false;
-            this.btnShow2.Click += new System.EventHandler(this.btnShow2_Click);
+            this.btnShow1.BackColor = System.Drawing.Color.White;
+            this.btnShow1.Image = global::Restaurant_POS_and_Ordering_Sytem.Properties.Resources.icons8_show_password_50;
+            this.btnShow1.Location = new System.Drawing.Point(383, 180);
+            this.btnShow1.Name = "btnShow1";
+            this.btnShow1.Size = new System.Drawing.Size(41, 34);
+            this.btnShow1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnShow1.TabIndex = 12;
+            this.btnShow1.TabStop = false;
+            this.btnShow1.Click += new System.EventHandler(this.btnShow1_Click);
+            // 
+            // btnhide1
+            // 
+            this.btnhide1.BackColor = System.Drawing.Color.White;
+            this.btnhide1.Image = global::Restaurant_POS_and_Ordering_Sytem.Properties.Resources.icons8_hide_password_50;
+            this.btnhide1.Location = new System.Drawing.Point(383, 180);
+            this.btnhide1.Name = "btnhide1";
+            this.btnhide1.Size = new System.Drawing.Size(41, 34);
+            this.btnhide1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnhide1.TabIndex = 11;
+            this.btnhide1.TabStop = false;
+            this.btnhide1.Click += new System.EventHandler(this.btnhide1_Click);
+            // 
+            // guna2PictureBox1
+            // 
+            this.guna2PictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.guna2PictureBox1.Image = global::Restaurant_POS_and_Ordering_Sytem.Properties.Resources.icons8_password_64;
+            this.guna2PictureBox1.ImageRotate = 0F;
+            this.guna2PictureBox1.Location = new System.Drawing.Point(30, 12);
+            this.guna2PictureBox1.Name = "guna2PictureBox1";
+            this.guna2PictureBox1.Size = new System.Drawing.Size(84, 80);
+            this.guna2PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.guna2PictureBox1.TabIndex = 1;
+            this.guna2PictureBox1.TabStop = false;
+            this.guna2PictureBox1.UseTransparentBackground = true;
             // 
             // frmNewPassword
             // 
@@ -268,12 +267,12 @@
             this.Load += new System.EventHandler(this.frmNewPassword_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).EndInit();
             this.panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.btnhide1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnShow1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnhide2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnShow2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnhide2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnShow1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnhide1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

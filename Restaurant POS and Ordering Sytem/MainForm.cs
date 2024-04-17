@@ -16,6 +16,9 @@ namespace Restaurant_POS_and_Ordering_Sytem
 {
     public partial class MainForm : Form
     {
+        string connectionString = @"server=localhost;database=pos_ordering_system;userid=root;password=;";
+
+
         private static MainForm _obj;
         private string username;
 
@@ -85,25 +88,21 @@ namespace Restaurant_POS_and_Ordering_Sytem
         }
 
         private void btnLogout_Click(object sender, EventArgs e)
-        {
-            // Display a confirmation message using guna2MessageDialog
+        { // Display a confirmation message using guna2MessageDialog
             guna2MessageDialog1.Caption = "Logout Confirmation";
             guna2MessageDialog1.Text = "Are you sure you want to logout?";
-           
 
             DialogResult dialogResult = guna2MessageDialog1.Show();
 
             // Check user's choice
             if (dialogResult == DialogResult.Yes)
             {
-                frmlogin l = new frmlogin();
-                l.Show();               
-                    this.Close();
+                // Close the current main form
+                this.Close();
 
-               
-            }
-            else
-            {
+                // Show the login form again
+                frmlogin loginForm = new frmlogin();
+                loginForm.Show();
             }
         }
 
@@ -115,13 +114,47 @@ namespace Restaurant_POS_and_Ordering_Sytem
 
         private void btnPOS_Click(object sender, EventArgs e)
         {
-            Models.frmPos frmpos = new Models.frmPos(username,userID, mainID);
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
 
-            // Assuming you have a property to store the user role in MainForm
-            frmpos.userRole = "admin";
+                    // Check if there are any tables available
+                    string checkTablesQuery = "SELECT COUNT(*) FROM tbl_table";
+                    using (MySqlCommand cmdTables = new MySqlCommand(checkTablesQuery, connection))
+                    {
+                        int tableCount = Convert.ToInt32(cmdTables.ExecuteScalar());
+                        if (tableCount == 0)
+                        {
+                            MessageBox.Show("Please add table first.");
+                            return;
+                        }
+                    }
 
-            frmpos.Show();
-            this.Hide();
+                    // Check if there are any waiters available
+                    string checkWaitersQuery = "SELECT COUNT(*) FROM tbl_staff WHERE `staff category` = 'waiter'";
+                    using (MySqlCommand cmdWaiters = new MySqlCommand(checkWaitersQuery, connection))
+                    {
+                        int waiterCount = Convert.ToInt32(cmdWaiters.ExecuteScalar());
+                        if (waiterCount == 0)
+                        {
+                            MessageBox.Show("Please add waiter first.");
+                            return;
+                        }
+                    }
+
+                    // Assuming you have a property to store the user role in MainForm
+                    Models.frmPos frmpos = new Models.frmPos(username, userID, mainID);
+                    frmpos.userRole = "admin";
+                    frmpos.Show();
+                    this.Hide();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
+                }
+            }
         }
 
         private void ControlsPanel_Paint(object sender, PaintEventArgs e)
@@ -206,5 +239,11 @@ namespace Restaurant_POS_and_Ordering_Sytem
         {
             AddControls(new frmSettings(userID));
         }
+
+        private void guna2Button1_Click_1(object sender, EventArgs e)
+        {
+            AddControls(new frmBillListView());
+        }
     }
 }
+

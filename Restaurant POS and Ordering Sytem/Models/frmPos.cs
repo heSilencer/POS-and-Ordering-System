@@ -50,8 +50,18 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             guna2DataGridView1.Columns.Add("Sr#", "Sr#");
             guna2DataGridView1.Columns.Add("Name", "Name");
             guna2DataGridView1.Columns.Add("Qty", "Qty");
+            guna2DataGridView1.Columns["Sr#"].ReadOnly = true;
+            guna2DataGridView1.Columns["Name"].ReadOnly = true;
+
+
+
+
             guna2DataGridView1.Columns.Add("Price", "Price");
+            guna2DataGridView1.Columns["Price"].ReadOnly = true;
+
             guna2DataGridView1.Columns.Add("Amount", "Amount");
+            guna2DataGridView1.Columns["Amount"].ReadOnly = true;
+
 
             // Adjust the font size
             guna2DataGridView1.DefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 13);
@@ -78,14 +88,37 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             deleteColumn.MinimumWidth = 50;
             deleteColumn.ImageLayout = DataGridViewImageCellLayout.Zoom;
             guna2DataGridView1.Columns.Add(deleteColumn);
+
+
+
         }
-        
+
 
 
         public string OrderType;
         private int MainID;
 
+        private void guna2DataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == guna2DataGridView1.Columns["Qty"].Index && e.RowIndex >= 0)
+            {
+                DataGridViewRow editedRow = guna2DataGridView1.Rows[e.RowIndex];
+                UpdateAmountForEditedRow(editedRow);
+                UpdateTotalAmount();
+            }
+        }
 
+        private void UpdateAmountForEditedRow(DataGridViewRow editedRow)
+        {
+            double qty;
+            double price;
+
+            if (double.TryParse(editedRow.Cells["Qty"].Value?.ToString(), out qty) &&
+                double.TryParse(editedRow.Cells["Price"].Value?.ToString(), out price))
+            {
+                editedRow.Cells["Amount"].Value = (qty * price).ToString();
+            }
+        }
         private void guna2PictureBox2_Click(object sender, EventArgs e)
         {
             OpenFormBasedOnRole(userRole, username, userID);
@@ -120,6 +153,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             UpdateTotalAmount();
 
             //MessageBox.Show("No products found. Please try again.", "Product Not Found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            guna2DataGridView1.CellEndEdit += guna2DataGridView1_CellEndEdit;
 
 
         }
@@ -298,28 +332,37 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             if (e.ColumnIndex == guna2DataGridView1.Columns["Delete"].Index && e.RowIndex >= 0)
             {
                 DataGridViewRow selectedRow = guna2DataGridView1.Rows[e.RowIndex];
-
-                // Check if the quantity is greater than 1
-                if (selectedRow.Cells["Qty"].Value != null && Convert.ToInt32(selectedRow.Cells["Qty"].Value) > 1)
-                {
-                    // Decrease the quantity by 1
-                    int currentQty = Convert.ToInt32(selectedRow.Cells["Qty"].Value);
-                    selectedRow.Cells["Qty"].Value = (currentQty - 1).ToString();
-
-                    // Update the amount based on the new quantity
-                    double qty = Convert.ToDouble(selectedRow.Cells["Qty"].Value);
-                    double price = Convert.ToDouble(selectedRow.Cells["Price"].Value);
-                    selectedRow.Cells["Amount"].Value = (qty * price).ToString();
-                }
-                else
-                {
-                    // If quantity is 1 or less, remove the entire row
-                    guna2DataGridView1.Rows.RemoveAt(e.RowIndex);
-                }
+                guna2DataGridView1.Rows.RemoveAt(e.RowIndex); // Remove the row directly
 
                 UpdateSerialNumbers();
                 UpdateTotalAmount();
             }
+
+            //if (e.ColumnIndex == guna2DataGridView1.Columns["Delete"].Index && e.RowIndex >= 0)
+            //{
+            //    DataGridViewRow selectedRow = guna2DataGridView1.Rows[e.RowIndex];
+
+            //    // Check if the quantity is greater than 1
+            //    if (selectedRow.Cells["Qty"].Value != null && Convert.ToInt32(selectedRow.Cells["Qty"].Value) > 1)
+            //    {
+            //        // Decrease the quantity by 1
+            //        int currentQty = Convert.ToInt32(selectedRow.Cells["Qty"].Value);
+            //        selectedRow.Cells["Qty"].Value = (currentQty - 1).ToString();
+
+            //        // Update the amount based on the new quantity
+            //        double qty = Convert.ToDouble(selectedRow.Cells["Qty"].Value);
+            //        double price = Convert.ToDouble(selectedRow.Cells["Price"].Value);
+            //        selectedRow.Cells["Amount"].Value = (qty * price).ToString();
+            //    }
+            //    else
+            //    {
+            //        // If quantity is 1 or less, remove the entire row
+            //        guna2DataGridView1.Rows.RemoveAt(e.RowIndex);
+            //    }
+
+            //    UpdateSerialNumbers();
+            //    UpdateTotalAmount();
+            //}
         }
         private void UpdateTotalAmount()
         {
@@ -453,8 +496,8 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             OrderType = "";
             double totalAmount = 0;// Reset the total amount to zero
             lbltotal.Text = $"{totalAmount:C}";
-            lbltxtTable.Visible = false;
-            lbltxtWaiter.Visible = false;
+            lbltxtTable.Visible = true;
+            lbltxtWaiter.Visible = true;
             lbltotal.Visible = true;
             guna2DataGridView1.Rows.Clear();
         }
@@ -637,7 +680,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
 
                                     btntk1.Visible = true;
                                     btndineIn1.Visible = true;
-                                    UpdateStatusToPending(mainID);
+                                   // UpdateStatusToPending(mainID);
                                 }
                                 if (status == "Complete")
                                 {
@@ -908,6 +951,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
 
         private void btnHoldKot_Click(object sender, EventArgs e)
         {
+             UpdateStatusToPending(MainID);
             btntk1.Visible = false;
             btndineIn1.Visible = false;
             btnhold1.Visible = false;

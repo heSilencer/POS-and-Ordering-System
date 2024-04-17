@@ -152,29 +152,54 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
         {
             try
             {
+                string currentDate = DateTime.Now.ToString("yyyy-MM-dd"); // Get current date in the format "yyyy-MM-dd"
+                string query = "SELECT * FROM tblMain WHERE aDate = @currentDate";
+
+                // Modify the query based on the selected radio button
+                if (radiobuttonHold.Checked)
+                {
+                    query += " AND Status = 'Hold'";
+                }
+                else if (radiobuttonDineIn.Checked)
+                {
+                    query += " AND OrderType = 'Dine In'";
+                }
+                else if (radiobuttonTakeOut.Checked)
+                {
+                    query += " AND OrderType = 'Take Out'";
+                }
+                else if (RadioButtonCheckOut.Checked)
+                {
+                    query += " AND Status = 'Check Out'";
+                }
+
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
                     connection.Open();
-                    string query = "SELECT * FROM tblMain";
                     using (MySqlCommand command = new MySqlCommand(query, connection))
-                    using (MySqlDataAdapter adapter = new MySqlDataAdapter(command))
                     {
-                        DataTable dt = new DataTable();
-                        adapter.Fill(dt);
-
-                        int srNumber = 1;
-
-                        foreach (DataRow row in dt.Rows)
+                        command.Parameters.AddWithValue("@currentDate", currentDate);
+                        using (MySqlDataAdapter adapter = new MySqlDataAdapter(command))
                         {
-                            int mainID = Convert.ToInt32(row["MainID"]);
-                            string table = row["TableName"].ToString();
-                            string waiter = row["WaiterName"].ToString();
-                            string orderType = row["OrderType"].ToString();
-                            string status = row["Status"].ToString();
-                            string total = row["Total"].ToString();
+                            DataTable dt = new DataTable();
+                            adapter.Fill(dt);
 
-                            dgvBillList.Rows.Add(mainID, srNumber, table, waiter, orderType, status, total);
-                            srNumber++;
+                            dgvBillList.Rows.Clear(); // Clear existing rows before loading new data
+
+                            int srNumber = 1;
+
+                            foreach (DataRow row in dt.Rows)
+                            {
+                                int mainID = Convert.ToInt32(row["MainID"]);
+                                string table = row["TableName"].ToString();
+                                string waiter = row["WaiterName"].ToString();
+                                string orderType = row["OrderType"].ToString();
+                                string status = row["Status"].ToString();
+                                string total = row["Total"].ToString();
+
+                                dgvBillList.Rows.Add(mainID, srNumber, table, waiter, orderType, status, total);
+                                srNumber++;
+                            }
                         }
                     }
                 }
@@ -280,6 +305,36 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
         protected virtual void OnErrorOccurred(string errorMessage)
         {
             ErrorOccurred?.Invoke(this, errorMessage);
+        }
+
+        private void radiobuttonHold_CheckedChanged(object sender, EventArgs e)
+        {
+            LoadBillData();
+        }
+
+        private void radiobuttonDineIn_CheckedChanged(object sender, EventArgs e)
+        {
+            LoadBillData();
+        }
+
+        private void radiobuttonTakeOut_CheckedChanged(object sender, EventArgs e)
+        {
+            LoadBillData();
+        }
+
+        private void btnShowAll_Click(object sender, EventArgs e)
+        {
+            radiobuttonHold.Checked = false;
+            radiobuttonDineIn.Checked = false;
+            radiobuttonTakeOut.Checked = false;
+            RadioButtonCheckOut.Checked = false;
+            LoadBillData();
+        }
+
+        private void RadioButtonCheckOut_CheckedChanged(object sender, EventArgs e)
+        {
+          
+            LoadBillData();
         }
     }
 }

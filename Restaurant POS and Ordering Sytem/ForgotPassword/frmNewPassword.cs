@@ -39,6 +39,11 @@ namespace Restaurant_POS_and_Ordering_Sytem.ForgotPassword
                 MessageBox.Show("New password and confirm password do not match.");
                 return;
             }
+            if (newPassword.Length < 8)
+            {
+                MessageBox.Show("New password must be at least 8 characters long.");
+                return;
+            }
 
             // Save the new password to the database
             using (MySqlConnection connection = new MySqlConnection(connectionString))
@@ -88,7 +93,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.ForgotPassword
                 }
             }
         }
-             private string HashString(string passwordString)
+        private string HashString(string passwordString)
         {
             // Implement your hashing logic (e.g., BCrypt, SHA256, etc.)
             // Example using BCrypt:
@@ -145,6 +150,8 @@ namespace Restaurant_POS_and_Ordering_Sytem.ForgotPassword
 
         private void btnClose_Click_1(object sender, EventArgs e)
         {
+            frmCheckUser cu = new frmCheckUser();
+            cu.Show();
             this.Close();
 
         }

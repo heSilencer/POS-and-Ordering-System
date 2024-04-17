@@ -28,26 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmChangePassword));
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
-            this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnClose = new Guna.UI2.WinForms.Guna2Button();
             this.btnSave = new Guna.UI2.WinForms.Guna2Button();
-            this.btnShow2 = new System.Windows.Forms.PictureBox();
-            this.btnhide2 = new System.Windows.Forms.PictureBox();
-            this.btnShow1 = new System.Windows.Forms.PictureBox();
-            this.btnhide1 = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtConfirmPass = new Guna.UI2.WinForms.Guna2TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtNewpass = new Guna.UI2.WinForms.Guna2TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.txtCurrentpass = new Guna.UI2.WinForms.Guna2TextBox();
+            this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.btnShow2 = new System.Windows.Forms.PictureBox();
+            this.btnhide2 = new System.Windows.Forms.PictureBox();
+            this.btnShow1 = new System.Windows.Forms.PictureBox();
+            this.btnhide1 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnShow2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnhide2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnShow1)).BeginInit();
@@ -73,22 +72,9 @@
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(121, 36);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(338, 37);
+            this.label1.Size = new System.Drawing.Size(663, 72);
             this.label1.TabIndex = 2;
             this.label1.Text = "Change Password Details";
-            // 
-            // guna2PictureBox1
-            // 
-            this.guna2PictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.guna2PictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("guna2PictureBox1.Image")));
-            this.guna2PictureBox1.ImageRotate = 0F;
-            this.guna2PictureBox1.Location = new System.Drawing.Point(30, 12);
-            this.guna2PictureBox1.Name = "guna2PictureBox1";
-            this.guna2PictureBox1.Size = new System.Drawing.Size(84, 80);
-            this.guna2PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.guna2PictureBox1.TabIndex = 1;
-            this.guna2PictureBox1.TabStop = false;
-            this.guna2PictureBox1.UseTransparentBackground = true;
             // 
             // panel2
             // 
@@ -136,6 +122,115 @@
             this.btnSave.TabIndex = 0;
             this.btnSave.Text = "Submit";
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 17F);
+            this.label3.Location = new System.Drawing.Point(91, 298);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(392, 62);
+            this.label3.TabIndex = 20;
+            this.label3.Text = "Confirm Password";
+            // 
+            // txtConfirmPass
+            // 
+            this.txtConfirmPass.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtConfirmPass.DefaultText = "";
+            this.txtConfirmPass.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.txtConfirmPass.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.txtConfirmPass.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtConfirmPass.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtConfirmPass.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtConfirmPass.Font = new System.Drawing.Font("Segoe UI", 17F);
+            this.txtConfirmPass.ForeColor = System.Drawing.Color.Black;
+            this.txtConfirmPass.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtConfirmPass.Location = new System.Drawing.Point(95, 335);
+            this.txtConfirmPass.Margin = new System.Windows.Forms.Padding(12, 11, 12, 11);
+            this.txtConfirmPass.Name = "txtConfirmPass";
+            this.txtConfirmPass.PasswordChar = '*';
+            this.txtConfirmPass.PlaceholderForeColor = System.Drawing.Color.Black;
+            this.txtConfirmPass.PlaceholderText = "";
+            this.txtConfirmPass.SelectedText = "";
+            this.txtConfirmPass.Size = new System.Drawing.Size(316, 43);
+            this.txtConfirmPass.TabIndex = 19;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 17F);
+            this.label2.Location = new System.Drawing.Point(91, 207);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(321, 62);
+            this.label2.TabIndex = 18;
+            this.label2.Text = "New Password";
+            // 
+            // txtNewpass
+            // 
+            this.txtNewpass.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtNewpass.DefaultText = "";
+            this.txtNewpass.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.txtNewpass.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.txtNewpass.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtNewpass.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtNewpass.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtNewpass.Font = new System.Drawing.Font("Segoe UI", 17F);
+            this.txtNewpass.ForeColor = System.Drawing.Color.Black;
+            this.txtNewpass.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtNewpass.Location = new System.Drawing.Point(95, 244);
+            this.txtNewpass.Margin = new System.Windows.Forms.Padding(12, 11, 12, 11);
+            this.txtNewpass.Name = "txtNewpass";
+            this.txtNewpass.PasswordChar = '*';
+            this.txtNewpass.PlaceholderForeColor = System.Drawing.Color.Black;
+            this.txtNewpass.PlaceholderText = "";
+            this.txtNewpass.SelectedText = "";
+            this.txtNewpass.Size = new System.Drawing.Size(316, 43);
+            this.txtNewpass.TabIndex = 17;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 17F);
+            this.label4.Location = new System.Drawing.Point(91, 122);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(382, 62);
+            this.label4.TabIndex = 26;
+            this.label4.Text = "Current Password";
+            // 
+            // txtCurrentpass
+            // 
+            this.txtCurrentpass.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtCurrentpass.DefaultText = "";
+            this.txtCurrentpass.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.txtCurrentpass.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.txtCurrentpass.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtCurrentpass.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtCurrentpass.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtCurrentpass.Font = new System.Drawing.Font("Segoe UI", 17F);
+            this.txtCurrentpass.ForeColor = System.Drawing.Color.Black;
+            this.txtCurrentpass.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtCurrentpass.Location = new System.Drawing.Point(95, 159);
+            this.txtCurrentpass.Margin = new System.Windows.Forms.Padding(12, 11, 12, 11);
+            this.txtCurrentpass.Name = "txtCurrentpass";
+            this.txtCurrentpass.PasswordChar = '*';
+            this.txtCurrentpass.PlaceholderForeColor = System.Drawing.Color.Black;
+            this.txtCurrentpass.PlaceholderText = "";
+            this.txtCurrentpass.SelectedText = "";
+            this.txtCurrentpass.Size = new System.Drawing.Size(316, 43);
+            this.txtCurrentpass.TabIndex = 25;
+            // 
+            // guna2PictureBox1
+            // 
+            this.guna2PictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.guna2PictureBox1.Image = global::Restaurant_POS_and_Ordering_Sytem.Properties.Resources.icons8_password_64;
+            this.guna2PictureBox1.ImageRotate = 0F;
+            this.guna2PictureBox1.Location = new System.Drawing.Point(30, 12);
+            this.guna2PictureBox1.Name = "guna2PictureBox1";
+            this.guna2PictureBox1.Size = new System.Drawing.Size(84, 80);
+            this.guna2PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.guna2PictureBox1.TabIndex = 1;
+            this.guna2PictureBox1.TabStop = false;
+            this.guna2PictureBox1.UseTransparentBackground = true;
             // 
             // btnShow2
             // 
@@ -185,102 +280,6 @@
             this.btnhide1.TabStop = false;
             this.btnhide1.Click += new System.EventHandler(this.btnhide1_Click_1);
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 17F);
-            this.label3.Location = new System.Drawing.Point(91, 298);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(197, 31);
-            this.label3.TabIndex = 20;
-            this.label3.Text = "Confirm Password";
-            // 
-            // txtConfirmPass
-            // 
-            this.txtConfirmPass.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txtConfirmPass.DefaultText = "";
-            this.txtConfirmPass.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.txtConfirmPass.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.txtConfirmPass.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.txtConfirmPass.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.txtConfirmPass.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtConfirmPass.Font = new System.Drawing.Font("Segoe UI", 17F);
-            this.txtConfirmPass.ForeColor = System.Drawing.Color.Black;
-            this.txtConfirmPass.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtConfirmPass.Location = new System.Drawing.Point(95, 335);
-            this.txtConfirmPass.Margin = new System.Windows.Forms.Padding(12, 11, 12, 11);
-            this.txtConfirmPass.Name = "txtConfirmPass";
-            this.txtConfirmPass.PasswordChar = '*';
-            this.txtConfirmPass.PlaceholderForeColor = System.Drawing.Color.Black;
-            this.txtConfirmPass.PlaceholderText = "";
-            this.txtConfirmPass.SelectedText = "";
-            this.txtConfirmPass.Size = new System.Drawing.Size(316, 43);
-            this.txtConfirmPass.TabIndex = 19;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 17F);
-            this.label2.Location = new System.Drawing.Point(91, 207);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(162, 31);
-            this.label2.TabIndex = 18;
-            this.label2.Text = "New Password";
-            // 
-            // txtNewpass
-            // 
-            this.txtNewpass.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txtNewpass.DefaultText = "";
-            this.txtNewpass.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.txtNewpass.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.txtNewpass.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.txtNewpass.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.txtNewpass.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtNewpass.Font = new System.Drawing.Font("Segoe UI", 17F);
-            this.txtNewpass.ForeColor = System.Drawing.Color.Black;
-            this.txtNewpass.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtNewpass.Location = new System.Drawing.Point(95, 244);
-            this.txtNewpass.Margin = new System.Windows.Forms.Padding(12, 11, 12, 11);
-            this.txtNewpass.Name = "txtNewpass";
-            this.txtNewpass.PasswordChar = '*';
-            this.txtNewpass.PlaceholderForeColor = System.Drawing.Color.Black;
-            this.txtNewpass.PlaceholderText = "";
-            this.txtNewpass.SelectedText = "";
-            this.txtNewpass.Size = new System.Drawing.Size(316, 43);
-            this.txtNewpass.TabIndex = 17;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Segoe UI", 17F);
-            this.label4.Location = new System.Drawing.Point(91, 122);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(192, 31);
-            this.label4.TabIndex = 26;
-            this.label4.Text = "Current Password";
-            // 
-            // txtCurrentpass
-            // 
-            this.txtCurrentpass.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txtCurrentpass.DefaultText = "";
-            this.txtCurrentpass.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.txtCurrentpass.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.txtCurrentpass.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.txtCurrentpass.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.txtCurrentpass.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtCurrentpass.Font = new System.Drawing.Font("Segoe UI", 17F);
-            this.txtCurrentpass.ForeColor = System.Drawing.Color.Black;
-            this.txtCurrentpass.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtCurrentpass.Location = new System.Drawing.Point(95, 159);
-            this.txtCurrentpass.Margin = new System.Windows.Forms.Padding(12, 11, 12, 11);
-            this.txtCurrentpass.Name = "txtCurrentpass";
-            this.txtCurrentpass.PasswordChar = '*';
-            this.txtCurrentpass.PlaceholderForeColor = System.Drawing.Color.Black;
-            this.txtCurrentpass.PlaceholderText = "";
-            this.txtCurrentpass.SelectedText = "";
-            this.txtCurrentpass.Size = new System.Drawing.Size(316, 43);
-            this.txtCurrentpass.TabIndex = 25;
-            // 
             // frmChangePassword
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -303,8 +302,8 @@
             this.Text = "frmChangePassword";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).EndInit();
             this.panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnShow2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnhide2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnShow1)).EndInit();

@@ -41,7 +41,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.ForgotPassword
                 try
                 {
                     connection.Open();
-                    string checkUserQuery = "SELECT * FROM users WHERE username = @username";
+                    string checkUserQuery = "SELECT * FROM users WHERE BINARY username = @username";
 
                     using (MySqlCommand cmd = new MySqlCommand(checkUserQuery, connection))
                     {

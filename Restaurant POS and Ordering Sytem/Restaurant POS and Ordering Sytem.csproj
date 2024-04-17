@@ -271,6 +271,12 @@
     <Compile Include="Models\frmBillList.Designer.cs">
       <DependentUpon>frmBillList.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\frmBillListView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\frmBillListView.Designer.cs">
+      <DependentUpon>frmBillListView.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\frmdashboardView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -410,6 +416,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Models\frmBillList.resx">
       <DependentUpon>frmBillList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\frmBillListView.resx">
+      <DependentUpon>frmBillListView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\frmdashboardView.resx">
       <DependentUpon>frmdashboardView.cs</DependentUpon>
@@ -680,6 +689,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\icons8-sales-64 %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-user-30.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-password-64.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
