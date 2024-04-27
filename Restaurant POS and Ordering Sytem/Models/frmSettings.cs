@@ -18,16 +18,19 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
     {
         private string connectionString = @"server=localhost;database=pos_ordering_system;userid=root;password=;";
         private int userID;
-
+        private string username;
         public frmSettings(int userID)
         {
             InitializeComponent();
             this.userID = userID;
             PopulateUserProfile(userID);
 
+           
         }
+    
 
         // Method to populate user profile information
+
         private void PopulateUserProfile(int userID)
         {
             try
@@ -35,8 +38,25 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
                     connection.Open();
-                    // Retrieve staff information based on userID
-                    string query = "SELECT staffFname, staffLname, staffAddress, staffPhone, staffEmail, staffImage FROM tbl_staff WHERE staffID = (SELECT staffID FROM users WHERE userID = @UserID)";
+                    // Query to get username and staff information
+                    string query = @"
+                SELECT 
+                    u.username,
+                    s.staffFname,
+                    s.staffLname,
+                    s.staffAddress,
+                    s.staffPhone,
+                    s.staffEmail,
+                    s.staffImage
+                FROM 
+                    users AS u
+                JOIN 
+                    tbl_staff AS s
+                ON 
+                    u.staffID = s.staffID
+                WHERE 
+                    u.userID = @UserID";
+
                     using (MySqlCommand command = new MySqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@UserID", userID);
@@ -45,26 +65,26 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                         {
                             if (reader.Read())
                             {
-                                // Populate UI controls
-                                lblFname.Text = reader.GetString(0);
-                                lblLname.Text = reader.GetString(1);
-                                lbladdress.Text = reader.GetString(2);
-                                lblPhone.Text = reader.GetString(3);
-                                lblEmail.Text = reader.GetString(4);
+                                // Save the username to a class-level variable
+                                username = reader.GetString(0);
 
-                                // Assuming staffImage is stored as byte[] in the database
-                                byte[] imageData = (byte[])reader.GetValue(5);
+                                // Populate other controls
+                                lblFname.Text = reader.GetString(1);
+                                lblLname.Text = reader.GetString(2);
+                                lbladdress.Text = reader.GetString(3);
+                                lblPhone.Text = reader.GetString(4);
+                                lblEmail.Text = reader.GetString(5);
+
+                                byte[] imageData = (byte[])reader.GetValue(6);
                                 using (MemoryStream ms = new MemoryStream(imageData))
                                 {
-                                    // Set the image in the PictureBox
                                     ProfilePicture.Image = Image.FromStream(ms);
-                                    // Ensure the image occupies the entire PictureBox area
                                     ProfilePicture.SizeMode = PictureBoxSizeMode.StretchImage;
                                 }
                             }
                             else
                             {
-                                MessageBox.Show("Staff data not found for the given userID.");
+                                MessageBox.Show("Data not found for the given userID.");
                             }
                         }
                     }
@@ -75,7 +95,11 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                 MessageBox.Show("Error: " + ex.Message);
             }
         }
-
+        private void FrmChangeInformation_InformationUpdated()
+        {
+            // Refresh user profile information
+            PopulateUserProfile(userID);
+        }
         private void btnChangepass_Click(object sender, EventArgs e)
         {
 
@@ -94,8 +118,9 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
         private void btnUpdateInfo_Click(object sender, EventArgs e)
         {
             var frmChangeInformation = new frmChangeInformation(userID);
-            frmChangeInformation.SetInitialValues(lblFname.Text, lblLname.Text, lbladdress.Text, lblPhone.Text, lblEmail.Text);
-            frmChangeInformation.ShowDialog();
+            frmChangeInformation.SetInitialValues(lblFname.Text, lblLname.Text, lbladdress.Text, lblPhone.Text, lblEmail.Text, username);
+            frmChangeInformation.InformationUpdated += FrmChangeInformation_InformationUpdated; // Subscribe to the event after the form is displayed
+            MainClass.BlurbackGround(frmChangeInformation);
         }
 
         private void label1_Click(object sender, EventArgs e)

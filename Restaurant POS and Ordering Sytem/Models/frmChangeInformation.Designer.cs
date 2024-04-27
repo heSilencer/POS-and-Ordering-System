@@ -35,7 +35,6 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnClose = new Guna.UI2.WinForms.Guna2Button();
             this.btnUpdate = new Guna.UI2.WinForms.Guna2Button();
-            this.label4 = new System.Windows.Forms.Label();
             this.txtfname = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtaddress = new Guna.UI2.WinForms.Guna2TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -46,6 +45,9 @@
             this.label7 = new System.Windows.Forms.Label();
             this.txtPhone = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtemail = new Guna.UI2.WinForms.Guna2TextBox();
+            this.txtusername = new Guna.UI2.WinForms.Guna2TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.guna2MessageDialog1 = new Guna.UI2.WinForms.Guna2MessageDialog();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
@@ -93,7 +95,7 @@
             this.panel2.Controls.Add(this.btnClose);
             this.panel2.Controls.Add(this.btnUpdate);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 405);
+            this.panel2.Location = new System.Drawing.Point(0, 477);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(524, 72);
             this.panel2.TabIndex = 28;
@@ -134,16 +136,6 @@
             this.btnUpdate.Text = "Update";
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Segoe UI", 17F);
-            this.label4.Location = new System.Drawing.Point(26, 82);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(192, 31);
-            this.label4.TabIndex = 38;
-            this.label4.Text = "Current Password";
-            // 
             // txtfname
             // 
             this.txtfname.AutoRoundedCorners = true;
@@ -158,7 +150,7 @@
             this.txtfname.Font = new System.Drawing.Font("Segoe UI", 17F);
             this.txtfname.ForeColor = System.Drawing.Color.Black;
             this.txtfname.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtfname.Location = new System.Drawing.Point(200, 139);
+            this.txtfname.Location = new System.Drawing.Point(205, 186);
             this.txtfname.Margin = new System.Windows.Forms.Padding(12, 11, 12, 11);
             this.txtfname.Name = "txtfname";
             this.txtfname.PasswordChar = '\0';
@@ -182,7 +174,7 @@
             this.txtaddress.Font = new System.Drawing.Font("Segoe UI", 17F);
             this.txtaddress.ForeColor = System.Drawing.Color.Black;
             this.txtaddress.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtaddress.Location = new System.Drawing.Point(200, 246);
+            this.txtaddress.Location = new System.Drawing.Point(205, 293);
             this.txtaddress.Margin = new System.Windows.Forms.Padding(12, 11, 12, 11);
             this.txtaddress.Name = "txtaddress";
             this.txtaddress.PasswordChar = '\0';
@@ -196,7 +188,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 17F);
-            this.label2.Location = new System.Drawing.Point(24, 139);
+            this.label2.Location = new System.Drawing.Point(29, 186);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(124, 31);
             this.label2.TabIndex = 30;
@@ -216,7 +208,7 @@
             this.txtLname.Font = new System.Drawing.Font("Segoe UI", 17F);
             this.txtLname.ForeColor = System.Drawing.Color.Black;
             this.txtLname.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtLname.Location = new System.Drawing.Point(200, 191);
+            this.txtLname.Location = new System.Drawing.Point(205, 238);
             this.txtLname.Margin = new System.Windows.Forms.Padding(12, 11, 12, 11);
             this.txtLname.Name = "txtLname";
             this.txtLname.PasswordChar = '\0';
@@ -230,7 +222,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 17F);
-            this.label3.Location = new System.Drawing.Point(26, 191);
+            this.label3.Location = new System.Drawing.Point(31, 238);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(122, 31);
             this.label3.TabIndex = 39;
@@ -240,7 +232,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Segoe UI", 17F);
-            this.label5.Location = new System.Drawing.Point(26, 246);
+            this.label5.Location = new System.Drawing.Point(31, 293);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(97, 31);
             this.label5.TabIndex = 40;
@@ -250,7 +242,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Segoe UI", 17F);
-            this.label6.Location = new System.Drawing.Point(26, 297);
+            this.label6.Location = new System.Drawing.Point(31, 344);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(113, 31);
             this.label6.TabIndex = 41;
@@ -260,7 +252,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Segoe UI", 17F);
-            this.label7.Location = new System.Drawing.Point(26, 347);
+            this.label7.Location = new System.Drawing.Point(31, 394);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(70, 31);
             this.label7.TabIndex = 42;
@@ -280,7 +272,7 @@
             this.txtPhone.Font = new System.Drawing.Font("Segoe UI", 17F);
             this.txtPhone.ForeColor = System.Drawing.Color.Black;
             this.txtPhone.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtPhone.Location = new System.Drawing.Point(200, 297);
+            this.txtPhone.Location = new System.Drawing.Point(205, 344);
             this.txtPhone.Margin = new System.Windows.Forms.Padding(12, 11, 12, 11);
             this.txtPhone.Name = "txtPhone";
             this.txtPhone.PasswordChar = '\0';
@@ -304,7 +296,7 @@
             this.txtemail.Font = new System.Drawing.Font("Segoe UI", 17F);
             this.txtemail.ForeColor = System.Drawing.Color.Black;
             this.txtemail.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtemail.Location = new System.Drawing.Point(200, 347);
+            this.txtemail.Location = new System.Drawing.Point(205, 394);
             this.txtemail.Margin = new System.Windows.Forms.Padding(12, 11, 12, 11);
             this.txtemail.Name = "txtemail";
             this.txtemail.PasswordChar = '\0';
@@ -314,10 +306,55 @@
             this.txtemail.Size = new System.Drawing.Size(245, 43);
             this.txtemail.TabIndex = 44;
             // 
+            // txtusername
+            // 
+            this.txtusername.AutoRoundedCorners = true;
+            this.txtusername.BorderRadius = 20;
+            this.txtusername.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtusername.DefaultText = "";
+            this.txtusername.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.txtusername.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.txtusername.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtusername.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtusername.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtusername.Font = new System.Drawing.Font("Segoe UI", 17F);
+            this.txtusername.ForeColor = System.Drawing.Color.Black;
+            this.txtusername.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtusername.Location = new System.Drawing.Point(205, 132);
+            this.txtusername.Margin = new System.Windows.Forms.Padding(12, 11, 12, 11);
+            this.txtusername.Name = "txtusername";
+            this.txtusername.PasswordChar = '\0';
+            this.txtusername.PlaceholderForeColor = System.Drawing.Color.Black;
+            this.txtusername.PlaceholderText = "";
+            this.txtusername.SelectedText = "";
+            this.txtusername.Size = new System.Drawing.Size(245, 43);
+            this.txtusername.TabIndex = 46;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 17F);
+            this.label4.Location = new System.Drawing.Point(29, 137);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(121, 31);
+            this.label4.TabIndex = 45;
+            this.label4.Text = "UserName";
+            // 
+            // guna2MessageDialog1
+            // 
+            this.guna2MessageDialog1.Buttons = Guna.UI2.WinForms.MessageDialogButtons.OK;
+            this.guna2MessageDialog1.Caption = "Information";
+            this.guna2MessageDialog1.Icon = Guna.UI2.WinForms.MessageDialogIcon.Information;
+            this.guna2MessageDialog1.Parent = this;
+            this.guna2MessageDialog1.Style = Guna.UI2.WinForms.MessageDialogStyle.Light;
+            this.guna2MessageDialog1.Text = "Information updated successfully.";
+            // 
             // frmChangeInformation
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(524, 477);
+            this.ClientSize = new System.Drawing.Size(524, 549);
+            this.Controls.Add(this.txtusername);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.txtemail);
             this.Controls.Add(this.txtPhone);
             this.Controls.Add(this.label7);
@@ -326,13 +363,12 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
-            this.Controls.Add(this.label4);
             this.Controls.Add(this.txtfname);
             this.Controls.Add(this.txtaddress);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtLname);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "frmChangeInformation";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmChangeInformation";
@@ -353,7 +389,6 @@
         private System.Windows.Forms.Panel panel2;
         private Guna.UI2.WinForms.Guna2Button btnClose;
         private Guna.UI2.WinForms.Guna2Button btnUpdate;
-        private System.Windows.Forms.Label label4;
         private Guna.UI2.WinForms.Guna2TextBox txtfname;
         private Guna.UI2.WinForms.Guna2TextBox txtaddress;
         private System.Windows.Forms.Label label2;
@@ -364,5 +399,8 @@
         private System.Windows.Forms.Label label7;
         private Guna.UI2.WinForms.Guna2TextBox txtPhone;
         private Guna.UI2.WinForms.Guna2TextBox txtemail;
+        private Guna.UI2.WinForms.Guna2TextBox txtusername;
+        private System.Windows.Forms.Label label4;
+        private Guna.UI2.WinForms.Guna2MessageDialog guna2MessageDialog1;
     }
 }

@@ -205,6 +205,7 @@
             this.lblLname.SelectedText = "";
             this.lblLname.Size = new System.Drawing.Size(217, 43);
             this.lblLname.TabIndex = 11;
+            this.lblLname.TextChanged += new System.EventHandler(this.lblLname_TextChanged);
             // 
             // label4
             // 
@@ -237,6 +238,7 @@
             this.lblAddress.SelectedText = "";
             this.lblAddress.Size = new System.Drawing.Size(217, 43);
             this.lblAddress.TabIndex = 13;
+            this.lblAddress.TextChanged += new System.EventHandler(this.lblAddress_TextChanged);
             // 
             // lblEmail
             // 
@@ -259,6 +261,7 @@
             this.lblEmail.SelectedText = "";
             this.lblEmail.Size = new System.Drawing.Size(217, 43);
             this.lblEmail.TabIndex = 16;
+            this.lblEmail.TextChanged += new System.EventHandler(this.lblEmail_TextChanged);
             // 
             // lblPhone
             // 
@@ -358,7 +361,6 @@
             // StaffImage
             // 
             this.StaffImage.BackColor = System.Drawing.Color.Silver;
-            this.StaffImage.Image = global::Restaurant_POS_and_Ordering_Sytem.Properties.Resources.icons8_username_303;
             this.StaffImage.ImageRotate = 0F;
             this.StaffImage.Location = new System.Drawing.Point(494, 157);
             this.StaffImage.Name = "StaffImage";

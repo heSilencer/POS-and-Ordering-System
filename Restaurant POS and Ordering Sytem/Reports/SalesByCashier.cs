@@ -19,6 +19,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
 {
     public partial class SalesByCashier : Form
     {
+        bool allCashiersSelected = false;
         string connectionString = "server=localhost;database=pos_ordering_system;userid=root;password=;";
 
         public SalesByCashier()
@@ -37,6 +38,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
         private void LoadCashierNames()
         {
             cmbxCashierName.Items.Clear();
+            cmbxCashierName.Items.Add("All Cashier"); // Add "All Cashier" option
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
@@ -44,7 +46,6 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
                 {
                     connection.Open();
                     string query = "SELECT staffID, staffFname FROM tbl_staff WHERE staffcatID IN (SELECT staffcatID FROM tbl_staffcategory WHERE catName IN ('Cashier', 'Admin', 'Manager'))";
-
 
                     using (MySqlCommand command = new MySqlCommand(query, connection))
                     using (MySqlDataReader reader = command.ExecuteReader())
@@ -92,19 +93,32 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
                     string query = "SELECT tbl_staff.staffImage, tbl_staff.staffFname, SUM(tblmain.total) AS TotalSales " +
                                      "FROM tblmain " +
                                      "INNER JOIN users ON tblmain.userId = users.userId " +
-                                     "INNER JOIN tbl_staff ON users.staffID = tbl_staff.staffID " +
-                                     "WHERE tbl_staff.staffFname = @cashierName " +
-                                     "AND DATE(tblmain.aDate) BETWEEN DATE(@startDate) AND DATE(@endDate) " +  // Consider dates within the specified range
-                                     "AND tblmain.status = 'check Out' " +
-                                     "GROUP BY tbl_staff.staffImage, tbl_staff.staffFname";
+                                     "INNER JOIN tbl_staff ON users.staffID = tbl_staff.staffID ";
 
+                    // Check if "All Cashier" is selected
+                    if (cashierName != "All Cashier")
+                    {
+                        query += "WHERE tbl_staff.staffFname = @cashierName ";
+                    }
 
+                    query += "AND DATE(tblmain.aDate) BETWEEN DATE(@startDate) AND DATE(@endDate) " +  // Consider dates within the specified range
+                             "AND tblmain.status = 'check Out' ";
 
-
+                    if (cashierName != "All Cashier")
+                    {
+                        query += "GROUP BY tbl_staff.staffImage, tbl_staff.staffFname";
+                    }
+                    else
+                    {
+                        query += "GROUP BY tbl_staff.staffFname";
+                    }
 
                     using (MySqlCommand command = new MySqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@cashierName", cashierName);
+                        if (cashierName != "All Cashier")
+                        {
+                            command.Parameters.AddWithValue("@cashierName", cashierName);
+                        }
                         command.Parameters.AddWithValue("@startDate", startDate);
                         command.Parameters.AddWithValue("@endDate", endDate);
 
@@ -119,14 +133,8 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
                                 guna2DataGridViewSalesbYCashier.DataSource = salesData;
 
                                 // Adjust DataGridViewImageColumn properties
-                                guna2DataGridViewSalesbYCashier.DataSource = salesData;
-
-                                // Adjust DataGridViewImageColumn properties
                                 DataGridViewImageColumn imageColumn = (DataGridViewImageColumn)guna2DataGridViewSalesbYCashier.Columns["staffImage"];
                                 imageColumn.ImageLayout = DataGridViewImageCellLayout.Stretch; // Stretch image to fit cell
-
-
-                                // Set width and height for the image
                                 imageColumn.Width = 150; // Set the width as desired
 
                                 if (salesData.Rows[0]["staffImage"] != DBNull.Value)
@@ -140,7 +148,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
                                     }
                                 }
 
-                                // Set column headers
+                                // Set column headers and other properties as needed
                                 guna2DataGridViewSalesbYCashier.Columns["staffFname"].DefaultCellStyle.Font = new Font("Arial", 12); // Increase font size
                                 guna2DataGridViewSalesbYCashier.Columns["staffFname"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter; // Center-align the header text
                                 guna2DataGridViewSalesbYCashier.Columns["TotalSales"].DefaultCellStyle.Font = new Font("Arial", 12); // Increase font size
@@ -148,16 +156,12 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
                                 guna2DataGridViewSalesbYCashier.Columns["staffFname"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter; // Center-align staff name
                                 guna2DataGridViewSalesbYCashier.Columns["TotalSales"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter; // Center-align sales
                                 guna2DataGridViewSalesbYCashier.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill; // Fill DataGridView width
-                                                                                                                            // Set row height for the DataGridView
-
-                            }
-                            else
-                            {
-                                guna2MessageDialog1.Show("No sales data found for the selected cashier within the specified date range.");
-                                guna2DataGridViewSalesbYCashier.DataSource = null;
+                                return;
                             }
                         }
                     }
+                    guna2MessageDialog1.Show("No sales data found for the selected criteria within the specified date range.");
+                    guna2DataGridViewSalesbYCashier.DataSource = null;
                 }
                 catch (Exception ex)
                 {
@@ -303,19 +307,22 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
                             var worksheet = workbook.Worksheets.Add("Sales Data");
 
                             // Add headers
-                            worksheet.Cell(1, 1).Value = "Staff Name";
-                            worksheet.Cell(1, 2).Value = "Total Sales";
+                            worksheet.Cell(1, 1).Value = "Date";
+                            worksheet.Cell(1, 2).Value = "Staff Name";
+                            worksheet.Cell(1, 3).Value = "Total Sales";
 
                             // Add data
                             for (int i = 0; i < guna2DataGridViewSalesbYCashier.Rows.Count; i++)
                             {
-                                // Retrieve staff name and total sales from DataGridView
+                                // Retrieve date, staff name, and total sales from DataGridView
+                                string date = guna2DateTimePicker1.Value.ToShortDateString() + " - " + guna2DateTimePicker2.Value.ToShortDateString();
                                 string staffName = guna2DataGridViewSalesbYCashier.Rows[i].Cells["staffFname"].Value?.ToString() ?? "";
                                 string totalSales = guna2DataGridViewSalesbYCashier.Rows[i].Cells["TotalSales"].Value?.ToString() ?? "";
 
-                                // Write staff name and total sales to Excel worksheet
-                                worksheet.Cell(i + 2, 1).Value = staffName;
-                                worksheet.Cell(i + 2, 2).Value = totalSales;
+                                // Write date, staff name, and total sales to Excel worksheet
+                                worksheet.Cell(i + 2, 1).Value = date;
+                                worksheet.Cell(i + 2, 2).Value = staffName;
+                                worksheet.Cell(i + 2, 3).Value = totalSales;
                             }
 
                             workbook.SaveAs(fileName);
@@ -327,7 +334,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
             }
             catch (Exception ex)
             {
-                guna2MessageDialog2.Show("Error: " + ex.Message);
+                MessageBox.Show("Error: " + ex.Message);
             }
         }
     }

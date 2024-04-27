@@ -60,7 +60,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                 {
                     connection.Open();
 
-                    string categoryName = lblcat.Text;
+                    string categoryName = lblcat.Text.Trim();
 
                     if (string.IsNullOrEmpty(categoryName))
                     {
@@ -138,5 +138,20 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             btnSave.Text = "Update";
         }
 
+        private void lblcat_TextChanged(object sender, EventArgs e)
+        {
+
+            // Check if the TextBox is null or empty
+            if (lblcat == null || string.IsNullOrEmpty(lblcat.Text))
+            {
+                return;
+            }
+
+            // Capitalize the first character of the text
+            lblcat.Text = char.ToUpper(lblcat.Text[0]) + lblcat.Text.Substring(1);
+
+            // Set the caret position to the end of the text
+            lblcat.SelectionStart = lblcat.Text.Length;
+        }
     }
 }

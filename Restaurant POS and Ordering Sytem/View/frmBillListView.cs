@@ -67,7 +67,8 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
         {
             try
             {
-                string query = "SELECT * FROM tblMain Where 1 = 1"; // Select all data from tblMain
+                string query = "SELECT * FROM tblMain WHERE status = 'Check Out' AND 1 = 1";
+                // Select all data from tblMain
                 if (radiobuttonHold.Checked)
                 {
                     query += " AND Status = 'Hold'";

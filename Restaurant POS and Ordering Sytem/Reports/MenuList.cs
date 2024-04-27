@@ -31,7 +31,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
             DataGridViewImageColumn imageColumn = new DataGridViewImageColumn();
             imageColumn.Name = "prodImage";
             imageColumn.HeaderText = "Product Image";
-            imageColumn.ImageLayout = DataGridViewImageCellLayout.Stretch; // Stretch the image to fill the cell
+            imageColumn.ImageLayout = DataGridViewImageCellLayout.Zoom; // Stretch the image to fill the cell
             imageColumn.Width = 200; // Set the width of the image column
             guna2DataGridViewProducts.Columns.Add(imageColumn);
 

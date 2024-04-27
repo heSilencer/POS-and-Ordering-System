@@ -37,6 +37,8 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
         private void LoadCategories()
         {
             cmbxCategory.Items.Clear();
+            cmbxCategory.Items.Add("All Product Category"); // Add "All Cashier" option
+
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
@@ -75,7 +77,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
 
             if (string.IsNullOrEmpty(categoryName))
             {
-                guna2MessageDialog1.Show("Please select a category.");
+                guna2MessageDialog1.Show("Please select a Product category.");
                 return;
             }
 
@@ -91,16 +93,24 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
                                      "FROM tblmain " +
                                      "INNER JOIN tbldetails ON tblmain.MainID = tbldetails.MainID " +
                                      "INNER JOIN tbl_products ON tbldetails.prodID = tbl_products.prodID " +
-                                     "INNER JOIN tbl_Category ON tbl_products.catID = tbl_Category.catID " +
-                                     "WHERE tbl_Category.catName = @categoryName " +
-                                     "AND DATE(tblmain.aDate) BETWEEN DATE(@startDate) AND DATE(@endDate) " + // Date range filter
-                                     "AND tblmain.status = 'Check Out' " +
-                                     "GROUP BY tbl_products.prodImage, tbl_products.prodName";
+                                     "INNER JOIN tbl_Category ON tbl_products.catID = tbl_Category.catID ";
 
+                    // Check if "All Product Category" is selected
+                    if (categoryName != "All Product Category")
+                    {
+                        query += "WHERE tbl_Category.catName = @categoryName ";
+                    }
+
+                    query += "AND DATE(tblmain.aDate) BETWEEN DATE(@startDate) AND DATE(@endDate) " + // Date range filter
+                             "AND tblmain.status = 'Check Out' " +
+                             "GROUP BY tbl_products.prodImage, tbl_products.prodName";
 
                     using (MySqlCommand command = new MySqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@categoryName", categoryName);
+                        if (categoryName != "All Product Category")
+                        {
+                            command.Parameters.AddWithValue("@categoryName", categoryName);
+                        }
                         command.Parameters.AddWithValue("@startDate", startDate);
                         command.Parameters.AddWithValue("@endDate", endDate);
 
@@ -271,24 +281,22 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
                             var worksheet = workbook.Worksheets.Add("Sales Data");
 
                             // Add headers
-                            for (int i = 0; i < guna2DataGridViewSalesByCategory.Columns.Count; i++)
-                            {
-                                if (guna2DataGridViewSalesByCategory.Columns[i].Name != "prodImage") // Skip image column
-                                {
-                                    worksheet.Cell(1, i + 1).Value = guna2DataGridViewSalesByCategory.Columns[i].HeaderText;
-                                }
-                            }
+                            worksheet.Cell(1, 1).Value = "Date";
+                            worksheet.Cell(1, 2).Value = "Product Name";
+                            worksheet.Cell(1, 3).Value = "Total Sales";
 
                             // Add data
                             for (int i = 0; i < guna2DataGridViewSalesByCategory.Rows.Count; i++)
                             {
-                                for (int j = 0; j < guna2DataGridViewSalesByCategory.Columns.Count; j++)
-                                {
-                                    if (guna2DataGridViewSalesByCategory.Columns[j].Name != "prodImage") // Skip image column
-                                    {
-                                        worksheet.Cell(i + 2, j + 1).Value = guna2DataGridViewSalesByCategory.Rows[i].Cells[j].Value?.ToString() ?? "";
-                                    }
-                                }
+                                // Retrieve date, product name, and total sales from DataGridView
+                                string date = guna2DateTimePicker1.Value.ToShortDateString() + " - " + guna2DateTimePicker2.Value.ToShortDateString();
+                                string productName = guna2DataGridViewSalesByCategory.Rows[i].Cells["prodName"].Value?.ToString() ?? "";
+                                string totalSales = guna2DataGridViewSalesByCategory.Rows[i].Cells["TotalSales"].Value?.ToString() ?? "";
+
+                                // Write date, product name, and total sales to Excel worksheet
+                                worksheet.Cell(i + 2, 1).Value = date;
+                                worksheet.Cell(i + 2, 2).Value = productName;
+                                worksheet.Cell(i + 2, 3).Value = totalSales;
                             }
 
                             workbook.SaveAs(fileName);
@@ -300,8 +308,13 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
             }
             catch (Exception ex)
             {
-                guna2MessageDialog2.Show("Error: " + ex.Message);
+                MessageBox.Show("Error: " + ex.Message);
             }
+        }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

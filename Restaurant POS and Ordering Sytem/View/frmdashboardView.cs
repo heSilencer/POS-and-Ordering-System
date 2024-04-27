@@ -260,7 +260,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
             chart1.Series[0].Points.Clear();
             // Set chart title
             chart1.Titles.Clear();
-            Title chartTitle = new Title("Total Order Type", Docking.Top, new Font("Arial", 16, FontStyle.Bold), Color.Black);
+            Title chartTitle = new Title(" Order Type Summary", Docking.Top, new Font("Arial", 16, FontStyle.Bold), Color.Black);
             chart1.Titles.Add(chartTitle);
 
             // Set legend font size
@@ -327,44 +327,79 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
             // Format today's date in the MySQL-compatible format (YYYY-MM-DD)
             string todayFormatted = today.ToString("yyyy-MM-dd");
 
-            // Query to retrieve total revenue for today only for orders with status 'Check Out'
-            string query = $"SELECT SUM(Total) AS TotalRevenue FROM tblMain WHERE aDate = '{todayFormatted}' AND Status = 'Check Out'";
+            // Query to retrieve total revenue for Dine In orders for today
+            string dineInQuery = $"SELECT SUM(Total) AS TotalDineIn FROM tblMain WHERE aDate = '{todayFormatted}' AND OrderType = 'Dine In' AND Status = 'Check Out'";
+
+            // Query to retrieve total revenue for Take Out orders for today
+            string takeOutQuery = $"SELECT SUM(Total) AS TotalTakeOut FROM tblMain WHERE aDate = '{todayFormatted}' AND OrderType = 'Take Out' AND Status = 'Check Out'";
+
+            double totalDineIn = 0;
+            double totalTakeOut = 0;
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
-                MySqlCommand cmd = new MySqlCommand(query, connection);
                 try
                 {
                     connection.Open();
-                    object result = cmd.ExecuteScalar();
 
-                    // Check if the result is not DBNull
-                    if (result != DBNull.Value)
+                    // Retrieve total revenue for Dine In orders
+                    MySqlCommand dineInCmd = new MySqlCommand(dineInQuery, connection);
+                    object dineInResult = dineInCmd.ExecuteScalar();
+                    if (dineInResult != DBNull.Value)
                     {
-                        double totalRevenue = Convert.ToDouble(result);
-
-                        // Add the total revenue as a data point to the line chart
-                        chart2.Series[0].Points.AddXY(todayFormatted, totalRevenue);
-
-                        // Set chart title
-                        chart2.Titles.Add("Today's Revenue");
-                        chart2.Titles[0].Font = new Font("Arial", 16, FontStyle.Bold);
-
-                        // Add legend to display total
-                 
-                        chart2.Series[0].LegendText = $"Total ({totalRevenue.ToString("C")})";
+                        totalDineIn = Convert.ToDouble(dineInResult);
                     }
-                    else
+
+                    // Retrieve total revenue for Take Out orders
+                    MySqlCommand takeOutCmd = new MySqlCommand(takeOutQuery, connection);
+                    object takeOutResult = takeOutCmd.ExecuteScalar();
+                    if (takeOutResult != DBNull.Value)
                     {
-                        // If no revenue recorded, set a label indicating no revenue
-                        chart2.Titles.Add("No revenue recorded for today");
-                        chart2.Titles[0].Font = new Font("Arial", 16, FontStyle.Bold);
+                        totalTakeOut = Convert.ToDouble(takeOutResult);
                     }
+
+                    // Calculate total revenue
+                    double totalRevenue = totalDineIn + totalTakeOut;
+
+                    // Clear previous series if any
+                    chart2.Series.Clear();
+
+                    // Add new series for Dine In
+                    var seriesDineIn = new Series("Dine In");
+                    seriesDineIn.Points.AddXY(1, totalDineIn);
+                    seriesDineIn.Color = Color.Blue; // Set color for Dine In barcha
+                    chart2.Series.Add(seriesDineIn);
+
+                    // Add new series for Take Out
+                    var seriesTakeOut = new Series("Take Out");
+                    seriesTakeOut.Points.AddXY(2, totalTakeOut);
+                    seriesTakeOut.Color = Color.Green; // Set color for Take Out bar
+                    chart2.Series.Add(seriesTakeOut);
+
+                    // Add new series for Total
+                    var seriesTotal = new Series("Total");
+                    seriesTotal.Points.AddXY(3, totalRevenue);
+                    seriesTotal.Color = Color.Red; // Set color for Total bar
+                    chart2.Series.Add(seriesTotal);
+
+                    // Set chart title
+                    chart2.Titles.Add("Today's Revenue");
+                    chart2.Titles[0].Font = new Font("Arial", 16, FontStyle.Bold);
+
+                    // Add legend to display totals
+                    chart2.Series[0].LegendText = $"Dine In ({totalDineIn.ToString("C")})";
+                    chart2.Series[1].LegendText = $"Take Out ({totalTakeOut.ToString("C")})";
+                    chart2.Series[2].LegendText = $"Total ({totalRevenue.ToString("C")})";
+
+                    // Set X-axis labels
+                    chart2.ChartAreas[0].AxisX.CustomLabels.Add(0.5, 1.5, "Dine In");
+                    chart2.ChartAreas[0].AxisX.CustomLabels.Add(1.5, 2.5, "Take Out");
+                    chart2.ChartAreas[0].AxisX.CustomLabels.Add(2.5, 3.5, "Total");
                 }
                 catch (Exception ex)
                 {
                     // Display error message in case of any exception
-                    guna2MessageDialog2.Show($"Error: {ex.Message}");
+                    MessageBox.Show($"Error: {ex.Message}");
                 }
             }
         }

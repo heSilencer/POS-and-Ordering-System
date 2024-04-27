@@ -157,6 +157,7 @@
             this.lblcat.SelectedText = "";
             this.lblcat.Size = new System.Drawing.Size(316, 43);
             this.lblcat.TabIndex = 5;
+            this.lblcat.TextChanged += new System.EventHandler(this.lblcat_TextChanged);
             // 
             // guna2MessageDialog1
             // 

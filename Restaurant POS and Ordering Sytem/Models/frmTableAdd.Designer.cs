@@ -158,6 +158,7 @@
             this.lbltable.SelectedText = "";
             this.lbltable.Size = new System.Drawing.Size(316, 43);
             this.lbltable.TabIndex = 5;
+            this.lbltable.TextChanged += new System.EventHandler(this.lbltable_TextChanged);
             // 
             // guna2MessageDialog1
             // 

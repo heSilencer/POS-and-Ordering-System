@@ -30,6 +30,7 @@
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
+            this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnClose = new Guna.UI2.WinForms.Guna2Button();
             this.btnSave = new Guna.UI2.WinForms.Guna2Button();
@@ -39,14 +40,14 @@
             this.txtNewpass = new Guna.UI2.WinForms.Guna2TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.txtCurrentpass = new Guna.UI2.WinForms.Guna2TextBox();
-            this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.btnShow2 = new System.Windows.Forms.PictureBox();
             this.btnhide2 = new System.Windows.Forms.PictureBox();
             this.btnShow1 = new System.Windows.Forms.PictureBox();
             this.btnhide1 = new System.Windows.Forms.PictureBox();
+            this.guna2MessageDialog1 = new Guna.UI2.WinForms.Guna2MessageDialog();
             this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
+            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnShow2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnhide2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnShow1)).BeginInit();
@@ -75,6 +76,19 @@
             this.label1.Size = new System.Drawing.Size(663, 72);
             this.label1.TabIndex = 2;
             this.label1.Text = "Change Password Details";
+            // 
+            // guna2PictureBox1
+            // 
+            this.guna2PictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.guna2PictureBox1.Image = global::Restaurant_POS_and_Ordering_Sytem.Properties.Resources.icons8_password_64;
+            this.guna2PictureBox1.ImageRotate = 0F;
+            this.guna2PictureBox1.Location = new System.Drawing.Point(30, 12);
+            this.guna2PictureBox1.Name = "guna2PictureBox1";
+            this.guna2PictureBox1.Size = new System.Drawing.Size(84, 80);
+            this.guna2PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.guna2PictureBox1.TabIndex = 1;
+            this.guna2PictureBox1.TabStop = false;
+            this.guna2PictureBox1.UseTransparentBackground = true;
             // 
             // panel2
             // 
@@ -219,19 +233,6 @@
             this.txtCurrentpass.Size = new System.Drawing.Size(316, 43);
             this.txtCurrentpass.TabIndex = 25;
             // 
-            // guna2PictureBox1
-            // 
-            this.guna2PictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.guna2PictureBox1.Image = global::Restaurant_POS_and_Ordering_Sytem.Properties.Resources.icons8_password_64;
-            this.guna2PictureBox1.ImageRotate = 0F;
-            this.guna2PictureBox1.Location = new System.Drawing.Point(30, 12);
-            this.guna2PictureBox1.Name = "guna2PictureBox1";
-            this.guna2PictureBox1.Size = new System.Drawing.Size(84, 80);
-            this.guna2PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.guna2PictureBox1.TabIndex = 1;
-            this.guna2PictureBox1.TabStop = false;
-            this.guna2PictureBox1.UseTransparentBackground = true;
-            // 
             // btnShow2
             // 
             this.btnShow2.BackColor = System.Drawing.Color.White;
@@ -280,6 +281,15 @@
             this.btnhide1.TabStop = false;
             this.btnhide1.Click += new System.EventHandler(this.btnhide1_Click_1);
             // 
+            // guna2MessageDialog1
+            // 
+            this.guna2MessageDialog1.Buttons = Guna.UI2.WinForms.MessageDialogButtons.OK;
+            this.guna2MessageDialog1.Caption = "Information";
+            this.guna2MessageDialog1.Icon = Guna.UI2.WinForms.MessageDialogIcon.Information;
+            this.guna2MessageDialog1.Parent = this;
+            this.guna2MessageDialog1.Style = Guna.UI2.WinForms.MessageDialogStyle.Light;
+            this.guna2MessageDialog1.Text = null;
+            // 
             // frmChangePassword
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -302,8 +312,8 @@
             this.Text = "frmChangePassword";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).EndInit();
+            this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.btnShow2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnhide2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnShow1)).EndInit();
@@ -331,5 +341,6 @@
         private Guna.UI2.WinForms.Guna2TextBox txtNewpass;
         private System.Windows.Forms.Label label4;
         private Guna.UI2.WinForms.Guna2TextBox txtCurrentpass;
+        private Guna.UI2.WinForms.Guna2MessageDialog guna2MessageDialog1;
     }
 }

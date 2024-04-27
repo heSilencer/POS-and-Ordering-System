@@ -37,13 +37,14 @@
             this.guna2Panel3 = new Guna.UI2.WinForms.Guna2Panel();
             this.lbluser = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnMinimized = new Guna.UI2.WinForms.Guna2ControlBox();
-            this.btnExit = new Guna.UI2.WinForms.Guna2ControlBox();
             this.ControlsPanel = new Guna.UI2.WinForms.Guna2Panel();
+            this.guna2PictureBox2 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.guna2MessageDialog1 = new Guna.UI2.WinForms.Guna2MessageDialog();
             this.guna2Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
             this.guna2Panel3.SuspendLayout();
+            this.ControlsPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // guna2Panel1
@@ -77,6 +78,7 @@
             this.btnLogout.FillColor = System.Drawing.Color.Transparent;
             this.btnLogout.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnLogout.ForeColor = System.Drawing.Color.White;
+            this.btnLogout.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.btnLogout.Image = ((System.Drawing.Image)(resources.GetObject("btnLogout.Image")));
             this.btnLogout.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnLogout.ImageOffset = new System.Drawing.Point(10, 0);
@@ -105,12 +107,13 @@
             this.btnkitchen.FillColor = System.Drawing.Color.Transparent;
             this.btnkitchen.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnkitchen.ForeColor = System.Drawing.Color.White;
+            this.btnkitchen.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.btnkitchen.Image = ((System.Drawing.Image)(resources.GetObject("btnkitchen.Image")));
             this.btnkitchen.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnkitchen.ImageOffset = new System.Drawing.Point(10, 0);
             this.btnkitchen.Location = new System.Drawing.Point(12, 383);
             this.btnkitchen.Name = "btnkitchen";
-            this.btnkitchen.Size = new System.Drawing.Size(205, 69);
+            this.btnkitchen.Size = new System.Drawing.Size(221, 69);
             this.btnkitchen.TabIndex = 5;
             this.btnkitchen.Text = "Kitchen";
             this.btnkitchen.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -133,12 +136,13 @@
             this.btnPOS.FillColor = System.Drawing.Color.Transparent;
             this.btnPOS.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnPOS.ForeColor = System.Drawing.Color.White;
+            this.btnPOS.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.btnPOS.Image = ((System.Drawing.Image)(resources.GetObject("btnPOS.Image")));
             this.btnPOS.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnPOS.ImageOffset = new System.Drawing.Point(10, 0);
             this.btnPOS.Location = new System.Drawing.Point(12, 282);
             this.btnPOS.Name = "btnPOS";
-            this.btnPOS.Size = new System.Drawing.Size(205, 69);
+            this.btnPOS.Size = new System.Drawing.Size(221, 69);
             this.btnPOS.TabIndex = 6;
             this.btnPOS.Text = "POS";
             this.btnPOS.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -162,8 +166,6 @@
             // 
             this.guna2Panel3.Controls.Add(this.lbluser);
             this.guna2Panel3.Controls.Add(this.label1);
-            this.guna2Panel3.Controls.Add(this.btnMinimized);
-            this.guna2Panel3.Controls.Add(this.btnExit);
             this.guna2Panel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.guna2Panel3.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
             this.guna2Panel3.Location = new System.Drawing.Point(233, 0);
@@ -177,9 +179,9 @@
             this.lbluser.BackColor = System.Drawing.Color.Transparent;
             this.lbluser.Font = new System.Drawing.Font("Segoe UI", 15F);
             this.lbluser.ForeColor = System.Drawing.Color.Firebrick;
-            this.lbluser.Location = new System.Drawing.Point(92, -4);
+            this.lbluser.Location = new System.Drawing.Point(74, 4);
             this.lbluser.Name = "lbluser";
-            this.lbluser.Size = new System.Drawing.Size(51, 28);
+            this.lbluser.Size = new System.Drawing.Size(102, 54);
             this.lbluser.TabIndex = 4;
             this.lbluser.Text = "User";
             // 
@@ -189,48 +191,40 @@
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 15F);
             this.label1.ForeColor = System.Drawing.Color.Firebrick;
-            this.label1.Location = new System.Drawing.Point(-5, -4);
+            this.label1.Location = new System.Drawing.Point(3, 4);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(55, 28);
+            this.label1.Size = new System.Drawing.Size(111, 54);
             this.label1.TabIndex = 3;
             this.label1.Text = "User:";
             // 
-            // btnMinimized
-            // 
-            this.btnMinimized.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnMinimized.ControlBoxType = Guna.UI2.WinForms.Enums.ControlBoxType.MinimizeBox;
-            this.btnMinimized.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(139)))), ((int)(((byte)(152)))), ((int)(((byte)(166)))));
-            this.btnMinimized.IconColor = System.Drawing.Color.White;
-            this.btnMinimized.Location = new System.Drawing.Point(504, 6);
-            this.btnMinimized.Name = "btnMinimized";
-            this.btnMinimized.Size = new System.Drawing.Size(45, 26);
-            this.btnMinimized.TabIndex = 1;
-            this.btnMinimized.Click += new System.EventHandler(this.btnMinimized_Click);
-            // 
-            // btnExit
-            // 
-            this.btnExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnExit.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(139)))), ((int)(((byte)(152)))), ((int)(((byte)(166)))));
-            this.btnExit.IconColor = System.Drawing.Color.White;
-            this.btnExit.Location = new System.Drawing.Point(555, 6);
-            this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(45, 26);
-            this.btnExit.TabIndex = 2;
-            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
-            // 
             // ControlsPanel
             // 
+            this.ControlsPanel.Controls.Add(this.guna2PictureBox2);
             this.ControlsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ControlsPanel.Location = new System.Drawing.Point(233, 37);
             this.ControlsPanel.Name = "ControlsPanel";
             this.ControlsPanel.Size = new System.Drawing.Size(612, 592);
             this.ControlsPanel.TabIndex = 2;
             // 
+            // guna2PictureBox2
+            // 
+            this.guna2PictureBox2.BackColor = System.Drawing.Color.Transparent;
+            this.guna2PictureBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.guna2PictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("guna2PictureBox2.Image")));
+            this.guna2PictureBox2.ImageRotate = 0F;
+            this.guna2PictureBox2.Location = new System.Drawing.Point(0, 0);
+            this.guna2PictureBox2.Name = "guna2PictureBox2";
+            this.guna2PictureBox2.Size = new System.Drawing.Size(612, 592);
+            this.guna2PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.guna2PictureBox2.TabIndex = 7;
+            this.guna2PictureBox2.TabStop = false;
+            this.guna2PictureBox2.UseTransparentBackground = true;
+            // 
             // guna2MessageDialog1
             // 
             this.guna2MessageDialog1.Buttons = Guna.UI2.WinForms.MessageDialogButtons.YesNo;
             this.guna2MessageDialog1.Caption = null;
-            this.guna2MessageDialog1.Icon = Guna.UI2.WinForms.MessageDialogIcon.None;
+            this.guna2MessageDialog1.Icon = Guna.UI2.WinForms.MessageDialogIcon.Question;
             this.guna2MessageDialog1.Parent = this;
             this.guna2MessageDialog1.Style = Guna.UI2.WinForms.MessageDialogStyle.Light;
             this.guna2MessageDialog1.Text = null;
@@ -252,6 +246,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).EndInit();
             this.guna2Panel3.ResumeLayout(false);
             this.guna2Panel3.PerformLayout();
+            this.ControlsPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -265,10 +261,9 @@
         private Guna.UI2.WinForms.Guna2Button btnkitchen;
         private Guna.UI2.WinForms.Guna2Button btnPOS;
         private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox1;
-        private Guna.UI2.WinForms.Guna2ControlBox btnMinimized;
-        private Guna.UI2.WinForms.Guna2ControlBox btnExit;
         private Guna.UI2.WinForms.Guna2MessageDialog guna2MessageDialog1;
         private System.Windows.Forms.Label lbluser;
         private System.Windows.Forms.Label label1;
+        private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox2;
     }
 }

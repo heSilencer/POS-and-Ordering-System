@@ -30,7 +30,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
             cat_datagridview.Columns["srNumber"].Width = 150;
             //cat_datagridview.Columns["catName"].Width = 100;
 
-            cat_datagridview.DefaultCellStyle.Font = new Font("Segue", 14);
+            cat_datagridview.DefaultCellStyle.Font = new Font("Segue", 18);
             cat_datagridview.RowTemplate.Height = 40;
             // Load data from the database into GunaDataGridView
             LoadDataFromDatabase();

@@ -74,7 +74,8 @@
             this.btnSalesbyCategory.Name = "btnSalesbyCategory";
             this.btnSalesbyCategory.Size = new System.Drawing.Size(278, 156);
             this.btnSalesbyCategory.TabIndex = 2;
-            this.btnSalesbyCategory.Text = "Sales By Category";
+            this.btnSalesbyCategory.Text = "Sales By Product Category";
+            this.btnSalesbyCategory.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnSalesbyCategory.Click += new System.EventHandler(this.btnSalesbyCategory_Click);
             // 
             // btnStaffList

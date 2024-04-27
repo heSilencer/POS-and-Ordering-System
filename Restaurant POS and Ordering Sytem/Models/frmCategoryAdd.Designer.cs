@@ -63,7 +63,7 @@
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(121, 36);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(232, 37);
+            this.label1.Size = new System.Drawing.Size(449, 72);
             this.label1.TabIndex = 2;
             this.label1.Text = "Category Details";
             // 
@@ -148,6 +148,7 @@
             this.lblcat.SelectedText = "";
             this.lblcat.Size = new System.Drawing.Size(316, 43);
             this.lblcat.TabIndex = 1;
+            this.lblcat.TextChanged += new System.EventHandler(this.lblcat_TextChanged);
             // 
             // label2
             // 
@@ -155,7 +156,7 @@
             this.label2.Font = new System.Drawing.Font("Segoe UI", 17F);
             this.label2.Location = new System.Drawing.Point(105, 190);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(173, 31);
+            this.label2.Size = new System.Drawing.Size(344, 62);
             this.label2.TabIndex = 2;
             this.label2.Text = "Category Name";
             // 

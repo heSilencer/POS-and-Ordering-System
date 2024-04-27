@@ -194,7 +194,7 @@ namespace Restaurant_POS_and_Ordering_Sytem
 
         private void btnMinimized_Click(object sender, EventArgs e)
         {
-
+            this.WindowState = FormWindowState.Minimized;
         }
 
         private void guna2Panel1_Paint(object sender, PaintEventArgs e)
@@ -227,12 +227,14 @@ namespace Restaurant_POS_and_Ordering_Sytem
         {
 
         }
-      
+
 
         private void MainForm_Load_1(object sender, EventArgs e)
         {
             lbluser.Text = $" {username}!";
             _obj = this;
+
+
         }
 
         private void btnSettings_Click(object sender, EventArgs e)

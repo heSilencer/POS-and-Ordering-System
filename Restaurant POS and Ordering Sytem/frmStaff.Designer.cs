@@ -99,6 +99,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmStaff";
             this.Text = "frmWaiterCashier";
+            this.Load += new System.EventHandler(this.frmStaff_Load);
             this.guna2Panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 

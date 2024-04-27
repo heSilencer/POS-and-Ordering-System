@@ -58,7 +58,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
             deleteColumn.ImageLayout = DataGridViewImageCellLayout.Zoom;
             guna2DataGridView1.Columns.Add(deleteColumn);
 
-            guna2DataGridView1.DefaultCellStyle.Font = new Font("Segue", 14);
+            guna2DataGridView1.DefaultCellStyle.Font = new Font("Segue", 18);
             guna2DataGridView1.RowTemplate.Height = 40;
 
             // Handle the CellClick event to perform actions when the buttons are clicked
@@ -163,7 +163,6 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
                         // Commit the transaction if all commands succeeded
                         transaction.Commit();
 
-                        MessageBox.Show("Category deleted successfully");
 
                         // Reload the data from the database after the action
                         guna2DataGridView1.Rows.Clear();

@@ -28,15 +28,22 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
         {
             cmbxName.Items.Clear();
 
+            // Create a list to store staff names
+            List<string> staffNames = new List<string>();
+
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 try
                 {
                     connection.Open();
 
-                    // Modify the query to select only staff names with category "Cashier"
-                    string query = "SELECT staffID, staffFname FROM tbl_staff WHERE staffcatID IN (SELECT staffcatID FROM tbl_staffcategory WHERE catName IN ('Cashier', 'Admin', 'Manager'))";
-
+                    // Modify the query to select only staff names with category "Cashier" and that are not in the users table
+                    string query = @"SELECT staffID, staffFname 
+                             FROM tbl_staff 
+                             WHERE staffcatID IN (SELECT staffcatID 
+                                                  FROM tbl_staffcategory 
+                                                  WHERE catName IN ('Cashier', 'Admin', 'Manager'))
+                             AND staffFname NOT IN (SELECT uname FROM users)";
 
                     using (MySqlCommand command = new MySqlCommand(query, connection))
                     using (MySqlDataReader reader = command.ExecuteReader())
@@ -51,9 +58,16 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                                 string staffFname = reader["staffFname"].ToString();
                                 string staffID = reader["staffID"].ToString();
 
-                                // Store staffID as the Tag of each item
-                                cmbxName.Items.Add(staffFname);
-                                cmbxName.Tag = staffID;
+                                // Check if the name is not already in the list
+                                if (!staffNames.Contains(staffFname))
+                                {
+                                    // Store staffID as the Tag of each item
+                                    cmbxName.Items.Add(staffFname);
+                                    cmbxName.Tag = staffID;
+
+                                    // Add the name to the list of staff names
+                                    staffNames.Add(staffFname);
+                                }
                             }
                         }
                         else
@@ -92,13 +106,20 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             }
 
             string staffID = cmbxName.Tag.ToString();
-            string username = txtuser.Text;
+            string username = txtuser.Text.Trim();
             string password = txtpass.Text;
             string staffrole = cmbxrole.SelectedItem?.ToString();
 
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(staffrole))
             {
                 guna2MessageDialog1.Show("Please fill in all required fields.");
+                return;
+            }
+
+            // Check if the password meets the length requirement
+            if (password.Length < 8)
+            {
+                guna2MessageDialog1.Show("Password must be at least 8 characters long.");
                 return;
             }
 
@@ -113,6 +134,13 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             if (existingCount >= maxAllowedCount)
             {
                 guna2MessageDialog2.Show($"Maximum {maxAllowedCount} users with role '{staffrole}' are allowed.");
+                return;
+            }
+
+            // Check if the username already exists in the database
+            if (UsernameExists(username))
+            {
+                guna2MessageDialog1.Show("Username already exists. Please choose a different username.");
                 return;
             }
 
@@ -147,6 +175,30 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                 catch (Exception ex)
                 {
                     guna2MessageDialog2.Show("Error: " + ex.Message);
+                }
+            }
+        }
+
+        private bool UsernameExists(string username)
+        {
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    string query = "SELECT COUNT(*) FROM users WHERE username = @username";
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@username", username);
+                        int count = Convert.ToInt32(command.ExecuteScalar());
+                        return count > 0;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Handle the exception
+                    guna2MessageDialog2.Show("Error: " + ex.Message);
+                    return false;
                 }
             }
         }
@@ -209,7 +261,20 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
         {
 
         }
-        
+
+        private void txtuser_TextChanged(object sender, EventArgs e)
+        {
+            if (txtuser == null || string.IsNullOrEmpty(txtuser.Text))
+            {
+                return;
+            }
+
+            // Capitalize the first character of the text
+            txtuser.Text = char.ToUpper(txtuser.Text[0]) + txtuser.Text.Substring(1);
+
+            // Set the caret position to the end of the text
+            txtuser.SelectionStart = txtuser.Text.Length;
+        }
     }
 }
 

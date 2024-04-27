@@ -36,5 +36,11 @@ namespace Restaurant_POS_and_Ordering_Sytem
         {
             AddControls(new frmStaffView());
         }
+
+        private void frmStaff_Load(object sender, EventArgs e)
+        {
+            AddControls(new frmStaffCategoryView());
+
+        }
     }
 }

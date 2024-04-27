@@ -70,7 +70,7 @@
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(120, 20);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(215, 37);
+            this.label1.Size = new System.Drawing.Size(418, 72);
             this.label1.TabIndex = 2;
             this.label1.Text = "Product Details";
             // 
@@ -164,6 +164,7 @@
             this.txttablename.SelectedText = "";
             this.txttablename.Size = new System.Drawing.Size(240, 43);
             this.txttablename.TabIndex = 9;
+            this.txttablename.TextChanged += new System.EventHandler(this.txttablename_TextChanged);
             // 
             // label3
             // 
@@ -171,7 +172,7 @@
             this.label3.Font = new System.Drawing.Font("Segoe UI", 17F);
             this.label3.Location = new System.Drawing.Point(25, 207);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(64, 31);
+            this.label3.Size = new System.Drawing.Size(125, 62);
             this.label3.TabIndex = 12;
             this.label3.Text = "Price";
             // 
@@ -203,7 +204,7 @@
             this.label4.Font = new System.Drawing.Font("Segoe UI", 17F);
             this.label4.Location = new System.Drawing.Point(25, 296);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(106, 31);
+            this.label4.Size = new System.Drawing.Size(210, 62);
             this.label4.TabIndex = 14;
             this.label4.Text = "Category";
             // 
@@ -243,7 +244,7 @@
             // 
             // productImage
             // 
-            this.productImage.Image = ((System.Drawing.Image)(resources.GetObject("productImage.Image")));
+            this.productImage.BackColor = System.Drawing.Color.Gray;
             this.productImage.ImageRotate = 0F;
             this.productImage.Location = new System.Drawing.Point(343, 129);
             this.productImage.Name = "productImage";

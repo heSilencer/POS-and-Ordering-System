@@ -145,6 +145,11 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                         guna2MessageDialog2.Show("The selected category does not exist. Please choose a valid category.");
                         return;
                     }
+                    if (productImage.Image == null)
+                    {
+                        guna2MessageDialog1.Show("Please select an image for the Product.");
+                        return;
+                    }
 
                     byte[] img = null;
 
@@ -346,7 +351,20 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                 return returnImage;
             }
         }
-      
+
+        private void txttablename_TextChanged(object sender, EventArgs e)
+        {
+            if (txttablename == null || string.IsNullOrEmpty(txttablename.Text))
+            {
+                return;
+            }
+
+            // Capitalize the first character of the text
+            txttablename.Text = char.ToUpper(txttablename.Text[0]) + txttablename.Text.Substring(1);
+
+            // Set the caret position to the end of the text
+            txttablename.SelectionStart = txttablename.Text.Length;
+        }
     }
 }
 

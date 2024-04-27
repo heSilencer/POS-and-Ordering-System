@@ -62,6 +62,11 @@ namespace Restaurant_POS_and_Ordering_Sytem.ForgotPassword
                 MessageBox.Show("Current password is incorrect.");
                 return;
             }
+            if (newPassword.Length < 8)
+            {
+                guna2MessageDialog1.Show("Password must be at least 8 characters long.");
+                return;
+            }
 
             // Check if new password and confirm password match
             if (newPassword != confirmNewPassword)
@@ -69,7 +74,11 @@ namespace Restaurant_POS_and_Ordering_Sytem.ForgotPassword
                 MessageBox.Show("New password and confirm password do not match.");
                 return;
             }
-
+            if (currentPassword == newPassword)
+            {
+                guna2MessageDialog1.Show("Current password and new password are the same. Please choose a different password.");
+                return;
+            }
             // Hash the new password
             string hashedNewPassword = BCrypt.Net.BCrypt.HashPassword(newPassword);
 

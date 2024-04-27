@@ -18,27 +18,32 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
         public frmAddUserView()
         {
             InitializeComponent();
-            Add_UserView.Columns.Add("srNumber", "Sr#");
-            Add_UserView.Columns.Add("userId", "User ID");
-            Add_UserView.Columns.Add("uname", "Full Name");
-            Add_UserView.Columns.Add("username", "UserName");
-            Add_UserView.Columns.Add("userpass", "Password");
-            Add_UserView.Columns.Add("role", "Role");
-            Add_UserView.Columns["Role"].DefaultCellStyle.Font = new Font("Segoe UI", 14);
+            InitializeDataGridView();
+            LoadDataFromDatabase();
+
+        }
+        private void InitializeDataGridView()
+        {
+            guna2datagrid.Columns.Add("srNumber", "Sr#");
+            guna2datagrid.Columns.Add("userId", "User ID");
+            guna2datagrid.Columns.Add("uname", "Full Name");
+            guna2datagrid.Columns.Add("username", "UserName");
+            guna2datagrid.Columns.Add("userpass", "Password");
+            guna2datagrid.Columns.Add("role", "Role");
 
 
             // Set visibility of columns
-            Add_UserView.Columns["userId"].Visible = false; // Hide User ID column
+            guna2datagrid.Columns["userId"].Visible = false; // Hide User ID column
 
             // Set width of columns
-            Add_UserView.Columns["srNumber"].Width = 50;
-            Add_UserView.Columns["uname"].Width = 100;
-            Add_UserView.Columns["username"].Width = 150;
-            Add_UserView.Columns["userpass"].Width = 100;
-            Add_UserView.Columns["role"].Width = 200;
+            guna2datagrid.Columns["srNumber"].Width = 50;
+            guna2datagrid.Columns["uname"].Width = 100;
+            guna2datagrid.Columns["username"].Width = 150;
+            guna2datagrid.Columns["userpass"].Width = 100;
+            guna2datagrid.Columns["role"].Width = 200;
 
-            Add_UserView.DefaultCellStyle.Font = new Font("Segue", 14);
-            Add_UserView.RowTemplate.Height = 40;
+            guna2datagrid.DefaultCellStyle.Font = new Font("Segue", 18);
+            guna2datagrid.RowTemplate.Height = 40;
 
             DataGridViewImageColumn deleteColumn = new DataGridViewImageColumn();
             deleteColumn.Image = Properties.Resources.deleteicon; // Replace with your actual delete icon
@@ -50,16 +55,15 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
             deleteColumn.FillWeight = 50;
             deleteColumn.MinimumWidth = 50;
             deleteColumn.ImageLayout = DataGridViewImageCellLayout.Zoom;
-            Add_UserView.Columns.Add(deleteColumn);
+            guna2datagrid.Columns.Add(deleteColumn);
 
             // Load data from the database into the DataGridView
-            Add_UserView.CellClick += Add_UserView_CellClick;
-
+           // guna2datagrid.CellClick += guna2datagrid_CellContentClick;
         }
         private void FrmAddUser_UserAddedOrUpdated(object sender, EventArgs e)
         {
             // Refresh data from the database
-            Add_UserView.Rows.Clear(); // Clear the existing rows before loading new data
+            guna2datagrid.Rows.Clear(); // Clear the existing rows before loading new data
 
             LoadDataFromDatabase();
         }
@@ -77,7 +81,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
             string searchText = txtSearch.Text.Trim().ToLower();
 
             // Filter the rows based on the search text
-            foreach (DataGridViewRow row in Add_UserView.Rows)
+            foreach (DataGridViewRow row in guna2datagrid.Rows)
             {
                 bool matchFound = false;
 
@@ -102,7 +106,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
         }
         private void LoadDataFromDatabase()
         {
-            Add_UserView.Rows.Clear(); // Clear the existing rows before loading new data
+            guna2datagrid.Rows.Clear(); // Clear the existing rows before loading new data
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
@@ -125,54 +129,18 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
                             string userpass = reader["userpass"].ToString();
                             string role = reader["role"].ToString();
 
-                            Add_UserView.Rows.Add(srNumber, userId, uname, username, userpass, role);
+                            guna2datagrid.Rows.Add(srNumber, userId, uname, username, userpass, role);
                             srNumber++;
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    guna2MessageDialog2.Show("Error: " + ex.Message);
+                    MessageBox.Show("Error: " + ex.Message);
                 }
             }
         }
-        private void Add_UserView_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex >= 0 && Add_UserView.Columns[e.ColumnIndex].Name == "Delete")
-    {
-                // Get the role of the user to be deleted
-                string role = Add_UserView.Rows[e.RowIndex].Cells["role"].Value.ToString();
-
-                if (role.ToLower() == "admin")
-                {
-                    // Display a message that admin users cannot be deleted
-                    MessageBox.Show("Admin users cannot be deleted.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return; // Exit the method without further processing
-                }
-
-                // Confirm deletion with the user
-                DialogResult result = MessageBox.Show("Are you sure you want to delete this user?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                if (result == DialogResult.Yes)
-                {
-                    DialogResult result1 = MessageBox.Show("This User will be Permanently Deleted. Are you sure you want to delete this?", "WARNING", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-                    if (result1 == DialogResult.Yes)
-                    {
-                        int userId = Convert.ToInt32(Add_UserView.Rows[e.RowIndex].Cells["userId"].Value);
-
-                        // Perform the deletion operation
-                        DeleteUser(userId);
-                    }
-                    else
-                    {
-                        // User clicked "No" in the second confirmation dialog
-                        // Do nothing, deletion operation canceled
-                    }
-                }
-            }
-        }
-
+     
         private void DeleteUser(int userId)
         {
             using (MySqlConnection connection = new MySqlConnection(connectionString))
@@ -187,32 +155,12 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
                     using (MySqlCommand command = new MySqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@userId", userId);
-                        int rowsAffected = command.ExecuteNonQuery();
-
-                        if (rowsAffected > 0)
-                        {
-                            // Remove the row from the DataGridView
-                            foreach (DataGridViewRow row in Add_UserView.Rows)
-                            {
-                                if (Convert.ToInt32(row.Cells["userId"].Value) == userId)
-                                {
-                                    Add_UserView.Rows.Remove(row);
-                                    break;
-                                }
-                            }
-                            LoadDataFromDatabase();
-
-                            guna2MessageDialog1.Show("User deleted successfully");
-                        }
-                        else
-                        {
-                            MessageBox.Show("Failed to delete user", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
+                        command.ExecuteNonQuery();
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error: " + ex.Message, "Error");
+                    MessageBox.Show("Error: " + ex.Message);
                 }
             }
         }
@@ -220,6 +168,44 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
         private void frmAddUserView_Load(object sender, EventArgs e)
         {
             LoadDataFromDatabase();
+        }
+
+        private void guna2datagrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && guna2datagrid.Columns[e.ColumnIndex].Name == "Delete")
+            {
+                int userId = Convert.ToInt32(guna2datagrid.Rows[e.RowIndex].Cells["userId"].Value);
+
+                if (guna2datagrid.Columns[e.ColumnIndex].Name == "Delete")
+                {
+                    string role = guna2datagrid.Rows[e.RowIndex].Cells["role"].Value.ToString();
+
+                    if (role.ToLower() == "admin")
+                    {
+                        // Display a message that admin users cannot be deleted
+                        MessageBox.Show("Admin users cannot be deleted.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return; // Exit the method without further processing
+                    }
+                    // Confirm deletion with the user
+                    DialogResult result = MessageBox.Show("Are you sure you want to delete this user?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                    if (result == DialogResult.Yes)
+                    {
+                        DialogResult result1 = MessageBox.Show("This User will be Permanently Deleted. Are you sure you want to delete this?", "WARNING", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                        if (result1 == DialogResult.Yes)
+                        {
+
+                            // Perform the deletion operation
+                            DeleteUser(userId);
+                            guna2datagrid.Rows.Clear();
+
+                            LoadDataFromDatabase();
+                        }
+
+                    }
+                }
+            }
         }
     }
 }

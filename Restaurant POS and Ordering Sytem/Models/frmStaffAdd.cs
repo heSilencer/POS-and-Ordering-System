@@ -100,11 +100,11 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                 {
                     connection.Open();
 
-                    string fname = lblfname.Text;
-                    string lname = lblLname.Text;
-                    string address = lblAddress.Text;
-                    string phone = lblPhone.Text;
-                    string email = lblEmail.Text;
+                    string fname = lblfname.Text.Trim();
+                    string lname = lblLname.Text.Trim();
+                    string address = lblAddress.Text.Trim();
+                    string phone = lblPhone.Text.Trim();
+                    string email = lblEmail.Text.Trim();
                     string category = cmbxcat.SelectedItem?.ToString();
 
                     // Validate input fields
@@ -135,6 +135,11 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                     if (categoryId == -1)
                     {
                         guna2MessageDialog2.Show("The selected category does not exist. Please choose a valid category.");
+                        return;
+                    }
+                    if (StaffImage.Image == null)
+                    {
+                        guna2MessageDialog1.Show("Please select an image for the staff member.");
                         return;
                     }
 
@@ -168,6 +173,14 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                         }
 
                         insertUpdateQuery += " WHERE staffId = @staffId";
+
+                        string updateUsernameQuery = "UPDATE users SET uname = @uname WHERE staffID = @staffId";
+                        using (MySqlCommand updateUsernameCommand = new MySqlCommand(updateUsernameQuery, connection))
+                        {
+                            updateUsernameCommand.Parameters.AddWithValue("@uname", fname); // Update uname to the new fname
+                            updateUsernameCommand.Parameters.AddWithValue("@staffId", staffId);
+                            updateUsernameCommand.ExecuteNonQuery();
+                        }
                     }
 
                     using (MySqlCommand command = new MySqlCommand(insertUpdateQuery, connection))
@@ -185,6 +198,13 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                         if (imageData != null)
                         {
                             command.Parameters.AddWithValue("@image", imageData);
+                        }
+
+                        // If the category is different from the role and staff has an associated account
+                        if (!IsCategorySameAsRole(staffId, category, connection) && HasAssociatedAccount(staffId, connection))
+                        {
+                            guna2MessageDialog2.Show("Cannot update staff category. Staff has an associated account.");
+                            return;
                         }
 
                         command.ExecuteNonQuery();
@@ -212,7 +232,30 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             catch (Exception ex)
             {
                 Console.WriteLine($"An error occurred: {ex.Message}");
-                guna2MessageDialog2.Show($"An unexpected error occurred: {ex.Message}\n\nStack Trace:\n{ex.StackTrace}");
+                MessageBox.Show($"An unexpected error occurred: {ex.Message}\n\nStack Trace:\n{ex.StackTrace}");
+            }
+        }
+
+        private bool IsCategorySameAsRole(int staffId, string category, MySqlConnection connection)
+        {
+            string query = "SELECT role FROM users WHERE staffID = @staffId";
+            using (MySqlCommand command = new MySqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@staffId", staffId);
+                string role = Convert.ToString(command.ExecuteScalar());
+
+                // Compare the role name with the selected category
+                return role == category;
+            }
+        }
+        private bool HasAssociatedAccount(int staffId, MySqlConnection connection)
+        {
+            string query = "SELECT COUNT(*) FROM users WHERE staffID = @staffId";
+            using (MySqlCommand command = new MySqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@staffId", staffId);
+                int count = Convert.ToInt32(command.ExecuteScalar());
+                return count > 0;
             }
         }
         private byte[] ImageToByteArray(Image image)
@@ -408,6 +451,48 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                 // Set the cursor position to the end of the text
                 lblfname.SelectionStart = lblfname.Text.Length;
             }
+        }
+
+        private void lblLname_TextChanged(object sender, EventArgs e)
+        {
+            if (lblLname == null || string.IsNullOrEmpty(lblLname.Text))
+            {
+                return;
+            }
+
+            // Capitalize the first character of the text
+            lblLname.Text = char.ToUpper(lblLname.Text[0]) + lblLname.Text.Substring(1);
+
+            // Set the caret position to the end of the text
+            lblLname.SelectionStart = lblLname.Text.Length;
+        }
+
+        private void lblAddress_TextChanged(object sender, EventArgs e)
+        {
+            if (lblAddress == null || string.IsNullOrEmpty(lblAddress.Text))
+            {
+                return;
+            }
+
+            // Capitalize the first character of the text
+            lblAddress.Text = char.ToUpper(lblAddress.Text[0]) + lblAddress.Text.Substring(1);
+
+            // Set the caret position to the end of the text
+            lblAddress.SelectionStart = lblAddress.Text.Length;
+        }
+
+        private void lblEmail_TextChanged(object sender, EventArgs e)
+        {
+            if (lblEmail == null || string.IsNullOrEmpty(lblEmail.Text))
+            {
+                return;
+            }
+
+            // Capitalize the first character of the text
+            lblEmail.Text = char.ToUpper(lblEmail.Text[0]) + lblEmail.Text.Substring(1);
+
+            // Set the caret position to the end of the text
+            lblEmail.SelectionStart = lblEmail.Text.Length;
         }
     }
 }

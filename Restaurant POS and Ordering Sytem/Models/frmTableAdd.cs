@@ -33,6 +33,16 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
         {
             this.Close();
         }
+        private bool CheckIftableExists(string categoryName, MySqlConnection connection)
+        {
+            string query = "SELECT COUNT(*) FROM tbl_table WHERE tblName = @tblName";
+            using (MySqlCommand command = new MySqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@tblName", categoryName);
+                int count = Convert.ToInt32(command.ExecuteScalar());
+                return count > 0;
+            }
+        }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
@@ -44,11 +54,17 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                 {
                     connection.Open();
 
-                    string tableName = lbltable.Text;
+                    string tableName = lbltable.Text.Trim();
 
                     if (string.IsNullOrEmpty(tableName))
                     {
-                        guna2MessageDialog2.Show("Please Input a Table name.");
+                        guna2MessageDialog1.Show("Please Input a Table name.");
+                        return;
+                    }
+                    bool tableExists = CheckIftableExists(tableName, connection);
+                    if (tableExists)
+                    {
+                        guna2MessageDialog1.Show("This Table already exists.");
                         return;
                     }
 
@@ -97,6 +113,20 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
         protected virtual void OnTableUpdated()
         {
             TableUpdated?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void lbltable_TextChanged(object sender, EventArgs e)
+        {
+            if (lbltable == null || string.IsNullOrEmpty(lbltable.Text))
+            {
+                return;
+            }
+
+            // Capitalize the first character of the text
+            lbltable.Text = char.ToUpper(lbltable.Text[0]) + lbltable.Text.Substring(1);
+
+            // Set the caret position to the end of the text
+            lbltable.SelectionStart = lbltable.Text.Length;
         }
     }
 }

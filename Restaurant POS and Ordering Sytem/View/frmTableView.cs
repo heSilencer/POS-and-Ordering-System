@@ -57,7 +57,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
             deleteColumn.ImageLayout = DataGridViewImageCellLayout.Zoom;
             guna2DataGridView1.Columns.Add(deleteColumn);
 
-            guna2DataGridView1.DefaultCellStyle.Font = new Font("Segue", 14);
+            guna2DataGridView1.DefaultCellStyle.Font = new Font("Segue", 18);
             guna2DataGridView1.RowTemplate.Height = 40;
 
 
@@ -111,12 +111,22 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
 
                     if (result == DialogResult.Yes)
                     {
+                        string Tablename = guna2DataGridView1.Rows[e.RowIndex].Cells["tblName"].Value.ToString();
+                        DialogResult result1 = MessageBox.Show($"The \"{Tablename}\" will be deleted permanently. Are you sure you want to proceed?", "WARNING", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                         // Handle the delete action
-                        DeleteTable(tableId);
+                        if (result1 == DialogResult.Yes)
+                        {
+                            DeleteTable(tableId);
 
-                        // Reload the data from the database after the deletion
-                        guna2DataGridView1.Rows.Clear();
-                        LoadTableDataFromDatabase();
+                            // Reload the data from the database after the deletion
+                            guna2DataGridView1.Rows.Clear();
+                            LoadTableDataFromDatabase();
+                        }
+                        else
+                        {
+
+                        }
+                          
                     }
                     // If the user clicks No, nothing happens, and the data is not reloaded
                 }

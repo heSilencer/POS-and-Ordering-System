@@ -25,6 +25,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
         private int mainID;
         private double totalAmount;
 
+
         public frmPos(string username, int userID, int mainID)
         {
             InitializeComponent();
@@ -97,6 +98,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
 
         public string OrderType;
         private int MainID;
+        private List<Guna.UI2.WinForms.Guna2Button> categoryButtons = new List<Guna.UI2.WinForms.Guna2Button>();
 
         private void guna2DataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
@@ -197,6 +199,8 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
 
                                 b.Click += new EventHandler(CategoryButton_Click);
                                 CategoryPanel.Controls.Add(b);
+
+                                categoryButtons.Add(b);
                             }
                         }
                     }
@@ -209,6 +213,37 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             // Handle the "All Categories" button click
             // You can implement the logic to show all categories here
             ShowProducts("All Categories");
+
+
+            guna2DataGridView1.Columns["Delete"].Visible = true;
+            BtnAllCategory.Visible = true;
+            foreach (var button in categoryButtons)
+            {
+                button.Visible = true;
+            }
+
+
+            btntk1.Visible = false;
+            btndineIn1.Visible = false;
+            btnhold1.Visible = false;
+            btnhold2.Visible = false;
+            btnHoldKot.Visible = false;
+            btnKot2.Visible = false;
+            btnCheckOut.Visible = false;
+            BtnDineIn.Visible = true;
+            btnHold.Visible = true;
+            Btnkot.Visible = true;
+            BtnTakeAway.Visible = true;
+            lbltxtTable.Text = "";
+            lbltxtWaiter.Text = "";
+            OrderType = "";
+            double totalAmount = 0;// Reset the total amount to zero
+            lbltotal.Text = $"{totalAmount:C}";
+            lbltxtTable.Visible = true;
+            lbltxtWaiter.Visible = true;
+            lbltotal.Visible = true;
+
+            guna2DataGridView1.Rows.Clear();
         }
         private void ShowProducts(string category)
         {
@@ -293,10 +328,12 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             // Your event handler code here
             ucProduct selectedProduct = (ucProduct)sender;
 
+         
+         
             // Add the selected product to the DataGridView
             AddProductToDataGridView(selectedProduct);
         }
-
+     
         private void ProductPanel_Paint(object sender, PaintEventArgs e)
         {
 
@@ -479,13 +516,26 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             lbltxtWaiter.Visible = false;
             OrderType = "Take Out";
         }
+        // Define a method to add the delete icon column
+       
 
         private void btnAddnew_Click(object sender, EventArgs e)
         {
+            guna2DataGridView1.Columns["Delete"].Visible = true;
+            ShowProducts("All Categories");
+            BtnAllCategory.Visible = true;
+            foreach (var button in categoryButtons)
+            {
+                button.Visible = true;
+            }
+
+
             btntk1.Visible = false;
             btndineIn1.Visible = false;
             btnhold1.Visible = false;
             btnhold2.Visible = false;
+            btnHoldKot.Visible = false;
+            btnKot2.Visible = false;
             btnCheckOut.Visible = false;
             BtnDineIn.Visible = true;
             btnHold.Visible = true;
@@ -499,6 +549,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             lbltxtTable.Visible = true;
             lbltxtWaiter.Visible = true;
             lbltotal.Visible = true;
+
             guna2DataGridView1.Rows.Clear();
         }
 
@@ -632,7 +683,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                             while (reader.Read())
                             {
                                 string status = reader.GetString("Status");
-
+                               
                                 string tableName = reader.GetString("tableName");
                                 string waiterName = reader.GetString("waiterName");
 
@@ -680,7 +731,16 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
 
                                     btntk1.Visible = true;
                                     btndineIn1.Visible = true;
-                                   // UpdateStatusToPending(mainID);
+                                    ProductPanel.Controls.Clear();
+                                    BtnAllCategory.Visible = false;
+                                    foreach (var button in categoryButtons)
+                                    {
+                                        button.Visible = false;
+                                    }
+
+
+
+                                    // UpdateStatusToPending(mainID);
                                 }
                                 if (status == "Complete")
                                 {
@@ -697,11 +757,19 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                                     btndineIn1.Visible = true;
                                     btnhold1.Visible = false;
                                     btnhold2.Visible = true;
+                                    ProductPanel.Controls.Clear();
+                                    foreach (var button in categoryButtons)
+                                    {
+                                        button.Visible = false;
+                                    }
+                                    BtnAllCategory.Visible = false;
+
                                     // Delete entries if status is Hold
                                 }
 
                                 MainID = mainID;
                                 UpdateTotalAmount();
+
                             }
                         }
                         else
@@ -925,6 +993,8 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             // Load entries and retrieve the MainID
             LoadEntries(MainID);
             guna2DataGridView1.Rows.Clear();
+            guna2DataGridView1.Columns["Delete"].Visible = true;
+
             double totalAmount1 = 0;// Reset the total amount to zero
             lbltotal.Text = $"{totalAmount1:C}";
             lbltxtTable.Text = "";
@@ -944,6 +1014,14 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             btnhold2.Visible = false;
             btnKot2.Visible = false;
             btnHoldKot.Visible = false;
+            ShowProducts("All Categories");
+
+
+            BtnAllCategory.Visible = true;
+            foreach (var button in categoryButtons)
+            {
+                button.Visible = true;
+            }
             // Open the checkout form and pass all required parameters
             frmCheckOut checkoutForm = new frmCheckOut(totalAmount, orderDetails, MainID);
             MainClass.BlurbackGround(checkoutForm);
@@ -970,7 +1048,14 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             lbltxtWaiter.Visible = false;
             lbltotal.Visible = true;
             guna2DataGridView1.Rows.Clear();
-
+            ShowProducts("All Categories");
+            guna2DataGridView1.Columns["Delete"].Visible = true;
+            btnKot2.Visible = false;
+            btnHoldKot.Visible = false;
+            foreach (var button in categoryButtons)
+            {
+                button.Visible = true;
+            }
             guna2MessageDialog1.Show("Orde Placed SuccessFully");
         }
 
@@ -1004,6 +1089,12 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
         private void btndineIn1_Click(object sender, EventArgs e)
         {
             guna2MessageDialog2.Show("Cannot Choose Order Type");
+
+        }
+
+        private void guna2Button1_Click(object sender, EventArgs e)
+        {
+            OpenFormBasedOnRole(userRole, username, userID);
 
         }
     }
