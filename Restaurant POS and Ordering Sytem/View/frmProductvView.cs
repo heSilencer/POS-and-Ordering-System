@@ -20,30 +20,35 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
         public frmProductvView()
         {
             InitializeComponent();
+            InitializeDataGridView();
+
+
+        }
+        private void InitializeDataGridView()
+        {
             // Add columns manually or in the designer
             guna2DataGridViewProducts.Columns.Add("srNumber", "Sr#");
             guna2DataGridViewProducts.Columns["srNumber"].Width = 200; // Increase the width for "Sr#" column
-            guna2DataGridViewProducts.Columns["srNumber"].DefaultCellStyle.Font = new Font(guna2DataGridViewProducts.DefaultCellStyle.Font.FontFamily, 14); // Increase the font size for "Sr#" column
 
             guna2DataGridViewProducts.Columns.Add("prodID", "Product ID"); // Set prodID column to be invisible
             guna2DataGridViewProducts.Columns.Add("prodName", "Product Name");
             guna2DataGridViewProducts.Columns["prodName"].Width = 400; // Increase the width for "Product Name" column
-            guna2DataGridViewProducts.Columns["prodName"].DefaultCellStyle.Font = new Font(guna2DataGridViewProducts.DefaultCellStyle.Font.FontFamily, 14); // Increase the font size for "Product Name" column
 
             guna2DataGridViewProducts.Columns.Add("prodPrice", "Product Price");
             guna2DataGridViewProducts.Columns["prodPrice"].Width = 150; // Increase the width for "Product Price" column
-            guna2DataGridViewProducts.Columns["prodPrice"].DefaultCellStyle.Font = new Font(guna2DataGridViewProducts.DefaultCellStyle.Font.FontFamily, 14); // Increase the font size for "Product Price" column
 
             guna2DataGridViewProducts.Columns.Add("prodCategory", "Product Category");
             guna2DataGridViewProducts.Columns["prodCategory"].Width = 200; // Set the width for "Product Category" column
-            guna2DataGridViewProducts.Columns["prodCategory"].DefaultCellStyle.Font = new Font(guna2DataGridViewProducts.DefaultCellStyle.Font.FontFamily, 14); // Set the font size for "Product Category" column
+
+            guna2DataGridViewProducts.DefaultCellStyle.Font = new Font("Segue", 18);
 
 
             DataGridViewImageColumn prodImageColumn = new DataGridViewImageColumn();
             prodImageColumn.Name = "prodImage";
             prodImageColumn.HeaderText = "Product Image";
-            prodImageColumn.ImageLayout = DataGridViewImageCellLayout.Stretch;
-            prodImageColumn.DefaultCellStyle.WrapMode = DataGridViewTriState.True; // Allow image to be fully visible
+            prodImageColumn.ImageLayout = DataGridViewImageCellLayout.Zoom;
+
+
 
             guna2DataGridViewProducts.Columns.Add(prodImageColumn);
 
@@ -93,7 +98,6 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
 
             // Load data from the database into GunaDataGridView
             LoadProductDataFromDatabase();
-
 
         }
 
@@ -206,6 +210,8 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
         private void UpdateProduct(int productId)
         {
             // Implement your update logic here
+            string prodCategory = GetProductCategory(productId); // Retrieve the product category
+
             frmProductsAdd editForm = Application.OpenForms.OfType<frmProductsAdd>().FirstOrDefault();
 
             if (editForm == null)
@@ -216,11 +222,47 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
             }
 
             // Set the product information in the form
-            editForm.SetProductInfo(productId, GetProductName(productId), GetProductPrice(productId), GetProductImage(productId));
+            editForm.SetProductInfo(productId, GetProductName(productId), GetProductPrice(productId), GetProductImage(productId), prodCategory);
 
             // Apply the blur background effect and show the form
             MainClass.BlurbackGround(editForm);
         }
+        private string GetProductCategory(int productId)
+        {
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+
+                    // Retrieve the product category for the given productId
+                    string selectQuery = "SELECT prodCategory FROM tbl_products WHERE prodID = @prodID";
+
+                    using (MySqlCommand selectCommand = new MySqlCommand(selectQuery, connection))
+                    {
+                        selectCommand.Parameters.AddWithValue("@prodID", productId);
+
+                        // Execute the query and retrieve the product category
+                        object result = selectCommand.ExecuteScalar();
+
+                        if (result != null && result != DBNull.Value)
+                        {
+                            return result.ToString();
+                        }
+                        else
+                        {
+                            return ""; // Default or placeholder value
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
+                    return ""; // Default or placeholder value
+                }
+            }
+        }
+
 
         private string GetProductName(int productId)
         {
@@ -450,6 +492,16 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
         }
 
         private void btnAdd_Click_1(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void guna2DataGridViewProducts_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
            
         }

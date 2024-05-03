@@ -100,6 +100,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
 
                             DialogResult result = guna2MessageDialog1.Show("Successfully updated");
                             OnTableUpdated();
+                            this.Close();
                         }
                     }
                 }

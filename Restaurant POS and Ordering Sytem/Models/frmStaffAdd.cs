@@ -236,6 +236,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             }
         }
 
+
         private bool IsCategorySameAsRole(int staffId, string category, MySqlConnection connection)
         {
             string query = "SELECT role FROM users WHERE staffID = @staffId";

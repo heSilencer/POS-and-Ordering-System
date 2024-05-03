@@ -12,16 +12,19 @@ using System.Windows.Forms;
 
 namespace Restaurant_POS_and_Ordering_Sytem.Models
 {
-    
+
     public partial class Table : Form
     {
         private string connectionString = @"server=localhost;database=pos_ordering_system;userid=root;password=;";
         private List<string> selectedTables = new List<string>();
+        public List<string> SelectedTables { get { return selectedTables; } }
+        public event EventHandler<List<string>> SelectedTablesChanged;
+        public string TableName { get; private set; }
+   
         public Table()
         {
             InitializeComponent();
         }
-        public string TableName { get; private set; }
         private void Table_Load(object sender, EventArgs e)
         {
             using (MySqlConnection connection = new MySqlConnection(connectionString))
@@ -72,50 +75,59 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             {
                 connection.Open();
 
-                string query = "SELECT COUNT(*) FROM tblMain WHERE TableName = @tableName";
+                string[] tableNames = tableName.Split(',').Select(t => t.Trim()).ToArray();
 
-                using (MySqlCommand cmd = new MySqlCommand(query, connection))
+                foreach (string table in tableNames)
                 {
-                    cmd.Parameters.AddWithValue("@tableName", tableName);
+                    string query = "SELECT COUNT(*) FROM tblMain WHERE TableName LIKE @tableName";
 
-                    int count = Convert.ToInt32(cmd.ExecuteScalar());
-
-                    if (count > 0)
+                    using (MySqlCommand cmd = new MySqlCommand(query, connection))
                     {
-                        string statusQuery = "SELECT Status, Table_Status FROM tblMain WHERE TableName = @tableName";
+                        cmd.Parameters.AddWithValue("@tableName", "%" + table + "%");
 
-                        using (MySqlCommand statusCmd = new MySqlCommand(statusQuery, connection))
+                        int count = Convert.ToInt32(cmd.ExecuteScalar());
+
+                        if (count > 0)
                         {
-                            statusCmd.Parameters.AddWithValue("@tableName", tableName);
+                            // Table is found in tblMain, now check its status
+                            string statusQuery = "SELECT Status, Table_Status FROM tblMain WHERE TableName LIKE @tableName";
 
-                            using (MySqlDataReader reader = statusCmd.ExecuteReader())
+                            using (MySqlCommand statusCmd = new MySqlCommand(statusQuery, connection))
                             {
-                                if (reader.Read())
+                                statusCmd.Parameters.AddWithValue("@tableName", "%" + table + "%");
+
+                                using (MySqlDataReader reader = statusCmd.ExecuteReader())
                                 {
-                                    string status = reader.GetString("Status");
-                                    string tableStatus = reader.GetString("Table_Status");
-
-                                    if (status == "Check Out" && tableStatus == "Ready")
+                                    if (reader.Read())
                                     {
-                                        reader.Close(); // Close the current reader before executing another command
+                                        string status = reader.GetString("Status");
+                                        string tableStatus = reader.GetString("Table_Status");
 
-                                        // Check if there are any active orders associated with the table
-                                        string activeOrdersQuery = "SELECT COUNT(*) FROM tblMain " +
-                                                                    "INNER JOIN tblDetails ON tblMain.MainID = tblDetails.MainID " +
-                                                                    "WHERE tblMain.TableName = @tableName AND tblMain.Status <> 'Check Out'";
-
-                                        using (MySqlCommand activeOrdersCmd = new MySqlCommand(activeOrdersQuery, connection))
+                                        if (status == "Check Out" && tableStatus == "Ready")
                                         {
-                                            activeOrdersCmd.Parameters.AddWithValue("@tableName", tableName);
-                                            int activeOrdersCount = Convert.ToInt32(activeOrdersCmd.ExecuteScalar());
+                                            reader.Close(); // Close the current reader before executing another command
 
-                                            return activeOrdersCount > 0; // Table is in use if there are active orders
+                                            // Check if there are any active orders associated with the table
+                                            string activeOrdersQuery = "SELECT COUNT(*) FROM tblMain " +
+                                                                        "INNER JOIN tblDetails ON tblMain.MainID = tblDetails.MainID " +
+                                                                        "WHERE tblMain.TableName LIKE @tableName AND tblMain.Status <> 'Check Out'";
+
+                                            using (MySqlCommand activeOrdersCmd = new MySqlCommand(activeOrdersQuery, connection))
+                                            {
+                                                activeOrdersCmd.Parameters.AddWithValue("@tableName", "%" + table + "%");
+                                                int activeOrdersCount = Convert.ToInt32(activeOrdersCmd.ExecuteScalar());
+
+                                                if (activeOrdersCount > 0)
+                                                {
+                                                    return true; // Table is in use if there are active orders
+                                                }
+                                            }
                                         }
-                                    }
-                                    else
-                                    {
-                                        // Table is in use if status is not "Check Out" or table status is not "Ready"
-                                        return true;
+                                        else
+                                        {
+                                            // Table is in use if status is not "Check Out" or table status is not "Ready"
+                                            return true;
+                                        }
                                     }
                                 }
                             }
@@ -124,9 +136,8 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                 }
             }
 
-            // Table is available if no entries found or not in use
+            // Table is not selected if none of its parts are found in tblMain
             return false;
-
         }
 
 
@@ -135,16 +146,41 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
         private void CategoryButton_Click(object sender, EventArgs e)
         {
             Guna.UI2.WinForms.Guna2Button selectedButton = sender as Guna.UI2.WinForms.Guna2Button;
-            TableName = selectedButton.Text;
+            string tableName = selectedButton.Text;
 
-            // Add the selected table to the list of selected tables
-            selectedTables.Add(TableName);
+            if (!SelectedTables.Contains(tableName))
+            {
+                // Add the selected table to the list of selected tables
+                SelectedTables.Add(tableName);
+            }
+            else
+            {
+                // Remove the table from the selected tables list
+                SelectedTables.Remove(tableName);
+            }
 
-            // Disable the selected button
-            selectedButton.Enabled = false;
-            selectedButton.FillColor = Color.Gray; // Change color to indicate it's disabled
+            // Update the appearance of the button to indicate selection
+            selectedButton.FillColor = SelectedTables.Contains(tableName) ? Color.Green : Color.FromArgb(241, 85, 126);
 
-            this.Close();
+            // Raise the event to notify the frmPos form about the updated selected tables
+            SelectedTablesChanged?.Invoke(this, SelectedTables);
+        }
+
+        private void ProceedButton_Click(object sender, EventArgs e)
+        {
+
+            if (SelectedTables.Count > 0)
+            {
+                // Close the Table form
+                this.Close();
+
+                // Pass the selected tables back to the frmPos form
+                (Application.OpenForms["frmPos"] as frmPos)?.SetSelectedTables(SelectedTables);
+            }
+            else
+            {
+                MessageBox.Show("Please select at least one table to proceed.", "No Tables Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
     }
 }

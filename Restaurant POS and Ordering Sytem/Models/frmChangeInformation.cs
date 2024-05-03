@@ -55,12 +55,17 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             // Retrieve new information from text fields
-            string fname = txtfname.Text;
-            string lname = txtLname.Text;
-            string address = txtaddress.Text;
-            string phone = txtPhone.Text;
-            string email = txtemail.Text;
-            string username = txtusername.Text;
+            string fname = txtfname.Text.Trim();
+            string lname = txtLname.Text.Trim();
+            string address = txtaddress.Text.Trim();
+            string phone = txtPhone.Text.Trim();
+            string email = txtemail.Text.Trim();
+            string username = txtusername.Text.Trim();
+            if (string.IsNullOrEmpty(fname) || string.IsNullOrEmpty(lname) || string.IsNullOrEmpty(address) || string.IsNullOrEmpty(phone) || string.IsNullOrEmpty(email) || string.IsNullOrEmpty(username))
+            {
+                guna2MessageDialog1.Show("Please fill in all required fields.");
+                return;
+            }
             if (!IsValidEmail(email))
             {
                 MessageBox.Show("Please enter a valid email address.");
@@ -73,6 +78,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                 MessageBox.Show("Phone number must have 11 digits.");
                 return;
             }
+
             try
             {
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
@@ -106,17 +112,17 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                             command.ExecuteNonQuery(); // Execute staff update
                         }
 
-                        // Update username in the users table
+                        // Update username in the users table if the fname has changed
                         string updateUsersQuery = @"
-                            UPDATE users
-                            SET 
-                                username = @Username
-                            WHERE 
-                                userID = @UserID";
+                    UPDATE users
+                    SET 
+                        uname = @Username
+                    WHERE 
+                        userID = @UserID";
 
                         using (MySqlCommand command = new MySqlCommand(updateUsersQuery, connection, transaction))
                         {
-                            command.Parameters.AddWithValue("@Username", username);
+                            command.Parameters.AddWithValue("@Username", fname);
                             command.Parameters.AddWithValue("@UserID", userID);
 
                             command.ExecuteNonQuery(); // Execute username update
@@ -124,11 +130,9 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
 
                         transaction.Commit(); // Commit the transaction if everything is successful
 
-                        guna2MessageDialog1.Show();
+                        guna2MessageDialog1.Show("Information updated successfully!");
                         this.Close();
-
                         InformationUpdated?.Invoke();
-
                     }
                     catch (Exception ex)
                     {
@@ -147,6 +151,86 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void txtusername_TextChanged(object sender, EventArgs e)
+        {
+            if (txtusername == null || string.IsNullOrEmpty(txtusername.Text))
+            {
+                return;
+            }
+
+            // Capitalize the first character of the text
+            txtusername.Text = char.ToUpper(txtusername.Text[0]) + txtusername.Text.Substring(1);
+
+            // Set the caret position to the end of the text
+            txtusername.SelectionStart = txtusername.Text.Length;
+        
+        }
+
+        private void txtfname_TextChanged(object sender, EventArgs e)
+        {
+            if (txtfname == null || string.IsNullOrEmpty(txtfname.Text))
+            {
+                return;
+            }
+
+            // Capitalize the first character of the text
+            txtfname.Text = char.ToUpper(txtfname.Text[0]) + txtfname.Text.Substring(1);
+
+            // Set the caret position to the end of the text
+            txtfname.SelectionStart = txtfname.Text.Length;
+
+        }
+
+        private void txtLname_TextChanged(object sender, EventArgs e)
+        {
+            if (txtLname == null || string.IsNullOrEmpty(txtLname.Text))
+            {
+                return;
+            }
+
+            // Capitalize the first character of the text
+            txtLname.Text = char.ToUpper(txtLname.Text[0]) + txtLname.Text.Substring(1);
+
+            // Set the caret position to the end of the text
+            txtLname.SelectionStart = txtLname.Text.Length;
+
+        }
+
+        private void txtaddress_TextChanged(object sender, EventArgs e)
+        {
+            if (txtaddress == null || string.IsNullOrEmpty(txtaddress.Text))
+            {
+                return;
+            }
+
+            // Capitalize the first character of the text
+            txtaddress.Text = char.ToUpper(txtaddress.Text[0]) + txtaddress.Text.Substring(1);
+
+            // Set the caret position to the end of the text
+            txtaddress.SelectionStart = txtaddress.Text.Length;
+
+        }
+
+        private void txtPhone_TextChanged(object sender, EventArgs e)
+        {
+         
+        }
+
+        private void txtemail_TextChanged(object sender, EventArgs e)
+        {
+            if (txtemail == null || string.IsNullOrEmpty(txtemail.Text))
+            {
+                return;
+            }
+
+            // Capitalize the first character of the text
+            txtemail.Text = char.ToUpper(txtemail.Text[0]) + txtemail.Text.Substring(1);
+
+            // Set the caret position to the end of the text
+            txtemail.SelectionStart = txtemail.Text.Length;
+
         }
     }
 }

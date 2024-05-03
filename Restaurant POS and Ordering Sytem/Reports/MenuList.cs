@@ -35,6 +35,9 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
             imageColumn.Width = 200; // Set the width of the image column
             guna2DataGridViewProducts.Columns.Add(imageColumn);
 
+            guna2DataGridViewProducts.DefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 18);
+
+
             // Add columns for product name and price
             guna2DataGridViewProducts.Columns.Add("prodName", "Product Name");
             guna2DataGridViewProducts.Columns["prodName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill; // Fill the remaining space

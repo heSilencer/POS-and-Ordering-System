@@ -184,9 +184,9 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                     if (productId == 0)
                     {
                         // Check if the product name already exists
-                        if (CheckIfProductExists(productName, connection))
+                        if (CheckIfProductExists(productName, categoryId, connection))
                         {
-                            guna2MessageDialog2.Show("The Product is Already exists");
+                            guna2MessageDialog2.Show("The product already exists in this category.");
                             return;
                         }
 
@@ -286,12 +286,13 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             }
         }
 
-        private bool CheckIfProductExists(string productName, MySqlConnection connection)
+        private bool CheckIfProductExists(string productName, int categoryId, MySqlConnection connection)
         {
-            string query = "SELECT COUNT(*) FROM tbl_products WHERE prodName = @prodName";
+            string query = "SELECT COUNT(*) FROM tbl_products WHERE prodName = @prodName AND catID = @catID";
             using (MySqlCommand command = new MySqlCommand(query, connection))
             {
                 command.Parameters.AddWithValue("@prodName", productName);
+                command.Parameters.AddWithValue("@catID", categoryId);
                 int count = Convert.ToInt32(command.ExecuteScalar());
                 return count > 0;
             }
@@ -325,24 +326,39 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
 
             return -1; // Return -1 if category ID is not found
         }
-            
-        internal void SetProductInfo(int productId, string v1, decimal v2, byte[] v3)
+
+        internal void SetProductInfo(int productId, string prodName, decimal prodPrice, byte[] prodImage, string prodCategory)
         {
             this.productId = productId;
-            txttablename.Text = v1;
-            txtlblprice.Text = v2.ToString();
+            txttablename.Text = prodName;
+            txtlblprice.Text = prodPrice.ToString();
 
             // Use the byteArrayToImage method to convert byte array to Image
             if (productImage != null)
             {
                 // Use the byteArrayToImage method to convert byte array to Image
-                productImage.Image = byteArrayToImage(v3);
+                productImage.Image = byteArrayToImage(prodImage);
             }
+
+            // Loop through each item in the ComboBox to find and select the matching category
+            foreach (var item in categorycmbx.Items)
+            {
+                if (item.ToString() == prodCategory)
+                {
+                    categorycmbx.SelectedItem = item;
+                    break; // Exit the loop once the category is found and selected
+                }
+            }
+
             if (productId > 0)
             {
                 btnSave.Text = "Update";
             }
         }
+
+
+
+
         private Image byteArrayToImage(byte[] byteArrayIn)
         {
             using (MemoryStream ms = new MemoryStream(byteArrayIn))

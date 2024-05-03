@@ -150,8 +150,9 @@ namespace Restaurant_POS_and_Ordering_Sytem.ForgotPassword
 
         private void btnClose_Click_1(object sender, EventArgs e)
         {
-            frmCheckUser cu = new frmCheckUser();
-            cu.Show();
+            frmlogin loginForm = new frmlogin();
+            loginForm.Show();
+
             this.Close();
 
         }

@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvBillList = new Guna.UI2.WinForms.Guna2DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnExit = new Guna.UI2.WinForms.Guna2ControlBox();
@@ -44,6 +44,8 @@
             this.radiobuttonTakeOut = new Guna.UI2.WinForms.Guna2RadioButton();
             this.btnShowAll = new Guna.UI2.WinForms.Guna2Button();
             this.RadioButtonCheckOut = new Guna.UI2.WinForms.Guna2RadioButton();
+            this.radiobtnComplete = new Guna.UI2.WinForms.Guna2RadioButton();
+            this.RadiobtnPending = new Guna.UI2.WinForms.Guna2RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.dgvBillList)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
@@ -55,33 +57,34 @@
             this.dgvBillList.AllowUserToDeleteRows = false;
             this.dgvBillList.AllowUserToResizeColumns = false;
             this.dgvBillList.AllowUserToResizeRows = false;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
-            this.dgvBillList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
-            this.dgvBillList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
+            this.dgvBillList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvBillList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvBillList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvBillList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvBillList.ColumnHeadersHeight = 4;
             this.dgvBillList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvBillList.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvBillList.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvBillList.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.dgvBillList.Location = new System.Drawing.Point(12, 160);
             this.dgvBillList.Name = "dgvBillList";
             this.dgvBillList.RowHeadersVisible = false;
-            this.dgvBillList.Size = new System.Drawing.Size(825, 301);
+            this.dgvBillList.Size = new System.Drawing.Size(901, 335);
             this.dgvBillList.TabIndex = 0;
             this.dgvBillList.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
             this.dgvBillList.ThemeStyle.AlternatingRowsStyle.Font = null;
@@ -114,7 +117,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(849, 108);
+            this.panel1.Size = new System.Drawing.Size(925, 108);
             this.panel1.TabIndex = 24;
             // 
             // btnExit
@@ -122,7 +125,7 @@
             this.btnExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnExit.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(139)))), ((int)(((byte)(152)))), ((int)(((byte)(166)))));
             this.btnExit.IconColor = System.Drawing.Color.White;
-            this.btnExit.Location = new System.Drawing.Point(793, 36);
+            this.btnExit.Location = new System.Drawing.Point(869, 36);
             this.btnExit.Margin = new System.Windows.Forms.Padding(2);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(33, 24);
@@ -137,7 +140,7 @@
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(129, 36);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(110, 37);
+            this.label1.Size = new System.Drawing.Size(213, 72);
             this.label1.TabIndex = 2;
             this.label1.Text = "Bill List";
             // 
@@ -158,9 +161,9 @@
             // 
             this.panel2.BackColor = System.Drawing.Color.Silver;
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 467);
+            this.panel2.Location = new System.Drawing.Point(0, 501);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(849, 20);
+            this.panel2.Size = new System.Drawing.Size(925, 20);
             this.panel2.TabIndex = 25;
             // 
             // txtSearch
@@ -178,12 +181,12 @@
             this.txtSearch.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtSearch.IconRight = global::Restaurant_POS_and_Ordering_Sytem.Properties.Resources.icons8_search_48;
             this.txtSearch.Location = new System.Drawing.Point(15, 117);
-            this.txtSearch.Margin = new System.Windows.Forms.Padding(6);
+            this.txtSearch.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.PasswordChar = '\0';
             this.txtSearch.PlaceholderText = "Search Here";
             this.txtSearch.SelectedText = "";
-            this.txtSearch.Size = new System.Drawing.Size(224, 34);
+            this.txtSearch.Size = new System.Drawing.Size(209, 37);
             this.txtSearch.TabIndex = 26;
             this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
             // 
@@ -204,7 +207,7 @@
             this.radiobuttonHold.CheckedState.InnerColor = System.Drawing.Color.White;
             this.radiobuttonHold.CheckedState.InnerOffset = -4;
             this.radiobuttonHold.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radiobuttonHold.Location = new System.Drawing.Point(259, 117);
+            this.radiobuttonHold.Location = new System.Drawing.Point(233, 117);
             this.radiobuttonHold.Name = "radiobuttonHold";
             this.radiobuttonHold.Size = new System.Drawing.Size(73, 32);
             this.radiobuttonHold.TabIndex = 27;
@@ -223,7 +226,7 @@
             this.radiobuttonDineIn.CheckedState.InnerColor = System.Drawing.Color.White;
             this.radiobuttonDineIn.CheckedState.InnerOffset = -4;
             this.radiobuttonDineIn.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radiobuttonDineIn.Location = new System.Drawing.Point(352, 117);
+            this.radiobuttonDineIn.Location = new System.Drawing.Point(312, 117);
             this.radiobuttonDineIn.Name = "radiobuttonDineIn";
             this.radiobuttonDineIn.Size = new System.Drawing.Size(84, 32);
             this.radiobuttonDineIn.TabIndex = 28;
@@ -242,7 +245,7 @@
             this.radiobuttonTakeOut.CheckedState.InnerColor = System.Drawing.Color.White;
             this.radiobuttonTakeOut.CheckedState.InnerOffset = -4;
             this.radiobuttonTakeOut.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radiobuttonTakeOut.Location = new System.Drawing.Point(452, 117);
+            this.radiobuttonTakeOut.Location = new System.Drawing.Point(402, 117);
             this.radiobuttonTakeOut.Name = "radiobuttonTakeOut";
             this.radiobuttonTakeOut.Size = new System.Drawing.Size(83, 32);
             this.radiobuttonTakeOut.TabIndex = 29;
@@ -264,9 +267,9 @@
             this.btnShowAll.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.btnShowAll.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.btnShowAll.ForeColor = System.Drawing.Color.White;
-            this.btnShowAll.Location = new System.Drawing.Point(717, 113);
+            this.btnShowAll.Location = new System.Drawing.Point(797, 113);
             this.btnShowAll.Name = "btnShowAll";
-            this.btnShowAll.Size = new System.Drawing.Size(132, 36);
+            this.btnShowAll.Size = new System.Drawing.Size(116, 36);
             this.btnShowAll.TabIndex = 30;
             this.btnShowAll.Text = "Show All";
             this.btnShowAll.Click += new System.EventHandler(this.btnShowAll_Click);
@@ -279,7 +282,7 @@
             this.RadioButtonCheckOut.CheckedState.InnerColor = System.Drawing.Color.White;
             this.RadioButtonCheckOut.CheckedState.InnerOffset = -4;
             this.RadioButtonCheckOut.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RadioButtonCheckOut.Location = new System.Drawing.Point(552, 117);
+            this.RadioButtonCheckOut.Location = new System.Drawing.Point(491, 117);
             this.RadioButtonCheckOut.Name = "RadioButtonCheckOut";
             this.RadioButtonCheckOut.Size = new System.Drawing.Size(96, 32);
             this.RadioButtonCheckOut.TabIndex = 31;
@@ -290,11 +293,51 @@
             this.RadioButtonCheckOut.UncheckedState.InnerColor = System.Drawing.Color.Transparent;
             this.RadioButtonCheckOut.CheckedChanged += new System.EventHandler(this.RadioButtonCheckOut_CheckedChanged);
             // 
+            // radiobtnComplete
+            // 
+            this.radiobtnComplete.CheckedState.BorderColor = System.Drawing.Color.Green;
+            this.radiobtnComplete.CheckedState.BorderThickness = 0;
+            this.radiobtnComplete.CheckedState.FillColor = System.Drawing.Color.Green;
+            this.radiobtnComplete.CheckedState.InnerColor = System.Drawing.Color.White;
+            this.radiobtnComplete.CheckedState.InnerOffset = -4;
+            this.radiobtnComplete.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radiobtnComplete.Location = new System.Drawing.Point(593, 117);
+            this.radiobtnComplete.Name = "radiobtnComplete";
+            this.radiobtnComplete.Size = new System.Drawing.Size(96, 32);
+            this.radiobtnComplete.TabIndex = 32;
+            this.radiobtnComplete.Text = "Complete";
+            this.radiobtnComplete.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.radiobtnComplete.UncheckedState.BorderThickness = 2;
+            this.radiobtnComplete.UncheckedState.FillColor = System.Drawing.Color.Transparent;
+            this.radiobtnComplete.UncheckedState.InnerColor = System.Drawing.Color.Transparent;
+            this.radiobtnComplete.CheckedChanged += new System.EventHandler(this.radiobtnComplete_CheckedChanged);
+            // 
+            // RadiobtnPending
+            // 
+            this.RadiobtnPending.CheckedState.BorderColor = System.Drawing.Color.Green;
+            this.RadiobtnPending.CheckedState.BorderThickness = 0;
+            this.RadiobtnPending.CheckedState.FillColor = System.Drawing.Color.Green;
+            this.RadiobtnPending.CheckedState.InnerColor = System.Drawing.Color.White;
+            this.RadiobtnPending.CheckedState.InnerOffset = -4;
+            this.RadiobtnPending.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RadiobtnPending.Location = new System.Drawing.Point(695, 117);
+            this.RadiobtnPending.Name = "RadiobtnPending";
+            this.RadiobtnPending.Size = new System.Drawing.Size(96, 32);
+            this.RadiobtnPending.TabIndex = 33;
+            this.RadiobtnPending.Text = "Pending";
+            this.RadiobtnPending.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
+            this.RadiobtnPending.UncheckedState.BorderThickness = 2;
+            this.RadiobtnPending.UncheckedState.FillColor = System.Drawing.Color.Transparent;
+            this.RadiobtnPending.UncheckedState.InnerColor = System.Drawing.Color.Transparent;
+            this.RadiobtnPending.CheckedChanged += new System.EventHandler(this.RadiobtnPending_CheckedChanged);
+            // 
             // frmBillList
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(849, 487);
+            this.ClientSize = new System.Drawing.Size(925, 521);
+            this.Controls.Add(this.RadiobtnPending);
+            this.Controls.Add(this.radiobtnComplete);
             this.Controls.Add(this.RadioButtonCheckOut);
             this.Controls.Add(this.btnShowAll);
             this.Controls.Add(this.radiobuttonTakeOut);
@@ -331,5 +374,7 @@
         private Guna.UI2.WinForms.Guna2RadioButton radiobuttonDineIn;
         private Guna.UI2.WinForms.Guna2RadioButton radiobuttonHold;
         private Guna.UI2.WinForms.Guna2RadioButton RadioButtonCheckOut;
+        private Guna.UI2.WinForms.Guna2RadioButton radiobtnComplete;
+        private Guna.UI2.WinForms.Guna2RadioButton RadiobtnPending;
     }
 }

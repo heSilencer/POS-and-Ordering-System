@@ -124,6 +124,28 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private DateTime GetOrderDate(int mainID)
+        {
+            DateTime orderDate = DateTime.MinValue;
+            string query = "SELECT aDate FROM tblMain WHERE MainID = @mainID";
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+                using (MySqlCommand cmd = new MySqlCommand(query, connection))
+                {
+                    cmd.Parameters.AddWithValue("@mainID", mainID);
+                    var result = cmd.ExecuteScalar();
+                    if (result != null && result != DBNull.Value)
+                    {
+                        orderDate = Convert.ToDateTime(result);
+                    }
+                }
+            }
+
+            return orderDate;
+        }
+
         private void Guna2DataGridViewProducts_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0 && dgvBillList.Columns[e.ColumnIndex].Name == "Print")
@@ -136,8 +158,9 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
                 {
                     // Proceed with printing
                     List<OrderDetail> orderDetails = GetOrderDetails(mainID);
+                    DateTime orderDate = GetOrderDate(mainID); // Fetch the order date
                     ReceiptPrint printForm = new ReceiptPrint();
-                    printForm.DisplayOrderDetails(orderDetails);
+                    printForm.DisplayOrderDetails(orderDetails, orderDate); // Pass order date
                     printForm.ShowDialog();
                 }
                 else

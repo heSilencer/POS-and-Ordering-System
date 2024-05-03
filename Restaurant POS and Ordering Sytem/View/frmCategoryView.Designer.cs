@@ -58,7 +58,8 @@
             this.cat_datagridview.AllowUserToDeleteRows = false;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
             this.cat_datagridview.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.cat_datagridview.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.cat_datagridview.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(234)))), ((int)(((byte)(237)))));
@@ -92,7 +93,7 @@
             this.cat_datagridview.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.cat_datagridview.RowHeadersVisible = false;
             this.cat_datagridview.RowTemplate.Height = 33;
-            this.cat_datagridview.Size = new System.Drawing.Size(1256, 506);
+            this.cat_datagridview.Size = new System.Drawing.Size(1256, 612);
             this.cat_datagridview.TabIndex = 4;
             this.cat_datagridview.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
             this.cat_datagridview.ThemeStyle.AlternatingRowsStyle.Font = null;
@@ -139,7 +140,7 @@
             // frmCategoryView
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(1294, 747);
+            this.ClientSize = new System.Drawing.Size(1294, 798);
             this.Controls.Add(this.cat_datagridview);
             this.Name = "frmCategoryView";
             this.Text = "frmCategoryView";

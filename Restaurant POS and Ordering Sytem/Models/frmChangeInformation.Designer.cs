@@ -72,7 +72,7 @@
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(121, 36);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(371, 37);
+            this.label1.Size = new System.Drawing.Size(729, 72);
             this.label1.TabIndex = 2;
             this.label1.Text = "Change Information Details";
             // 
@@ -159,6 +159,7 @@
             this.txtfname.SelectedText = "";
             this.txtfname.Size = new System.Drawing.Size(245, 43);
             this.txtfname.TabIndex = 37;
+            this.txtfname.TextChanged += new System.EventHandler(this.txtfname_TextChanged);
             // 
             // txtaddress
             // 
@@ -183,6 +184,7 @@
             this.txtaddress.SelectedText = "";
             this.txtaddress.Size = new System.Drawing.Size(245, 43);
             this.txtaddress.TabIndex = 31;
+            this.txtaddress.TextChanged += new System.EventHandler(this.txtaddress_TextChanged);
             // 
             // label2
             // 
@@ -190,7 +192,7 @@
             this.label2.Font = new System.Drawing.Font("Segoe UI", 17F);
             this.label2.Location = new System.Drawing.Point(29, 186);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(124, 31);
+            this.label2.Size = new System.Drawing.Size(246, 62);
             this.label2.TabIndex = 30;
             this.label2.Text = "First Name";
             // 
@@ -217,6 +219,7 @@
             this.txtLname.SelectedText = "";
             this.txtLname.Size = new System.Drawing.Size(245, 43);
             this.txtLname.TabIndex = 29;
+            this.txtLname.TextChanged += new System.EventHandler(this.txtLname_TextChanged);
             // 
             // label3
             // 
@@ -224,7 +227,7 @@
             this.label3.Font = new System.Drawing.Font("Segoe UI", 17F);
             this.label3.Location = new System.Drawing.Point(31, 238);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(122, 31);
+            this.label3.Size = new System.Drawing.Size(242, 62);
             this.label3.TabIndex = 39;
             this.label3.Text = "Last Name";
             // 
@@ -234,7 +237,7 @@
             this.label5.Font = new System.Drawing.Font("Segoe UI", 17F);
             this.label5.Location = new System.Drawing.Point(31, 293);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(97, 31);
+            this.label5.Size = new System.Drawing.Size(191, 62);
             this.label5.TabIndex = 40;
             this.label5.Text = "Address";
             // 
@@ -244,7 +247,7 @@
             this.label6.Font = new System.Drawing.Font("Segoe UI", 17F);
             this.label6.Location = new System.Drawing.Point(31, 344);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(113, 31);
+            this.label6.Size = new System.Drawing.Size(224, 62);
             this.label6.TabIndex = 41;
             this.label6.Text = "Contact #";
             // 
@@ -254,7 +257,7 @@
             this.label7.Font = new System.Drawing.Font("Segoe UI", 17F);
             this.label7.Location = new System.Drawing.Point(31, 394);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(70, 31);
+            this.label7.Size = new System.Drawing.Size(135, 62);
             this.label7.TabIndex = 42;
             this.label7.Text = "Email";
             // 
@@ -281,6 +284,7 @@
             this.txtPhone.SelectedText = "";
             this.txtPhone.Size = new System.Drawing.Size(245, 43);
             this.txtPhone.TabIndex = 43;
+            this.txtPhone.TextChanged += new System.EventHandler(this.txtPhone_TextChanged);
             // 
             // txtemail
             // 
@@ -305,6 +309,7 @@
             this.txtemail.SelectedText = "";
             this.txtemail.Size = new System.Drawing.Size(245, 43);
             this.txtemail.TabIndex = 44;
+            this.txtemail.TextChanged += new System.EventHandler(this.txtemail_TextChanged);
             // 
             // txtusername
             // 
@@ -329,6 +334,7 @@
             this.txtusername.SelectedText = "";
             this.txtusername.Size = new System.Drawing.Size(245, 43);
             this.txtusername.TabIndex = 46;
+            this.txtusername.TextChanged += new System.EventHandler(this.txtusername_TextChanged);
             // 
             // label4
             // 
@@ -336,7 +342,7 @@
             this.label4.Font = new System.Drawing.Font("Segoe UI", 17F);
             this.label4.Location = new System.Drawing.Point(29, 137);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(121, 31);
+            this.label4.Size = new System.Drawing.Size(240, 62);
             this.label4.TabIndex = 45;
             this.label4.Text = "UserName";
             // 

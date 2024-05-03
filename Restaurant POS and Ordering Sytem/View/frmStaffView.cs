@@ -51,7 +51,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
             DataGridViewImageColumn staffImageColumn = new DataGridViewImageColumn();
             staffImageColumn.Name = "staffImage";
             staffImageColumn.HeaderText = "Staff Image";
-            staffImageColumn.ImageLayout = DataGridViewImageCellLayout.Stretch;
+            staffImageColumn.ImageLayout = DataGridViewImageCellLayout.Zoom;
             staffImageColumn.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             guna2DataGridView1.Columns.Add(staffImageColumn);
 

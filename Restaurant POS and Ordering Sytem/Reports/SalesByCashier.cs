@@ -2,19 +2,12 @@
 using iTextSharp.text.pdf;
 using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Image = System.Drawing.Image;
 using Font = System.Drawing.Font;
 using ClosedXML.Excel;
-
 namespace Restaurant_POS_and_Ordering_Sytem.Reports
 {
     public partial class SalesByCashier : Form
@@ -27,6 +20,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
             InitializeComponent();
             LoadCashierNames();
             guna2DataGridViewSalesbYCashier.RowTemplate.Height = 200;
+            guna2DataGridViewSalesbYCashier.DefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 15);
 
             cmbxCashierName.SelectedIndexChanged += (sender, e) => { RetrieveSalesData(); };
             // Subscribe to the value changed events of the date pickers
@@ -45,7 +39,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
                 try
                 {
                     connection.Open();
-                    string query = "SELECT staffID, staffFname FROM tbl_staff WHERE staffcatID IN (SELECT staffcatID FROM tbl_staffcategory WHERE catName IN ('Cashier', 'Admin', 'Manager'))";
+                    string query = "SELECT DISTINCT Uname FROM tblmain";
 
                     using (MySqlCommand command = new MySqlCommand(query, connection))
                     using (MySqlDataReader reader = command.ExecuteReader())
@@ -54,8 +48,8 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
                         {
                             while (reader.Read())
                             {
-                                string staffFname = reader["staffFname"].ToString();
-                                cmbxCashierName.Items.Add(staffFname);
+                                string uname = reader["Uname"].ToString();
+                                cmbxCashierName.Items.Add(uname);
                             }
                         }
                         else
@@ -66,7 +60,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
                 }
                 catch (Exception ex)
                 {
-                    guna2MessageDialog2.Show("Error: " + ex.Message);
+                    MessageBox.Show("Error: " + ex.Message);
                 }
             }
         }
@@ -79,46 +73,27 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
             DateTime startDate = guna2DateTimePicker1.Value;
             DateTime endDate = guna2DateTimePicker2.Value;
 
-            if (string.IsNullOrEmpty(cashierName))
-            {
-                guna2MessageDialog1.Show("Please select a cashier.");
-                return;
-            }
-
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 try
                 {
                     connection.Open();
-                    string query = "SELECT tbl_staff.staffImage, tbl_staff.staffFname, SUM(tblmain.total) AS TotalSales " +
-                                     "FROM tblmain " +
-                                     "INNER JOIN users ON tblmain.userId = users.userId " +
-                                     "INNER JOIN tbl_staff ON users.staffID = tbl_staff.staffID ";
-
-                    // Check if "All Cashier" is selected
-                    if (cashierName != "All Cashier")
-                    {
-                        query += "WHERE tbl_staff.staffFname = @cashierName ";
-                    }
-
-                    query += "AND DATE(tblmain.aDate) BETWEEN DATE(@startDate) AND DATE(@endDate) " +  // Consider dates within the specified range
-                             "AND tblmain.status = 'check Out' ";
-
-                    if (cashierName != "All Cashier")
-                    {
-                        query += "GROUP BY tbl_staff.staffImage, tbl_staff.staffFname";
-                    }
-                    else
-                    {
-                        query += "GROUP BY tbl_staff.staffFname";
-                    }
+                    string query = "SELECT main.CashierImage, main.Uname AS staffFname, " +
+                                   "(SELECT SUM(Total) FROM tblmain WHERE tblmain.Uname = main.Uname) AS TotalSales, " +
+                                   "tbldetails.prodName, " +
+                                   "SUM(tbldetails.qty) AS TotalQuantity, " +
+                                   "tbldetails.price AS Price, " +
+                                   "SUM(tbldetails.qty * tbldetails.price) AS TotalAmount " +
+                                   "FROM tblmain AS main " +
+                                   "LEFT JOIN tbldetails ON main.MainID = tbldetails.MainID " +
+                                   "WHERE main.Status = 'Check Out' " +
+                                   "AND (main.Uname = @cashierName OR @cashierName = 'All Cashier') " +
+                                   "AND DATE(main.aDate) BETWEEN DATE(@startDate) AND DATE(@endDate) " +
+                                   "GROUP BY main.CashierImage, main.Uname, tbldetails.prodName";
 
                     using (MySqlCommand command = new MySqlCommand(query, connection))
                     {
-                        if (cashierName != "All Cashier")
-                        {
-                            command.Parameters.AddWithValue("@cashierName", cashierName);
-                        }
+                        command.Parameters.AddWithValue("@cashierName", cashierName);
                         command.Parameters.AddWithValue("@startDate", startDate);
                         command.Parameters.AddWithValue("@endDate", endDate);
 
@@ -127,41 +102,46 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
                             DataTable salesData = new DataTable();
                             adapter.Fill(salesData);
 
-                            if (salesData.Rows.Count > 0)
+                            // Check if the DataGridView is initialized before accessing it
+                            if (guna2DataGridViewSalesbYCashier != null)
                             {
-                                // Bind sales data to DataGridView
-                                guna2DataGridViewSalesbYCashier.DataSource = salesData;
-
-                                // Adjust DataGridViewImageColumn properties
-                                DataGridViewImageColumn imageColumn = (DataGridViewImageColumn)guna2DataGridViewSalesbYCashier.Columns["staffImage"];
-                                imageColumn.ImageLayout = DataGridViewImageCellLayout.Stretch; // Stretch image to fit cell
-                                imageColumn.Width = 150; // Set the width as desired
-
-                                if (salesData.Rows[0]["staffImage"] != DBNull.Value)
+                                if (salesData.Rows.Count > 0)
                                 {
-                                    byte[] imageData = (byte[])salesData.Rows[0]["staffImage"];
-                                    using (MemoryStream ms = new MemoryStream(imageData))
-                                    {
-                                        Image cashierImage = Image.FromStream(ms);
-                                        imageColumn.DefaultCellStyle.NullValue = null; // Clear any existing null value
-                                        imageColumn.DefaultCellStyle.NullValue = cashierImage; // Assign the image again to reflect changes
-                                    }
-                                }
+                                    // Bind sales data to DataGridView
+                                    guna2DataGridViewSalesbYCashier.DataSource = salesData;
 
-                                // Set column headers and other properties as needed
-                                guna2DataGridViewSalesbYCashier.Columns["staffFname"].DefaultCellStyle.Font = new Font("Arial", 12); // Increase font size
-                                guna2DataGridViewSalesbYCashier.Columns["staffFname"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter; // Center-align the header text
-                                guna2DataGridViewSalesbYCashier.Columns["TotalSales"].DefaultCellStyle.Font = new Font("Arial", 12); // Increase font size
-                                guna2DataGridViewSalesbYCashier.Columns["TotalSales"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter; // Center-align the header text
-                                guna2DataGridViewSalesbYCashier.Columns["staffFname"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter; // Center-align staff name
-                                guna2DataGridViewSalesbYCashier.Columns["TotalSales"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter; // Center-align sales
-                                guna2DataGridViewSalesbYCashier.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill; // Fill DataGridView width
-                                return;
+                                    // Adjust DataGridViewImageColumn properties
+                                    DataGridViewImageColumn imageColumn = (DataGridViewImageColumn)guna2DataGridViewSalesbYCashier.Columns["CashierImage"];
+                                    imageColumn.ImageLayout = DataGridViewImageCellLayout.Zoom; // Stretch image to fit cell
+                                    imageColumn.Width = 150; // Set the width as desired
+
+                                    // Set column headers and other properties as needed
+                                    guna2DataGridViewSalesbYCashier.Columns["staffFname"].DefaultCellStyle.Font = new Font("Arial", 12); // Increase font size
+                                    guna2DataGridViewSalesbYCashier.Columns["staffFname"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter; // Center-align the header text
+                                    guna2DataGridViewSalesbYCashier.Columns["TotalSales"].DefaultCellStyle.Font = new Font("Arial", 12); // Increase font size
+                                    guna2DataGridViewSalesbYCashier.Columns["TotalSales"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter; // Center-align the header text
+                                    guna2DataGridViewSalesbYCashier.Columns["staffFname"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter; // Center-align staff name
+                                    guna2DataGridViewSalesbYCashier.Columns["TotalSales"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter; // Center-align sales
+
+                                    // Adjust the width and auto-size mode of SoldProducts column
+                                    guna2DataGridViewSalesbYCashier.Columns["prodName"].Width = 300; // Set width as desired
+                                    guna2DataGridViewSalesbYCashier.Columns["prodName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+                                    return;
+                                }
+                                else
+                                {
+                                    guna2MessageDialog1.Show("No sales data found for the selected criteria within the specified date range.");
+                                    guna2DataGridViewSalesbYCashier.DataSource = null;
+                                }
+                            }
+                            else
+                            {
+                                // If the DataGridView is null, display an error message
+                                guna2MessageDialog1.Show("Error: DataGridView is null.");
                             }
                         }
                     }
-                    guna2MessageDialog1.Show("No sales data found for the selected criteria within the specified date range.");
-                    guna2DataGridViewSalesbYCashier.DataSource = null;
                 }
                 catch (Exception ex)
                 {
@@ -174,7 +154,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
         {
             if (guna2DataGridViewSalesbYCashier.Rows.Count == 0)
             {
-                guna2MessageDialog1.Show("No data to save.");
+                MessageBox.Show("No data to save.");
                 return;
             }
 
@@ -192,7 +172,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
 
                         using (FileStream fs = new FileStream(fileName, FileMode.Create, FileAccess.Write, FileShare.None))
                         {
-                            iTextSharp.text.Document document = new iTextSharp.text.Document();
+                            Document document = new Document();
                             PdfWriter.GetInstance(document, fs);
 
                             document.Open();
@@ -202,44 +182,52 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
                             // Add headers
                             foreach (DataGridViewColumn column in guna2DataGridViewSalesbYCashier.Columns)
                             {
-                                PdfPCell headerCell = new PdfPCell(new iTextSharp.text.Phrase(column.HeaderText));
-                                headerCell.HorizontalAlignment = Element.ALIGN_CENTER; // Center-align header text
+                                PdfPCell headerCell = new PdfPCell(new Phrase(column.HeaderText));
+                                headerCell.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                                // Calculate the width of the header cell based on the length of the header text
+                                float widthPercentage = (float)(column.HeaderText.Length * 7); // Adjust the multiplier as needed
+
+                                // Set the width of the header cell
+                                headerCell.FixedHeight = 25f; // Set the height as needed
+                                headerCell.PaddingBottom = 5f; // Optional: Set padding for the bottom of the cell
+                                headerCell.MinimumHeight = 25f; // Optional: Set minimum height
+
+                                // Add the header cell to the table
                                 table.AddCell(headerCell);
                             }
 
-                            // Add rows
+
+                            // Add data
                             foreach (DataGridViewRow row in guna2DataGridViewSalesbYCashier.Rows)
                             {
                                 foreach (DataGridViewCell cell in row.Cells)
                                 {
-                                    if (cell.OwningColumn.Name == "staffImage") // Check if the cell is in the image column
+                                    if (cell.OwningColumn.Name == "CashierImage")
                                     {
-                                        if (cell.Value != null && cell.Value != DBNull.Value)
-                                        {
-                                            byte[] imageData = (byte[])cell.Value;
-                                            iTextSharp.text.Image iTextImage = iTextSharp.text.Image.GetInstance(imageData);
-                                            PdfPCell imageCell = new PdfPCell(iTextImage, true);
-                                            imageCell.HorizontalAlignment = Element.ALIGN_CENTER; // Center-align image
-                                            table.AddCell(imageCell);
-                                        }
-                                        else
-                                        {
-                                            PdfPCell emptyCell = new PdfPCell();
-                                            table.AddCell(emptyCell); // Add an empty cell if no image is present
-                                        }
+                                        // Convert System.Drawing.Image to iTextSharp.text.Image
+                                        byte[] byteArray = (byte[])cell.Value;
+                                        iTextSharp.text.Image cashierImage = iTextSharp.text.Image.GetInstance(byteArray);
+
+                                        // Resize the image as needed
+                                        cashierImage.ScaleToFit(150f, 150f);
+
+                                        // Add the image to the PDF document
+                                        PdfPCell imageCell = new PdfPCell(cashierImage, true);
+                                        table.AddCell(imageCell);
                                     }
                                     else
                                     {
-                                        PdfPCell dataCell = new PdfPCell(new iTextSharp.text.Phrase(cell.Value?.ToString() ?? ""));
-                                        if (cell.ColumnIndex == 1 || cell.ColumnIndex == 2) // Check if the cell is in specific columns
+                                        PdfPCell dataCell = new PdfPCell(new Phrase(cell.Value?.ToString() ?? ""));
+                                        if (cell.ColumnIndex == 1 || cell.ColumnIndex == 2)
                                         {
-                                            dataCell.HorizontalAlignment = Element.ALIGN_CENTER; // Center-align horizontally
-                                            dataCell.VerticalAlignment = Element.ALIGN_MIDDLE; // Center-align vertically
+                                            dataCell.HorizontalAlignment = Element.ALIGN_CENTER;
+                                            dataCell.VerticalAlignment = Element.ALIGN_MIDDLE;
                                         }
                                         else
                                         {
-                                            dataCell.HorizontalAlignment = Element.ALIGN_LEFT; // Align left
-                                            dataCell.VerticalAlignment = Element.ALIGN_MIDDLE; // Center-align vertically
+                                            dataCell.HorizontalAlignment = Element.ALIGN_LEFT;
+                                            dataCell.VerticalAlignment = Element.ALIGN_MIDDLE;
                                         }
                                         table.AddCell(dataCell);
                                     }
@@ -256,13 +244,14 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
             }
             catch (Exception ex)
             {
-                guna2MessageDialog2.Show("Error: " + ex.Message);
+                MessageBox.Show("Error: " + ex.Message);
             }
         }
 
-    
+        // Method to convert byte array to Image
+     
 
-    private void btnExit_Click(object sender, EventArgs e)
+        private void btnExit_Click(object sender, EventArgs e)
         {
             this.Close();
         }
@@ -286,7 +275,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
         {
             if (guna2DataGridViewSalesbYCashier.Rows.Count == 0)
             {
-                guna2MessageDialog1.Show("No data to save.");
+                MessageBox.Show("No data to save.");
                 return;
             }
 
@@ -307,22 +296,30 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
                             var worksheet = workbook.Worksheets.Add("Sales Data");
 
                             // Add headers
-                            worksheet.Cell(1, 1).Value = "Date";
-                            worksheet.Cell(1, 2).Value = "Staff Name";
-                            worksheet.Cell(1, 3).Value = "Total Sales";
+                            int columnIndex = 0;
+                            foreach (DataGridViewColumn column in guna2DataGridViewSalesbYCashier.Columns)
+                            {
+                                // Skip CashierImage column
+                                if (column.Name != "CashierImage")
+                                {
+                                    columnIndex++;
+                                    worksheet.Cell(1, columnIndex).Value = column.HeaderText;
+                                }
+                            }
 
                             // Add data
                             for (int i = 0; i < guna2DataGridViewSalesbYCashier.Rows.Count; i++)
                             {
-                                // Retrieve date, staff name, and total sales from DataGridView
-                                string date = guna2DateTimePicker1.Value.ToShortDateString() + " - " + guna2DateTimePicker2.Value.ToShortDateString();
-                                string staffName = guna2DataGridViewSalesbYCashier.Rows[i].Cells["staffFname"].Value?.ToString() ?? "";
-                                string totalSales = guna2DataGridViewSalesbYCashier.Rows[i].Cells["TotalSales"].Value?.ToString() ?? "";
-
-                                // Write date, staff name, and total sales to Excel worksheet
-                                worksheet.Cell(i + 2, 1).Value = date;
-                                worksheet.Cell(i + 2, 2).Value = staffName;
-                                worksheet.Cell(i + 2, 3).Value = totalSales;
+                                columnIndex = 0;
+                                for (int j = 0; j < guna2DataGridViewSalesbYCashier.Columns.Count; j++)
+                                {
+                                    // Skip CashierImage column
+                                    if (guna2DataGridViewSalesbYCashier.Columns[j].Name != "CashierImage")
+                                    {
+                                        columnIndex++;
+                                        worksheet.Cell(i + 2, columnIndex).Value = guna2DataGridViewSalesbYCashier.Rows[i].Cells[j].Value;
+                                    }
+                                }
                             }
 
                             workbook.SaveAs(fileName);

@@ -28,7 +28,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
             guna2datagrid.Columns.Add("userId", "User ID");
             guna2datagrid.Columns.Add("uname", "Full Name");
             guna2datagrid.Columns.Add("username", "UserName");
-            guna2datagrid.Columns.Add("userpass", "Password");
+           // guna2datagrid.Columns.Add("userpass", "Password");
             guna2datagrid.Columns.Add("role", "Role");
 
 
@@ -39,7 +39,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
             guna2datagrid.Columns["srNumber"].Width = 50;
             guna2datagrid.Columns["uname"].Width = 100;
             guna2datagrid.Columns["username"].Width = 150;
-            guna2datagrid.Columns["userpass"].Width = 100;
+           // guna2datagrid.Columns["userpass"].Width = 100;
             guna2datagrid.Columns["role"].Width = 200;
 
             guna2datagrid.DefaultCellStyle.Font = new Font("Segue", 18);
@@ -126,10 +126,10 @@ namespace Restaurant_POS_and_Ordering_Sytem.View
                             string userId = reader["userId"].ToString();
                             string uname = reader["uname"].ToString();
                             string username = reader["username"].ToString();
-                            string userpass = reader["userpass"].ToString();
                             string role = reader["role"].ToString();
 
-                            guna2datagrid.Rows.Add(srNumber, userId, uname, username, userpass, role);
+                            // Add row to DataGridView without the password column
+                            guna2datagrid.Rows.Add(srNumber, userId, uname, username, role);
                             srNumber++;
                         }
                     }

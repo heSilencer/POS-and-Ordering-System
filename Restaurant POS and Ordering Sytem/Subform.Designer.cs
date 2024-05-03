@@ -181,7 +181,7 @@
             this.lbluser.ForeColor = System.Drawing.Color.Firebrick;
             this.lbluser.Location = new System.Drawing.Point(74, 4);
             this.lbluser.Name = "lbluser";
-            this.lbluser.Size = new System.Drawing.Size(102, 54);
+            this.lbluser.Size = new System.Drawing.Size(51, 28);
             this.lbluser.TabIndex = 4;
             this.lbluser.Text = "User";
             // 
@@ -193,7 +193,7 @@
             this.label1.ForeColor = System.Drawing.Color.Firebrick;
             this.label1.Location = new System.Drawing.Point(3, 4);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(111, 54);
+            this.label1.Size = new System.Drawing.Size(55, 28);
             this.label1.TabIndex = 3;
             this.label1.Text = "User:";
             // 
@@ -238,6 +238,7 @@
             this.Controls.Add(this.guna2Panel3);
             this.Controls.Add(this.guna2Panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Subform";
             this.Text = "Subform";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;

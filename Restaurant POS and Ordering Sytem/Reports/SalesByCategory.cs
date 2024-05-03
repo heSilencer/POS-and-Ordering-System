@@ -26,6 +26,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
             InitializeComponent();
             LoadCategories();
             guna2DataGridViewSalesByCategory.RowTemplate.Height = 200; // Set row height
+            guna2DataGridViewSalesByCategory.DefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 15);
 
             cmbxCategory.SelectedIndexChanged += (sender, e) => { RetrieveSalesData(); };
 
@@ -73,6 +74,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
 
         private void RetrieveSalesData()
         {
+
             string categoryName = cmbxCategory.SelectedItem?.ToString();
 
             if (string.IsNullOrEmpty(categoryName))
@@ -89,11 +91,12 @@ namespace Restaurant_POS_and_Ordering_Sytem.Reports
                 try
                 {
                     connection.Open();
-                    string query = "SELECT tbl_products.prodImage, tbl_products.prodName, SUM(tbldetails.qty * tbldetails.price) AS TotalSales " +
+                    string query = "SELECT tbl_products.prodImage, tbl_products.prodName, SUM(tbldetails.qty * tbldetails.price) AS TotalSales, users.UserName " +
                                      "FROM tblmain " +
                                      "INNER JOIN tbldetails ON tblmain.MainID = tbldetails.MainID " +
                                      "INNER JOIN tbl_products ON tbldetails.prodID = tbl_products.prodID " +
-                                     "INNER JOIN tbl_Category ON tbl_products.catID = tbl_Category.catID ";
+                                     "INNER JOIN tbl_Category ON tbl_products.catID = tbl_Category.catID " +
+                                     "INNER JOIN users ON tblmain.UserID = users.UserID ";
 
                     // Check if "All Product Category" is selected
                     if (categoryName != "All Product Category")

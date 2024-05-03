@@ -21,7 +21,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.RecieptPrint
             InitializeComponent();
         }
 
-        internal void DisplayOrderDetails(List<OrderDetail> orderDetails)
+        internal void DisplayOrderDetails(List<OrderDetail> orderDetails, DateTime orderDate)
         {
             panel1.Controls.Clear();
 
@@ -82,11 +82,10 @@ namespace Restaurant_POS_and_Ordering_Sytem.RecieptPrint
             lbltotal.Text = orderDetails.First().Total.ToString("0.00"); // Assuming total is the same for all items
             lblCash.Text = orderDetails.First().Received.ToString("0.00"); // Assuming received amount is the same for all items
             lblChange.Text = orderDetails.First().Change.ToString("0.00");
+            lblDate.Text = orderDate.ToString("yyyy-MM-dd");
 
-            // Resize controls to accommodate the content
         }
 
-     
         private void BtnPrint_Click(object sender, EventArgs e)
         {
             PrintDocument pd = new PrintDocument();
@@ -150,6 +149,11 @@ namespace Restaurant_POS_and_Ordering_Sytem.RecieptPrint
         }
 
         private void label11_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblDate_Click(object sender, EventArgs e)
         {
 
         }

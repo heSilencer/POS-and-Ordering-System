@@ -80,7 +80,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             LoadBillData();
         }
 
-       
+
 
         private void Guna2DataGridViewProducts_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -113,8 +113,9 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                     if (status == "Check Out")
                     {
                         List<OrderDetail> orderDetails = GetOrderDetails(MainID);
+                        DateTime orderDate = GetOrderDate(MainID); // Fetch the order date
                         ReceiptPrint printForm = new ReceiptPrint();
-                        printForm.DisplayOrderDetails(orderDetails);
+                        printForm.DisplayOrderDetails(orderDetails, orderDate); // Pass order date
                         printForm.ShowDialog();
                     }
                     else
@@ -124,7 +125,29 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                     }
                 }
             }
-        }   
+        }
+        private DateTime GetOrderDate(int mainID)
+        {
+            DateTime orderDate = DateTime.MinValue;
+            string query = "SELECT aDate FROM tblMain WHERE MainID = @mainID";
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+                using (MySqlCommand cmd = new MySqlCommand(query, connection))
+                {
+                    cmd.Parameters.AddWithValue("@mainID", mainID);
+                    var result = cmd.ExecuteScalar();
+                    if (result != null && result != DBNull.Value)
+                    {
+                        orderDate = Convert.ToDateTime(result);
+                    }
+                }
+            }
+
+            return orderDate;
+        }
+
         private string GetStatusFromMainID(int MainID)
         {
             string status = "";
@@ -155,7 +178,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                 string currentDate = DateTime.Now.ToString("yyyy-MM-dd"); // Get current date in the format "yyyy-MM-dd"
                 string query = "SELECT * FROM tblMain WHERE aDate = @currentDate";
 
-                // Modify the query based on the selected radio button
+                //  query based on the selected radio button
                 if (radiobuttonHold.Checked)
                 {
                     query += " AND Status = 'Hold'";
@@ -171,6 +194,14 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                 else if (RadioButtonCheckOut.Checked)
                 {
                     query += " AND Status = 'Check Out'";
+                }
+                else if (radiobtnComplete.Checked)
+                {
+                    query += " AND Status = 'Complete'";
+                }
+                else if (RadiobtnPending.Checked)
+                {
+                    query += " AND Status = 'Pending'";
                 }
 
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
@@ -328,6 +359,10 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             radiobuttonDineIn.Checked = false;
             radiobuttonTakeOut.Checked = false;
             RadioButtonCheckOut.Checked = false;
+            radiobtnComplete.Checked = false;
+            RadiobtnPending.Checked = false;
+
+
             LoadBillData();
         }
 
@@ -335,6 +370,18 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
         {
           
             LoadBillData();
+        }
+
+        private void radiobtnComplete_CheckedChanged(object sender, EventArgs e)
+        {
+            LoadBillData();
+
+        }
+
+        private void RadiobtnPending_CheckedChanged(object sender, EventArgs e)
+        {
+            LoadBillData();
+
         }
     }
 }

@@ -565,8 +565,8 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             DateTime currentDate = DateTime.Now;
             string currentTime = currentDate.ToString("HH:mm:ss");
 
-            // Get table name and waiter name
-            string tableName = lbltxtTable.Text;
+            // Get table names and waiter name
+            List<string> tableNames = lbltxtTable.Text.Split(new string[] { ", " }, StringSplitOptions.RemoveEmptyEntries).ToList(); // Split the table names by comma and remove empty entries
             string waiterName = lbltxtWaiter.Text;
             double totalAmount;
 
@@ -577,27 +577,25 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                 return;
             }
 
-            // Set the status to "Hold"
+            // Set the status to "Pending"
             string status = "Hold";
 
-            // Get the selected order type
+            // Use the previously set OrderType
             string orderType = OrderType;
-
-            // Validate if an order type is selected
             if (string.IsNullOrEmpty(orderType))
             {
                 guna2MessageDialog2.Show("Please select an order type.");
                 return;
             }
 
-            // Execute the query to insert into tblMain for the new order
-            int newMainID = InsertIntoMain(currentDate, currentTime, tableName, waiterName, status, orderType, totalAmount, userID);
+            // Execute the query to insert into tblMain for the new order for all selected tables
+            int newMainID = InsertIntoMain(currentDate, currentTime, string.Join(", ", tableNames), waiterName, status, orderType, totalAmount, userID);
 
             // Execute the query to insert into tblDetail for each item in the order
             InsertIntoDetail(newMainID);
 
             // Optional: Provide feedback to the user
-            guna2MessageDialog1.Show("Order hold successfully.");
+            guna2MessageDialog1.Show("Order placed successfully.");
             guna2DataGridView1.Rows.Clear();
             OrderType = "";
 
@@ -611,42 +609,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
         }
 
 
-        private int InsertIntoMain(DateTime currentDate, string currentTime, string tableName, string waiterName, string status, string orderType, double totalAmount, int userID)
-        {
-            int mainID = 0;
-            string tableStatus = "Not Ready";
-            string query = "INSERT INTO tblMain (aDate, aTime, TableName, WaiterName, Status, OrderType, Total, userID, Table_Status) " +
-                           "VALUES (@aDate, @aTime, @TableName, @WaiterName, @Status, @OrderType, @Total, @UserID, @TableStatus); " +
-                           "SELECT LAST_INSERT_ID();"; // Get the last inserted ID
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                using (MySqlCommand cmd = new MySqlCommand(query, connection))
-                {
-                    try
-                    {
-                        connection.Open();
-                        cmd.Parameters.AddWithValue("@aDate", currentDate);
-                        cmd.Parameters.AddWithValue("@aTime", currentTime);
-                        cmd.Parameters.AddWithValue("@TableName", tableName);
-                        cmd.Parameters.AddWithValue("@WaiterName", waiterName);
-                        cmd.Parameters.AddWithValue("@Status", status); // Pass the status parameter here
-                        cmd.Parameters.AddWithValue("@OrderType", orderType);
-                        cmd.Parameters.AddWithValue("@Total", totalAmount);
-                        cmd.Parameters.AddWithValue("@UserID", userID); // Add userID parameter
-                        cmd.Parameters.AddWithValue("@TableStatus", tableStatus); // Add Table_Status parameter
-
-                        mainID = Convert.ToInt32(cmd.ExecuteScalar());
-                    }
-                    catch (MySqlException ex)
-                    {
-                        // Handle database exception
-                        guna2MessageDialog2.Show($"Database error: {ex.Message}");
-                    }
-                }
-            }
-            return mainID;
-        }
-
+      
         private void BtnBillList_Click(object sender, EventArgs e)
         {
             frmBillList bl = new frmBillList();
@@ -809,32 +772,57 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
         }
 
 
-
-
+        public void SetSelectedTables(List<string> selectedTables)
+        {
+            if (selectedTables != null && selectedTables.Count > 0)
+            {
+                // Join the selected table names into a single string separated by commas
+                string selectedTableNames = string.Join(", ", selectedTables);
+                lbltxtTable.Text = selectedTableNames;
+            }
+            else
+            {
+                lbltxtTable.Text = "";
+            }
+        }
+        private void TableForm_SelectedTablesChanged(object sender, List<string> selectedTables)
+        {
+            // Update the lbltxtTable label with the selected table names
+            lbltxtTable.Text = string.Join(", ", selectedTables);
+        }
         private void BtnDineIn_Click(object sender, EventArgs e)
         {
-            var tbl = new Table();
-            MainClass.BlurbackGround(tbl);
-            if (tbl.TableName != "")
+            var tableForm = new Table();
+            tableForm.SelectedTablesChanged += TableForm_SelectedTablesChanged;
+            MainClass.BlurbackGround(tableForm);
+
+            // Show the Table form
+
+            // Check if tables were selected in the Table form
+            if (tableForm.SelectedTables.Count > 0)
             {
-                lbltxtTable.Text = tbl.TableName;
+                // Join the selected table names into a single string separated by commas
+                string selectedTableNames = string.Join(", ", tableForm.SelectedTables);
+                lbltxtTable.Text = selectedTableNames;
             }
             else
             {
                 lbltxtTable.Text = "";
             }
 
+            var waiterForm = new Waiter();
+            MainClass.BlurbackGround(waiterForm);
 
-            var wtr = new Waiter();
-            MainClass.BlurbackGround(wtr);
-            if (wtr.WaiterName != "")
+            // Assuming you have a property in the Waiter form to get the selected waiter's name
+            if (waiterForm.WaiterName != "")
             {
-                lbltxtWaiter.Text = wtr.WaiterName;
+                lbltxtWaiter.Text = waiterForm.WaiterName;
             }
             else
             {
                 lbltxtWaiter.Text = "";
             }
+
             OrderType = "Dine In";
         }
 
@@ -843,6 +831,7 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
   
         private void Btnkot_Click(object sender, EventArgs e)
         {
+
             if (guna2DataGridView1.Rows.Count == 0)
             {
                 guna2MessageDialog1.Show("No items in the order.");
@@ -853,8 +842,8 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             DateTime currentDate = DateTime.Now;
             string currentTime = currentDate.ToString("HH:mm:ss");
 
-            // Get table name and waiter name
-            string tableName = lbltxtTable.Text;
+            // Get table names and waiter name
+            List<string> tableNames = lbltxtTable.Text.Split(new string[] { ", " }, StringSplitOptions.RemoveEmptyEntries).ToList(); // Split the table names by comma and remove empty entries
             string waiterName = lbltxtWaiter.Text;
             double totalAmount;
 
@@ -876,9 +865,8 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                 return;
             }
 
-
-            // Execute the query to insert into tblMain for the new order
-            int newMainID = InsertIntoMain(currentDate, currentTime, tableName, waiterName, status, orderType, totalAmount, userID);
+            // Execute the query to insert into tblMain for the new order for all selected tables
+            int newMainID = InsertIntoMain(currentDate, currentTime, string.Join(", ", tableNames), waiterName, status, orderType, totalAmount, userID);
 
             // Execute the query to insert into tblDetail for each item in the order
             InsertIntoDetail(newMainID);
@@ -893,12 +881,12 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
             lbltxtTable.Text = "";
             lbltxtWaiter.Text = "";
         }
-      
-        
+
+
         private void InsertIntoDetail(int mainID)
         {
-            string query = "INSERT INTO tbldetails (MainID, prodID, qty, price, amount) " +
-                   "VALUES (@MainID, @ProductID, @Quantity, @Price, @Amount);";
+            string query = "INSERT INTO tbldetails (MainID, prodID, ProdName, qty, price, amount) " +
+                   "VALUES (@MainID, @ProductID, @ProdName, @Quantity, @Price, @Amount);";
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
@@ -912,19 +900,85 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
                         double price = Convert.ToDouble(row.Cells["Price"].Value);
                         double amount = quantity * price; // Calculate the amount
 
-                        using (MySqlCommand cmd = new MySqlCommand(query, connection))
+                        // Fetch product name based on product ID
+                        string fetchProductNameQuery = "SELECT ProdName FROM tbl_products WHERE prodID = @ProductID";
+                        using (MySqlCommand fetchProductNameCmd = new MySqlCommand(fetchProductNameQuery, connection))
                         {
-                            cmd.Parameters.AddWithValue("@MainID", mainID);
-                            cmd.Parameters.AddWithValue("@ProductID", productID);
-                            cmd.Parameters.AddWithValue("@Quantity", quantity);
-                            cmd.Parameters.AddWithValue("@Price", price);
-                            cmd.Parameters.AddWithValue("@Amount", amount); // Include the amount parameter
-                            cmd.ExecuteNonQuery();
+                            fetchProductNameCmd.Parameters.AddWithValue("@ProductID", productID);
+                            string prodName = fetchProductNameCmd.ExecuteScalar()?.ToString();
+
+                            using (MySqlCommand cmd = new MySqlCommand(query, connection))
+                            {
+                                cmd.Parameters.AddWithValue("@MainID", mainID);
+                                cmd.Parameters.AddWithValue("@ProductID", productID);
+                                cmd.Parameters.AddWithValue("@ProdName", prodName);
+                                cmd.Parameters.AddWithValue("@Quantity", quantity);
+                                cmd.Parameters.AddWithValue("@Price", price);
+                                cmd.Parameters.AddWithValue("@Amount", amount); // Include the amount parameter
+                                cmd.ExecuteNonQuery();
+                            }
                         }
                     }
                 }
             }
         }
+        private int InsertIntoMain(DateTime currentDate, string currentTime, string tableName, string waiterName, string status, string orderType, double totalAmount, int userID)
+        {
+            int mainID = 0;
+            string tableStatus = "Not Ready";
+            string tableNamesString = string.Join(", ", tableName);
+
+            // Fetch the uname associated with the userID from the users table
+            string fetchUnameQuery = "SELECT uname FROM users WHERE userId = @userID LIMIT 1";
+
+            // Fetch the staffImage associated with the staffID from the tbl_staff table
+            string fetchStaffImageQuery = "SELECT staffImage FROM tbl_staff WHERE staffID = (SELECT staffID FROM users WHERE userId = @userID LIMIT 1) LIMIT 1";
+
+            string query = "INSERT INTO tblMain (aDate, aTime, TableName, WaiterName, Status, OrderType, Total, userID, Table_Status, Uname, CashierImage) " +
+                           "VALUES (@aDate, @aTime, @TableName, @WaiterName, @Status, @OrderType, @Total, @UserID, @TableStatus, @Uname, @CashierImage); " +
+                           "SELECT LAST_INSERT_ID();"; // Get the last inserted ID
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                using (MySqlCommand fetchUnameCmd = new MySqlCommand(fetchUnameQuery, connection))
+                using (MySqlCommand fetchStaffImageCmd = new MySqlCommand(fetchStaffImageQuery, connection))
+                {
+                    fetchUnameCmd.Parameters.AddWithValue("@userID", userID);
+                    fetchStaffImageCmd.Parameters.AddWithValue("@userID", userID);
+
+                    try
+                    {
+                        connection.Open();
+                        string uname = fetchUnameCmd.ExecuteScalar()?.ToString();
+                        byte[] staffImageBytes = fetchStaffImageCmd.ExecuteScalar() as byte[];
+
+                        using (MySqlCommand cmd = new MySqlCommand(query, connection))
+                        {
+                            cmd.Parameters.AddWithValue("@aDate", currentDate);
+                            cmd.Parameters.AddWithValue("@aTime", currentTime);
+                            cmd.Parameters.AddWithValue("@TableName", tableName);
+                            cmd.Parameters.AddWithValue("@WaiterName", waiterName);
+                            cmd.Parameters.AddWithValue("@Status", status); // Pass the status parameter here
+                            cmd.Parameters.AddWithValue("@OrderType", orderType);
+                            cmd.Parameters.AddWithValue("@Total", totalAmount);
+                            cmd.Parameters.AddWithValue("@UserID", userID); // Add userID parameter
+                            cmd.Parameters.AddWithValue("@TableStatus", tableStatus); // Add Table_Status parameter
+                            cmd.Parameters.AddWithValue("@Uname", uname); // Add uname parameter
+                            cmd.Parameters.AddWithValue("@CashierImage", staffImageBytes); // Add CashierImage parameter
+
+                            mainID = Convert.ToInt32(cmd.ExecuteScalar());
+                        }
+                    }
+                    catch (MySqlException ex)
+                    {
+                        // Handle database exception
+                        guna2MessageDialog2.Show($"Database error: {ex.Message}");
+                    }
+                }
+            }
+            return mainID;
+        }
+
         private int GetProductID(string productName)
         {
             int productID = 0;
@@ -1096,6 +1150,11 @@ namespace Restaurant_POS_and_Ordering_Sytem.Models
         {
             OpenFormBasedOnRole(userRole, username, userID);
 
+        }
+
+        private void CategoryPanel_Paint(object sender, PaintEventArgs e)
+        {
+            CategoryPanel.AutoScroll = true;
         }
     }
 }
